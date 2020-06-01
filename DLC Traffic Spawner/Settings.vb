@@ -87,13 +87,13 @@ Public Structure Settings
 
     Public Function GenerateVehicleSwapList() As List(Of VehicleSwap)
         Return New List(Of VehicleSwap) From {
-                New VehicleSwap("panto"), New VehicleSwap("issi2"), New VehicleSwap("huntley"), New VehicleSwap("seminole"), New VehicleSwap("dominator"), New VehicleSwap("penumbra"), New VehicleSwap("sabregt"),
-                New VehicleSwap("warrener"), New VehicleSwap("oracle2"), New VehicleSwap("ruiner")}
+                New VehicleSwap("panto", False), New VehicleSwap("issi2", False), New VehicleSwap("huntley", False), New VehicleSwap("seminole", False), New VehicleSwap("dominator", False),
+                New VehicleSwap("penumbra", False), New VehicleSwap("sabregt", False), New VehicleSwap("warrener", False), New VehicleSwap("oracle2", False), New VehicleSwap("ruiner", False)}
     End Function
 
     Public Function ReadFromFile() As Settings
         If Not File.Exists(FileName) Then
-            Return New Settings(FileName) With {.WaitTime = New WaitTime(15, 10, 15, 10, 20), .CruiseSpeed = 20.0F, .SpawnDistance = 150.0F, .DrivingStyle = DrivingStyle.Normal, .EnableUpgrade = True,
+            Return New Settings(FileName) With {.WaitTime = New WaitTime(15, 10, 15, 10, 20), .CruiseSpeed = 20.0F, .SpawnDistance = 100.0F, .DrivingStyle = DrivingStyle.Normal, .EnableUpgrade = True,
                                                 .UpgradeChance = 20, .RandomizeColor = True, .SwapChance = 50, .SwapDistance = 100.0F, .Notify = False, .ShowBlip = False, .RoadType = eNodeType.AsphaltRoad,
                                                 .Vehicles = GenerateVehicleList(), .VehicleSwaps = GenerateVehicleSwapList()}
         End If
@@ -105,7 +105,7 @@ Public Structure Settings
             reader.Close()
             Return instance
         Catch ex As Exception
-            Return New Settings(FileName) With {.WaitTime = New WaitTime(15, 10, 15, 10, 20), .CruiseSpeed = 20.0F, .SpawnDistance = 150.0F, .DrivingStyle = DrivingStyle.Normal, .EnableUpgrade = True,
+            Return New Settings(FileName) With {.WaitTime = New WaitTime(15, 10, 15, 10, 20), .CruiseSpeed = 20.0F, .SpawnDistance = 100.0F, .DrivingStyle = DrivingStyle.Normal, .EnableUpgrade = True,
                                                 .UpgradeChance = 20, .RandomizeColor = True, .SwapChance = 50, .SwapDistance = 100.0F, .Notify = False, .ShowBlip = False, .RoadType = eNodeType.AsphaltRoad,
                                                 .Vehicles = GenerateVehicleList(), .VehicleSwaps = GenerateVehicleSwapList()}
         End Try
@@ -117,15 +117,18 @@ Public Structure VehicleSwap
 
     Public OldVehicle As String
     Public NewVehicle As String
+    Public Enable As Boolean
 
-    Public Sub New(ov As String, nv As String)
+    Public Sub New(ov As String, nv As String, Optional en As Boolean = True)
         OldVehicle = ov
         NewVehicle = nv
+        Enable = en
     End Sub
 
-    Public Sub New(ov As String)
+    Public Sub New(ov As String, Optional en As Boolean = True)
         OldVehicle = ov
         NewVehicle = Nothing
+        Enable = en
     End Sub
 
 End Structure

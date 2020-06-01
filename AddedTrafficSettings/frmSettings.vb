@@ -61,6 +61,7 @@ Public Class frmSettings
 
     Private Sub lvVehicleSwap_DoubleClick(sender As Object, e As EventArgs) Handles lvVehicleSwap.DoubleClick
         For Each item As ListViewItem In lvVehicleSwap.SelectedItems
+            item.Checked = Not item.Checked
             Dim fs As New frmSwap
             With fs
                 .ListViewItem = item
@@ -214,6 +215,7 @@ Public Class frmSettings
                 With lvi
                     .SubItems.Add(vs.OldVehicle)
                     .SubItems.Add(vs.NewVehicle)
+                    .Checked = vs.Enable
                     .Tag = vs
                 End With
                 lvVehicleSwap.Items.Add(lvi)
@@ -336,6 +338,7 @@ Public Class frmSettings
                     With lvi
                         .SubItems.Add(vs.OldVehicle)
                         .SubItems.Add(vs.NewVehicle)
+                        .Checked = vs.Enable
                         .Tag = vs
                     End With
                     lvVehicleSwap.Items.Add(lvi)
@@ -508,4 +511,15 @@ Public Class frmSettings
 
         MsgBox("Save successfully.", MsgBoxStyle.Information， “Save”)
     End Sub
+
+    Private Sub llblWeb_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llblWeb.LinkClicked
+        Process.Start("https://www.imnotmental.com")
+    End Sub
+
+    Private Sub lvVehicleSwap_ItemChecked(sender As Object, e As ItemCheckedEventArgs) Handles lvVehicleSwap.ItemChecked
+        Dim vehSwap As VehicleSwap = e.Item.Tag
+        vehSwap.Enable = e.Item.Checked
+        e.Item.Tag = vehSwap
+    End Sub
+
 End Class

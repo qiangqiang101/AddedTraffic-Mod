@@ -19,12 +19,8 @@ Public Class Traffic
 
         If Not GetPlayerZoneVehicleList.Count = 0 Then
             If (Now - Sekarang).TotalSeconds > GetCurrentWaitTime() AndAlso Not Game.IsLoading AndAlso Not Game.IsPaused Then
-                Select Case GetPlayerZone()
-                    Case "AIRP", "JAIL", "ARMYB", "OCEANA", "MTCHIL", "MTGORDO", "MTJOSE"
-                        Return
-                    Case Else
-                        SpawnVehicle()
-                End Select
+                SpawnVehicle()
+                SpawnVehicle()
                 Sekarang = Now
             End If
 

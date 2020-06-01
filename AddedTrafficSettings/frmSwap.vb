@@ -8,6 +8,7 @@
         If IsEdit Then
             txtOldVeh.Text = VehSwap.OldVehicle
             txtNewVeh.Text = VehSwap.NewVehicle
+            cbEnable.Checked = VehSwap.Enable
             btnAction.Text = "Edit"
         End If
     End Sub
@@ -17,12 +18,14 @@
             ListViewItem.Tag = New VehicleSwap(txtOldVeh.Text, txtNewVeh.Text)
             ListViewItem.SubItems(1).Text = txtOldVeh.Text
             ListViewItem.SubItems(2).Text = txtNewVeh.Text
+            ListViewItem.Checked = cbEnable.Checked
         Else
             Dim newLVI As New ListViewItem("")
             With newLVI
                 .SubItems.Add(txtOldVeh.Text)
                 .SubItems.Add(txtNewVeh.Text)
-                .Tag = If(txtNewVeh.Text.Length = 0, New VehicleSwap(txtOldVeh.Text), New VehicleSwap(txtOldVeh.Text, txtNewVeh.Text))
+                .Checked = cbEnable.Checked
+                .Tag = If(txtNewVeh.Text.Length = 0, New VehicleSwap(txtOldVeh.Text, cbEnable.Checked), New VehicleSwap(txtOldVeh.Text, txtNewVeh.Text, cbEnable.Checked))
             End With
             frmSettings.lvVehicleSwap.Items.Add(newLVI)
             frmSettings.lvVehicleSwap.Striped

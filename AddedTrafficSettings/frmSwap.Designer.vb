@@ -28,12 +28,13 @@ Partial Class frmSwap
         Me.Label2 = New System.Windows.Forms.Label()
         Me.btnAction = New System.Windows.Forms.Button()
         Me.btnCancel = New System.Windows.Forms.Button()
+        Me.cbEnable = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(44, 21)
+        Me.Label1.Location = New System.Drawing.Point(44, 15)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(63, 15)
         Me.Label1.TabIndex = 0
@@ -41,14 +42,14 @@ Partial Class frmSwap
         '
         'txtOldVeh
         '
-        Me.txtOldVeh.Location = New System.Drawing.Point(118, 18)
+        Me.txtOldVeh.Location = New System.Drawing.Point(118, 12)
         Me.txtOldVeh.Name = "txtOldVeh"
         Me.txtOldVeh.Size = New System.Drawing.Size(159, 23)
         Me.txtOldVeh.TabIndex = 0
         '
         'txtNewVeh
         '
-        Me.txtNewVeh.Location = New System.Drawing.Point(118, 47)
+        Me.txtNewVeh.Location = New System.Drawing.Point(118, 41)
         Me.txtNewVeh.Name = "txtNewVeh"
         Me.txtNewVeh.Size = New System.Drawing.Size(159, 23)
         Me.txtNewVeh.TabIndex = 1
@@ -56,7 +57,7 @@ Partial Class frmSwap
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(44, 50)
+        Me.Label2.Location = New System.Drawing.Point(44, 44)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(68, 15)
         Me.Label2.TabIndex = 2
@@ -65,22 +66,32 @@ Partial Class frmSwap
         'btnAction
         '
         Me.btnAction.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnAction.Location = New System.Drawing.Point(98, 76)
+        Me.btnAction.Location = New System.Drawing.Point(92, 94)
         Me.btnAction.Name = "btnAction"
         Me.btnAction.Size = New System.Drawing.Size(75, 23)
-        Me.btnAction.TabIndex = 2
+        Me.btnAction.TabIndex = 3
         Me.btnAction.Text = "Add"
         Me.btnAction.UseVisualStyleBackColor = True
         '
         'btnCancel
         '
         Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(179, 76)
+        Me.btnCancel.Location = New System.Drawing.Point(173, 94)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
-        Me.btnCancel.TabIndex = 3
+        Me.btnCancel.TabIndex = 4
         Me.btnCancel.Text = "Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
+        '
+        'cbEnable
+        '
+        Me.cbEnable.AutoSize = True
+        Me.cbEnable.Location = New System.Drawing.Point(118, 69)
+        Me.cbEnable.Name = "cbEnable"
+        Me.cbEnable.Size = New System.Drawing.Size(61, 19)
+        Me.cbEnable.TabIndex = 2
+        Me.cbEnable.Text = "Enable"
+        Me.cbEnable.UseVisualStyleBackColor = True
         '
         'frmSwap
         '
@@ -88,7 +99,8 @@ Partial Class frmSwap
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btnCancel
-        Me.ClientSize = New System.Drawing.Size(354, 111)
+        Me.ClientSize = New System.Drawing.Size(354, 129)
+        Me.Controls.Add(Me.cbEnable)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnAction)
         Me.Controls.Add(Me.txtNewVeh)
@@ -115,4 +127,5 @@ Partial Class frmSwap
     Friend WithEvents Label2 As Label
     Friend WithEvents btnAction As Button
     Friend WithEvents btnCancel As Button
+    Friend WithEvents cbEnable As CheckBox
 End Class

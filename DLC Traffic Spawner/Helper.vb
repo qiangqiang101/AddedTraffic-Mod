@@ -51,7 +51,7 @@ Module Helper
         vehicleSwaps = config.VehicleSwaps
         vehicleSwaps2 = New List(Of Model)
         For Each veh In vehicleSwaps
-            vehicleSwaps2.Add(New Model(veh.OldVehicle))
+            If veh.Enable Then vehicleSwaps2.Add(New Model(veh.OldVehicle))
         Next
     End Sub
 
@@ -286,10 +286,10 @@ Module Helper
                         End If
                         If showBlip Then
                             newveh.AddBlip()
-                            newveh.CurrentBlip.Color = BlipColor.YellowDark
+                            newveh.CurrentBlip.Color = BlipColor.Purple
                             newveh.CurrentBlip.Name = If(newveh.FriendlyName = "NULL", newveh.DisplayName, newveh.FriendlyName)
                         End If
-                        If notify Then UI.Notify($"~b~{vehFriendlyName}~w~ is swapped with ~y~{If(newveh.FriendlyName = "NULL", newveh.DisplayName, newveh.FriendlyName)}~w~ at {World.GetStreetName(veh.Position)}.")
+                        If notify Then UI.Notify($"~b~{vehFriendlyName}~w~ is swapped with ~p~{If(newveh.FriendlyName = "NULL", newveh.DisplayName, newveh.FriendlyName)}~w~ at {World.GetStreetName(veh.Position)}.")
                         model.MarkAsNoLongerNeeded()
                         newveh.MarkAsNoLongerNeeded()
                     Else

@@ -33,6 +33,7 @@ Partial Class frmSettings
         Dim ListViewGroup8 As System.Windows.Forms.ListViewGroup = New System.Windows.Forms.ListViewGroup("Grand Senora Desert", System.Windows.Forms.HorizontalAlignment.Left)
         Dim ListViewGroup9 As System.Windows.Forms.ListViewGroup = New System.Windows.Forms.ListViewGroup("San Chianski Mountain Range", System.Windows.Forms.HorizontalAlignment.Left)
         Dim ListViewGroup10 As System.Windows.Forms.ListViewGroup = New System.Windows.Forms.ListViewGroup("Blaine County", System.Windows.Forms.HorizontalAlignment.Left)
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSettings))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.cmbRoadType = New System.Windows.Forms.ComboBox()
@@ -62,6 +63,10 @@ Partial Class frmSettings
         Me.nudMorning = New System.Windows.Forms.NumericUpDown()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.nudSwapDistance = New System.Windows.Forms.NumericUpDown()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.nudSwapChance = New System.Windows.Forms.NumericUpDown()
+        Me.Label11 = New System.Windows.Forms.Label()
         Me.lvVehicleSwap = New System.Windows.Forms.ListView()
         Me.chNo = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.chOldVehicle = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -72,6 +77,9 @@ Partial Class frmSettings
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.tsmiSwapDelete = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
+        Me.lvModelList = New AddedTrafficSettings.ListViewX()
+        Me.chListNo = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.chListModel = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.cmsVehicleList = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.tsmiListNew = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsmiListEdit = New System.Windows.Forms.ToolStripMenuItem()
@@ -95,13 +103,7 @@ Partial Class frmSettings
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Panel3 = New System.Windows.Forms.Panel()
-        Me.lvModelList = New AddedTrafficSettings.ListViewX()
-        Me.chListNo = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.chListModel = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.nudSwapChance = New System.Windows.Forms.NumericUpDown()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.nudSwapDistance = New System.Windows.Forms.NumericUpDown()
-        Me.Label12 = New System.Windows.Forms.Label()
+        Me.llblWeb = New System.Windows.Forms.LinkLabel()
         Me.GroupBox1.SuspendLayout()
         CType(Me.nudSpawnDistance, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.nudCruiseSpeed, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -115,6 +117,8 @@ Partial Class frmSettings
         CType(Me.nudAfternoon, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.nudMorning, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox6.SuspendLayout()
+        CType(Me.nudSwapDistance, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.nudSwapChance, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.cmsVehicleSwap.SuspendLayout()
         Me.GroupBox7.SuspendLayout()
         Me.cmsVehicleList.SuspendLayout()
@@ -123,8 +127,6 @@ Partial Class frmSettings
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel3.SuspendLayout()
-        CType(Me.nudSwapChance, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.nudSwapDistance, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'GroupBox1
@@ -424,11 +426,50 @@ Partial Class frmSettings
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "Model Swap (If New Model is blank, it will take random model from Model List)"
         '
+        'nudSwapDistance
+        '
+        Me.nudSwapDistance.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.nudSwapDistance.DecimalPlaces = 2
+        Me.nudSwapDistance.Location = New System.Drawing.Point(268, 310)
+        Me.nudSwapDistance.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
+        Me.nudSwapDistance.Name = "nudSwapDistance"
+        Me.nudSwapDistance.Size = New System.Drawing.Size(65, 23)
+        Me.nudSwapDistance.TabIndex = 3
+        '
+        'Label12
+        '
+        Me.Label12.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(179, 312)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(83, 15)
+        Me.Label12.TabIndex = 24
+        Me.Label12.Text = "Swap Distance"
+        '
+        'nudSwapChance
+        '
+        Me.nudSwapChance.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.nudSwapChance.Location = New System.Drawing.Point(108, 310)
+        Me.nudSwapChance.Name = "nudSwapChance"
+        Me.nudSwapChance.Size = New System.Drawing.Size(65, 23)
+        Me.nudSwapChance.TabIndex = 2
+        '
+        'Label11
+        '
+        Me.Label11.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(3, 312)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(99, 15)
+        Me.Label11.TabIndex = 22
+        Me.Label11.Text = "Swap Chance (%)"
+        '
         'lvVehicleSwap
         '
         Me.lvVehicleSwap.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lvVehicleSwap.CheckBoxes = True
         Me.lvVehicleSwap.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.chNo, Me.chOldVehicle, Me.chNewVehicle})
         Me.lvVehicleSwap.ContextMenuStrip = Me.cmsVehicleSwap
         Me.lvVehicleSwap.FullRowSelect = True
@@ -441,8 +482,8 @@ Partial Class frmSettings
         '
         'chNo
         '
-        Me.chNo.Text = ""
-        Me.chNo.Width = 0
+        Me.chNo.Text = "Enable"
+        Me.chNo.Width = 50
         '
         'chOldVehicle
         '
@@ -498,6 +539,53 @@ Partial Class frmSettings
         Me.GroupBox7.TabIndex = 1
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "Model List"
+        '
+        'lvModelList
+        '
+        Me.lvModelList.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lvModelList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.chListNo, Me.chListModel})
+        Me.lvModelList.ContextMenuStrip = Me.cmsVehicleList
+        Me.lvModelList.FullRowSelect = True
+        ListViewGroup1.Header = "Downtown"
+        ListViewGroup1.Name = "Downtown"
+        ListViewGroup2.Header = "Vinewood"
+        ListViewGroup2.Name = "Vinewood"
+        ListViewGroup3.Header = "South Los Santos"
+        ListViewGroup3.Name = "South Los Santos"
+        ListViewGroup4.Header = "Port of South Los Santos"
+        ListViewGroup4.Name = "Port of South Los Santos"
+        ListViewGroup5.Header = "East Los Santos"
+        ListViewGroup5.Name = "East Los Santos"
+        ListViewGroup6.Header = "Vespucci"
+        ListViewGroup6.Name = "Vespucci"
+        ListViewGroup7.Header = "Los Santos"
+        ListViewGroup7.Name = "Los Santos"
+        ListViewGroup8.Header = "Grand Senora Desert"
+        ListViewGroup8.Name = "Grand Senora Desert"
+        ListViewGroup9.Header = "San Chianski Mountain Range"
+        ListViewGroup9.Name = "San Chianski Mountain Range"
+        ListViewGroup10.Header = "Blaine County"
+        ListViewGroup10.Name = "Blaine County"
+        Me.lvModelList.Groups.AddRange(New System.Windows.Forms.ListViewGroup() {ListViewGroup1, ListViewGroup2, ListViewGroup3, ListViewGroup4, ListViewGroup5, ListViewGroup6, ListViewGroup7, ListViewGroup8, ListViewGroup9, ListViewGroup10})
+        Me.lvModelList.Location = New System.Drawing.Point(3, 19)
+        Me.lvModelList.Name = "lvModelList"
+        Me.lvModelList.Size = New System.Drawing.Size(266, 314)
+        Me.lvModelList.TabIndex = 1
+        Me.lvModelList.UseCompatibleStateImageBehavior = False
+        Me.lvModelList.View = System.Windows.Forms.View.Details
+        '
+        'chListNo
+        '
+        Me.chListNo.Text = ""
+        Me.chListNo.Width = 0
+        '
+        'chListModel
+        '
+        Me.chListModel.Text = "Model"
+        Me.chListModel.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.chListModel.Width = 200
         '
         'cmsVehicleList
         '
@@ -678,105 +766,36 @@ Partial Class frmSettings
         Me.Panel3.Size = New System.Drawing.Size(153, 100)
         Me.Panel3.TabIndex = 7
         '
-        'lvModelList
+        'llblWeb
         '
-        Me.lvModelList.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lvModelList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.chListNo, Me.chListModel})
-        Me.lvModelList.ContextMenuStrip = Me.cmsVehicleList
-        Me.lvModelList.FullRowSelect = True
-        ListViewGroup1.Header = "Downtown"
-        ListViewGroup1.Name = "Downtown"
-        ListViewGroup2.Header = "Vinewood"
-        ListViewGroup2.Name = "Vinewood"
-        ListViewGroup3.Header = "South Los Santos"
-        ListViewGroup3.Name = "South Los Santos"
-        ListViewGroup4.Header = "Port of South Los Santos"
-        ListViewGroup4.Name = "Port of South Los Santos"
-        ListViewGroup5.Header = "East Los Santos"
-        ListViewGroup5.Name = "East Los Santos"
-        ListViewGroup6.Header = "Vespucci"
-        ListViewGroup6.Name = "Vespucci"
-        ListViewGroup7.Header = "Los Santos"
-        ListViewGroup7.Name = "Los Santos"
-        ListViewGroup8.Header = "Grand Senora Desert"
-        ListViewGroup8.Name = "Grand Senora Desert"
-        ListViewGroup9.Header = "San Chianski Mountain Range"
-        ListViewGroup9.Name = "San Chianski Mountain Range"
-        ListViewGroup10.Header = "Blaine County"
-        ListViewGroup10.Name = "Blaine County"
-        Me.lvModelList.Groups.AddRange(New System.Windows.Forms.ListViewGroup() {ListViewGroup1, ListViewGroup2, ListViewGroup3, ListViewGroup4, ListViewGroup5, ListViewGroup6, ListViewGroup7, ListViewGroup8, ListViewGroup9, ListViewGroup10})
-        Me.lvModelList.Location = New System.Drawing.Point(3, 19)
-        Me.lvModelList.Name = "lvModelList"
-        Me.lvModelList.Size = New System.Drawing.Size(266, 314)
-        Me.lvModelList.TabIndex = 1
-        Me.lvModelList.UseCompatibleStateImageBehavior = False
-        Me.lvModelList.View = System.Windows.Forms.View.Details
-        '
-        'chListNo
-        '
-        Me.chListNo.Text = ""
-        Me.chListNo.Width = 0
-        '
-        'chListModel
-        '
-        Me.chListModel.Text = "Model"
-        Me.chListModel.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.chListModel.Width = 200
-        '
-        'nudSwapChance
-        '
-        Me.nudSwapChance.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.nudSwapChance.Location = New System.Drawing.Point(108, 310)
-        Me.nudSwapChance.Name = "nudSwapChance"
-        Me.nudSwapChance.Size = New System.Drawing.Size(65, 23)
-        Me.nudSwapChance.TabIndex = 2
-        '
-        'Label11
-        '
-        Me.Label11.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(3, 312)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(99, 15)
-        Me.Label11.TabIndex = 22
-        Me.Label11.Text = "Swap Chance (%)"
-        '
-        'nudSwapDistance
-        '
-        Me.nudSwapDistance.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.nudSwapDistance.DecimalPlaces = 2
-        Me.nudSwapDistance.Location = New System.Drawing.Point(268, 310)
-        Me.nudSwapDistance.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
-        Me.nudSwapDistance.Name = "nudSwapDistance"
-        Me.nudSwapDistance.Size = New System.Drawing.Size(65, 23)
-        Me.nudSwapDistance.TabIndex = 3
-        '
-        'Label12
-        '
-        Me.Label12.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(179, 312)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(83, 15)
-        Me.Label12.TabIndex = 24
-        Me.Label12.Text = "Swap Distance"
+        Me.llblWeb.ActiveLinkColor = System.Drawing.Color.DodgerBlue
+        Me.llblWeb.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.llblWeb.AutoSize = True
+        Me.llblWeb.LinkColor = System.Drawing.Color.DodgerBlue
+        Me.llblWeb.Location = New System.Drawing.Point(12, 530)
+        Me.llblWeb.Name = "llblWeb"
+        Me.llblWeb.Size = New System.Drawing.Size(133, 15)
+        Me.llblWeb.TabIndex = 8
+        Me.llblWeb.TabStop = True
+        Me.llblWeb.Text = "www.imnotmental.com"
+        Me.llblWeb.VisitedLinkColor = System.Drawing.Color.DodgerBlue
         '
         'frmSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(804, 561)
+        Me.Controls.Add(Me.llblWeb)
         Me.Controls.Add(Me.tlpTheThreeGroups)
         Me.Controls.Add(Me.btnSave)
         Me.Controls.Add(Me.tlpTheTwoList)
         Me.Controls.Add(Me.GroupBox2)
         Me.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MinimumSize = New System.Drawing.Size(820, 600)
         Me.Name = "frmSettings"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Added Traffic GUI Settings by I'm Not MentaL"
+        Me.Text = "Added Traffic UI Settings by I'm Not MentaL"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.nudSpawnDistance, System.ComponentModel.ISupportInitialize).EndInit()
@@ -795,6 +814,8 @@ Partial Class frmSettings
         CType(Me.nudMorning, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox6.ResumeLayout(False)
         Me.GroupBox6.PerformLayout()
+        CType(Me.nudSwapDistance, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.nudSwapChance, System.ComponentModel.ISupportInitialize).EndInit()
         Me.cmsVehicleSwap.ResumeLayout(False)
         Me.GroupBox7.ResumeLayout(False)
         Me.cmsVehicleList.ResumeLayout(False)
@@ -803,9 +824,8 @@ Partial Class frmSettings
         Me.Panel1.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         Me.Panel3.ResumeLayout(False)
-        CType(Me.nudSwapChance, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.nudSwapDistance, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -878,4 +898,5 @@ Partial Class frmSettings
     Friend WithEvents Label12 As Label
     Friend WithEvents nudSwapChance As NumericUpDown
     Friend WithEvents Label11 As Label
+    Friend WithEvents llblWeb As LinkLabel
 End Class

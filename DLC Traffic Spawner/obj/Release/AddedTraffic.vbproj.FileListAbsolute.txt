@@ -22,3 +22,15 @@ C:\Users\User\Documents\GitHub\AddedTraffic-Mod\DLC Traffic Spawner\obj\Release\
 C:\Users\User\Documents\GitHub\AddedTraffic-Mod\DLC Traffic Spawner\obj\Release\AddedTraffic.dll
 C:\Users\User\Documents\GitHub\AddedTraffic-Mod\DLC Traffic Spawner\obj\Release\AddedTraffic.xml
 C:\Users\User\Documents\GitHub\AddedTraffic-Mod\DLC Traffic Spawner\obj\Release\AddedTraffic.pdb
+E:\Users\Bartholomew\Documents\GitHub\AddedTraffic-Mod\DLC Traffic Spawner\bin\Release\AddedTraffic.dll
+E:\Users\Bartholomew\Documents\GitHub\AddedTraffic-Mod\DLC Traffic Spawner\bin\Release\AddedTraffic.pdb
+E:\Users\Bartholomew\Documents\GitHub\AddedTraffic-Mod\DLC Traffic Spawner\bin\Release\AddedTraffic.xml
+E:\Users\Bartholomew\Documents\GitHub\AddedTraffic-Mod\DLC Traffic Spawner\bin\Release\Metadata.dll
+E:\Users\Bartholomew\Documents\GitHub\AddedTraffic-Mod\DLC Traffic Spawner\bin\Release\ScriptHookVDotNet2.dll
+E:\Users\Bartholomew\Documents\GitHub\AddedTraffic-Mod\DLC Traffic Spawner\bin\Release\Metadata.pdb
+E:\Users\Bartholomew\Documents\GitHub\AddedTraffic-Mod\DLC Traffic Spawner\bin\Release\ScriptHookVDotNet2.xml
+E:\Users\Bartholomew\Documents\GitHub\AddedTraffic-Mod\DLC Traffic Spawner\obj\Release\AddedTraffic.Resources.resources
+E:\Users\Bartholomew\Documents\GitHub\AddedTraffic-Mod\DLC Traffic Spawner\obj\Release\AddedTraffic.vbproj.GenerateResource.Cache
+E:\Users\Bartholomew\Documents\GitHub\AddedTraffic-Mod\DLC Traffic Spawner\obj\Release\AddedTraffic.dll
+E:\Users\Bartholomew\Documents\GitHub\AddedTraffic-Mod\DLC Traffic Spawner\obj\Release\AddedTraffic.xml
+E:\Users\Bartholomew\Documents\GitHub\AddedTraffic-Mod\DLC Traffic Spawner\obj\Release\AddedTraffic.pdb

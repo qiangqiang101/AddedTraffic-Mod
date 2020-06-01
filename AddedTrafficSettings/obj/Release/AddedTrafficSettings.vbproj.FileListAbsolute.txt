@@ -24,3 +24,16 @@ C:\Users\User\Documents\GitHub\AddedTraffic-Mod\AddedTrafficSettings\obj\Release
 C:\Users\User\Documents\GitHub\AddedTraffic-Mod\AddedTrafficSettings\obj\Release\AddedTrafficSettings.frmSwap.resources
 C:\Users\User\Documents\GitHub\AddedTraffic-Mod\AddedTrafficSettings\obj\Release\AddedTrafficSettings.Resources.resources
 C:\Users\User\Documents\GitHub\AddedTraffic-Mod\AddedTrafficSettings\obj\Release\AddedTrafficSettings.vbproj.GenerateResource.Cache
+E:\Users\Bartholomew\Documents\GitHub\AddedTraffic-Mod\AddedTrafficSettings\bin\Release\AddedTrafficSettings.exe.config
+E:\Users\Bartholomew\Documents\GitHub\AddedTraffic-Mod\AddedTrafficSettings\obj\Release\AddedTrafficSettings.exe
+E:\Users\Bartholomew\Documents\GitHub\AddedTraffic-Mod\AddedTrafficSettings\obj\Release\AddedTrafficSettings.xml
+E:\Users\Bartholomew\Documents\GitHub\AddedTraffic-Mod\AddedTrafficSettings\obj\Release\AddedTrafficSettings.pdb
+E:\Users\Bartholomew\Documents\GitHub\AddedTraffic-Mod\AddedTrafficSettings\bin\Release\AddedTrafficSettings.exe
+E:\Users\Bartholomew\Documents\GitHub\AddedTraffic-Mod\AddedTrafficSettings\bin\Release\AddedTrafficSettings.pdb
+E:\Users\Bartholomew\Documents\GitHub\AddedTraffic-Mod\AddedTrafficSettings\bin\Release\AddedTrafficSettings.xml
+E:\Users\Bartholomew\Documents\GitHub\AddedTraffic-Mod\AddedTrafficSettings\obj\Release\AddedTrafficSettings.frmList.resources
+E:\Users\Bartholomew\Documents\GitHub\AddedTraffic-Mod\AddedTrafficSettings\obj\Release\AddedTrafficSettings.frmSettings.resources
+E:\Users\Bartholomew\Documents\GitHub\AddedTraffic-Mod\AddedTrafficSettings\obj\Release\AddedTrafficSettings.frmSwap.resources
+E:\Users\Bartholomew\Documents\GitHub\AddedTraffic-Mod\AddedTrafficSettings\obj\Release\AddedTrafficSettings.Resources.resources
+E:\Users\Bartholomew\Documents\GitHub\AddedTraffic-Mod\AddedTrafficSettings\obj\Release\AddedTrafficSettings.vbproj.GenerateResource.Cache
+E:\Users\Bartholomew\Documents\GitHub\AddedTraffic-Mod\AddedTrafficSettings\obj\Release\AddedTrafficSettings.vbprojResolveAssemblyReference.cache
