@@ -11,3 +11,16 @@ D:\Projects\Mods\DLC Traffic Spawner\AddedTrafficSettings\obj\Release\AddedTraff
 D:\Projects\Mods\DLC Traffic Spawner\AddedTrafficSettings\obj\Release\AddedTrafficSettings.pdb
 D:\Projects\Mods\DLC Traffic Spawner\AddedTrafficSettings\obj\Release\AddedTrafficSettings.frmList.resources
 D:\Projects\Mods\DLC Traffic Spawner\AddedTrafficSettings\obj\Release\AddedTrafficSettings.frmSwap.resources
+C:\Users\User\Documents\GitHub\AddedTraffic-Mod\AddedTrafficSettings\bin\Release\AddedTrafficSettings.exe.config
+C:\Users\User\Documents\GitHub\AddedTraffic-Mod\AddedTrafficSettings\obj\Release\AddedTrafficSettings.exe
+C:\Users\User\Documents\GitHub\AddedTraffic-Mod\AddedTrafficSettings\obj\Release\AddedTrafficSettings.xml
+C:\Users\User\Documents\GitHub\AddedTraffic-Mod\AddedTrafficSettings\obj\Release\AddedTrafficSettings.pdb
+C:\Users\User\Documents\GitHub\AddedTraffic-Mod\AddedTrafficSettings\bin\Release\AddedTrafficSettings.exe
+C:\Users\User\Documents\GitHub\AddedTraffic-Mod\AddedTrafficSettings\bin\Release\AddedTrafficSettings.pdb
+C:\Users\User\Documents\GitHub\AddedTraffic-Mod\AddedTrafficSettings\bin\Release\AddedTrafficSettings.xml
+C:\Users\User\Documents\GitHub\AddedTraffic-Mod\AddedTrafficSettings\obj\Release\AddedTrafficSettings.vbprojResolveAssemblyReference.cache
+C:\Users\User\Documents\GitHub\AddedTraffic-Mod\AddedTrafficSettings\obj\Release\AddedTrafficSettings.frmList.resources
+C:\Users\User\Documents\GitHub\AddedTraffic-Mod\AddedTrafficSettings\obj\Release\AddedTrafficSettings.frmSettings.resources
+C:\Users\User\Documents\GitHub\AddedTraffic-Mod\AddedTrafficSettings\obj\Release\AddedTrafficSettings.frmSwap.resources
+C:\Users\User\Documents\GitHub\AddedTraffic-Mod\AddedTrafficSettings\obj\Release\AddedTrafficSettings.Resources.resources
+C:\Users\User\Documents\GitHub\AddedTraffic-Mod\AddedTrafficSettings\obj\Release\AddedTrafficSettings.vbproj.GenerateResource.Cache

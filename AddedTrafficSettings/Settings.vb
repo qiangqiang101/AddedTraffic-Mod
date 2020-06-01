@@ -16,7 +16,7 @@ Public Structure Settings
     Public WaitTime As WaitTime
     Public CruiseSpeed As Single
     Public SpawnDistance As Single
-    Public DrivingStyle As DrivingStyle
+    Public DrivingStyle As String
     Public EnableUpgrade As Boolean
     Public UpgradeChance As Integer
     Public RandomizeColor As Boolean
@@ -24,7 +24,7 @@ Public Structure Settings
     Public SwapDistance As Single
     Public Notify As Boolean
     Public ShowBlip As Boolean
-    Public RoadType As eNodeType
+    Public RoadType As String
     Public VehicleSwaps As List(Of VehicleSwap)
     Public Vehicles As Vehicles
 
@@ -93,8 +93,8 @@ Public Structure Settings
 
     Public Function ReadFromFile() As Settings
         If Not File.Exists(FileName) Then
-            Return New Settings(FileName) With {.WaitTime = New WaitTime(15, 10, 15, 10, 20), .CruiseSpeed = 20.0F, .SpawnDistance = 150.0F, .DrivingStyle = DrivingStyle.Normal, .EnableUpgrade = True,
-                                                .UpgradeChance = 20, .RandomizeColor = True, .SwapChance = 100, .SwapDistance = 100.0F, .Notify = False, .ShowBlip = False, .RoadType = eNodeType.AsphaltRoad,
+            Return New Settings(FileName) With {.WaitTime = New WaitTime(15, 10, 15, 10, 20), .CruiseSpeed = 20.0F, .SpawnDistance = 150.0F, .DrivingStyle = "Normal", .EnableUpgrade = True,
+                                                .UpgradeChance = 20, .RandomizeColor = True, .SwapChance = 50, .SwapDistance = 100.0F, .Notify = False, .ShowBlip = False, .RoadType = "AsphaltRoad",
                                                 .Vehicles = GenerateVehicleList(), .VehicleSwaps = GenerateVehicleSwapList()}
         End If
 
@@ -105,8 +105,8 @@ Public Structure Settings
             reader.Close()
             Return instance
         Catch ex As Exception
-            Return New Settings(FileName) With {.WaitTime = New WaitTime(15, 10, 15, 10, 20), .CruiseSpeed = 20.0F, .SpawnDistance = 150.0F, .DrivingStyle = DrivingStyle.Normal, .EnableUpgrade = True,
-                                                .UpgradeChance = 20, .RandomizeColor = True, .SwapChance = 100, .SwapDistance = 100.0F, .Notify = False, .ShowBlip = False, .RoadType = eNodeType.AsphaltRoad,
+            Return New Settings(FileName) With {.WaitTime = New WaitTime(15, 10, 15, 10, 20), .CruiseSpeed = 20.0F, .SpawnDistance = 150.0F, .DrivingStyle = "Normal", .EnableUpgrade = True,
+                                                .UpgradeChance = 20, .RandomizeColor = True, .SwapChance = 50, .SwapDistance = 100.0F, .Notify = False, .ShowBlip = False, .RoadType = "AsphaltRoad",
                                                 .Vehicles = GenerateVehicleList(), .VehicleSwaps = GenerateVehicleSwapList()}
         End Try
     End Function
@@ -173,19 +173,3 @@ Public Structure WaitTime
         Midnight = midn
     End Sub
 End Structure
-
-Public Enum eNodeType
-    AsphaltRoad
-    SimplePath
-    UnderTheMap
-    Water
-End Enum
-
-Public Enum DrivingStyle
-    Normal = &HC00AB
-    IgnoreLights = &H2C0025
-    SometimesOvertakeTraffic = 5
-    Rushed = &H400C0025
-    AvoidTraffic = &HC0024
-    AvoidTrafficExtremely = 6
-End Enum

@@ -94,7 +94,7 @@ Public Structure Settings
     Public Function ReadFromFile() As Settings
         If Not File.Exists(FileName) Then
             Return New Settings(FileName) With {.WaitTime = New WaitTime(15, 10, 15, 10, 20), .CruiseSpeed = 20.0F, .SpawnDistance = 150.0F, .DrivingStyle = DrivingStyle.Normal, .EnableUpgrade = True,
-                                                .UpgradeChance = 20, .RandomizeColor = True, .SwapChance = 100, .SwapDistance = 100.0F, .Notify = False, .ShowBlip = False, .RoadType = eNodeType.AsphaltRoad,
+                                                .UpgradeChance = 20, .RandomizeColor = True, .SwapChance = 50, .SwapDistance = 100.0F, .Notify = False, .ShowBlip = False, .RoadType = eNodeType.AsphaltRoad,
                                                 .Vehicles = GenerateVehicleList(), .VehicleSwaps = GenerateVehicleSwapList()}
         End If
 
@@ -106,7 +106,7 @@ Public Structure Settings
             Return instance
         Catch ex As Exception
             Return New Settings(FileName) With {.WaitTime = New WaitTime(15, 10, 15, 10, 20), .CruiseSpeed = 20.0F, .SpawnDistance = 150.0F, .DrivingStyle = DrivingStyle.Normal, .EnableUpgrade = True,
-                                                .UpgradeChance = 20, .RandomizeColor = True, .SwapChance = 100, .SwapDistance = 100.0F, .Notify = False, .ShowBlip = False, .RoadType = eNodeType.AsphaltRoad,
+                                                .UpgradeChance = 20, .RandomizeColor = True, .SwapChance = 50, .SwapDistance = 100.0F, .Notify = False, .ShowBlip = False, .RoadType = eNodeType.AsphaltRoad,
                                                 .Vehicles = GenerateVehicleList(), .VehicleSwaps = GenerateVehicleSwapList()}
         End Try
     End Function

@@ -26,6 +26,7 @@
                 .Group = frmSettings.lvModelList.Groups(cmbCategory.Text)
             End With
             frmSettings.lvModelList.Items.Add(newLVI)
+            frmSettings.lvModelList.Striped
         End If
         Close()
     End Sub

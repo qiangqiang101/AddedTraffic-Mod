@@ -18,14 +18,14 @@
             ListViewItem.SubItems(1).Text = txtOldVeh.Text
             ListViewItem.SubItems(2).Text = txtNewVeh.Text
         Else
-            Dim num As Integer = frmSettings.lvVehicleSwap.Items.Count + 1
-            Dim newLVI As New ListViewItem(num)
+            Dim newLVI As New ListViewItem("")
             With newLVI
                 .SubItems.Add(txtOldVeh.Text)
                 .SubItems.Add(txtNewVeh.Text)
-                .Tag = New VehicleSwap(txtOldVeh.Text, txtNewVeh.Text)
+                .Tag = If(txtNewVeh.Text.Length = 0, New VehicleSwap(txtOldVeh.Text), New VehicleSwap(txtOldVeh.Text, txtNewVeh.Text))
             End With
             frmSettings.lvVehicleSwap.Items.Add(newLVI)
+            frmSettings.lvVehicleSwap.Striped
         End If
         Close()
     End Sub
