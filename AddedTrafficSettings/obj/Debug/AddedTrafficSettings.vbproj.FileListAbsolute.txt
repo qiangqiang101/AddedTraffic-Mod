@@ -1,0 +1,13 @@
+D:\Projects\Mods\DLC Traffic Spawner\AddedTrafficSettings\bin\Debug\AddedTrafficSettings.exe.config
+D:\Projects\Mods\DLC Traffic Spawner\AddedTrafficSettings\bin\Debug\AddedTrafficSettings.exe
+D:\Projects\Mods\DLC Traffic Spawner\AddedTrafficSettings\bin\Debug\AddedTrafficSettings.pdb
+D:\Projects\Mods\DLC Traffic Spawner\AddedTrafficSettings\bin\Debug\AddedTrafficSettings.xml
+D:\Projects\Mods\DLC Traffic Spawner\AddedTrafficSettings\obj\Debug\AddedTrafficSettings.frmList.resources
+D:\Projects\Mods\DLC Traffic Spawner\AddedTrafficSettings\obj\Debug\AddedTrafficSettings.frmSettings.resources
+D:\Projects\Mods\DLC Traffic Spawner\AddedTrafficSettings\obj\Debug\AddedTrafficSettings.frmSwap.resources
+D:\Projects\Mods\DLC Traffic Spawner\AddedTrafficSettings\obj\Debug\AddedTrafficSettings.Resources.resources
+D:\Projects\Mods\DLC Traffic Spawner\AddedTrafficSettings\obj\Debug\AddedTrafficSettings.vbproj.GenerateResource.Cache
+D:\Projects\Mods\DLC Traffic Spawner\AddedTrafficSettings\obj\Debug\AddedTrafficSettings.exe
+D:\Projects\Mods\DLC Traffic Spawner\AddedTrafficSettings\obj\Debug\AddedTrafficSettings.xml
+D:\Projects\Mods\DLC Traffic Spawner\AddedTrafficSettings\obj\Debug\AddedTrafficSettings.pdb
+D:\Projects\Mods\DLC Traffic Spawner\AddedTrafficSettings\obj\Debug\AddedTrafficSettings.vbprojResolveAssemblyReference.cache

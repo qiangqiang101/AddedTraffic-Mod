@@ -1,0 +1,13 @@
+D:\Projects\Mods\DLC Traffic Spawner\DLC Traffic Spawner\bin\Release\AddedTraffic.dll
+D:\Projects\Mods\DLC Traffic Spawner\DLC Traffic Spawner\bin\Release\AddedTraffic.pdb
+D:\Projects\Mods\DLC Traffic Spawner\DLC Traffic Spawner\bin\Release\AddedTraffic.xml
+D:\Projects\Mods\DLC Traffic Spawner\DLC Traffic Spawner\bin\Release\Metadata.dll
+D:\Projects\Mods\DLC Traffic Spawner\DLC Traffic Spawner\bin\Release\ScriptHookVDotNet2.dll
+D:\Projects\Mods\DLC Traffic Spawner\DLC Traffic Spawner\bin\Release\Metadata.pdb
+D:\Projects\Mods\DLC Traffic Spawner\DLC Traffic Spawner\bin\Release\ScriptHookVDotNet2.xml
+D:\Projects\Mods\DLC Traffic Spawner\DLC Traffic Spawner\obj\Release\AddedTraffic.vbprojResolveAssemblyReference.cache
+D:\Projects\Mods\DLC Traffic Spawner\DLC Traffic Spawner\obj\Release\AddedTraffic.Resources.resources
+D:\Projects\Mods\DLC Traffic Spawner\DLC Traffic Spawner\obj\Release\AddedTraffic.vbproj.GenerateResource.Cache
+D:\Projects\Mods\DLC Traffic Spawner\DLC Traffic Spawner\obj\Release\AddedTraffic.dll
+D:\Projects\Mods\DLC Traffic Spawner\DLC Traffic Spawner\obj\Release\AddedTraffic.xml
+D:\Projects\Mods\DLC Traffic Spawner\DLC Traffic Spawner\obj\Release\AddedTraffic.pdb
