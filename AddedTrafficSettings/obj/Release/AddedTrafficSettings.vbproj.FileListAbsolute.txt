@@ -36,4 +36,3 @@ E:\Users\Bartholomew\Documents\GitHub\AddedTraffic-Mod\AddedTrafficSettings\obj\
 E:\Users\Bartholomew\Documents\GitHub\AddedTraffic-Mod\AddedTrafficSettings\obj\Release\AddedTrafficSettings.frmSwap.resources
 E:\Users\Bartholomew\Documents\GitHub\AddedTraffic-Mod\AddedTrafficSettings\obj\Release\AddedTrafficSettings.Resources.resources
 E:\Users\Bartholomew\Documents\GitHub\AddedTraffic-Mod\AddedTrafficSettings\obj\Release\AddedTrafficSettings.vbproj.GenerateResource.Cache
-E:\Users\Bartholomew\Documents\GitHub\AddedTraffic-Mod\AddedTrafficSettings\obj\Release\AddedTrafficSettings.vbprojResolveAssemblyReference.cache

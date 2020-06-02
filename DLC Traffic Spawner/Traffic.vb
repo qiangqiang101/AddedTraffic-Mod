@@ -20,13 +20,20 @@ Public Class Traffic
         If Not GetPlayerZoneVehicleList.Count = 0 Then
             If (Now - Sekarang).TotalSeconds > GetCurrentWaitTime() AndAlso Not Game.IsLoading AndAlso Not Game.IsPaused Then
                 SpawnVehicle()
-                SpawnParkedVehicle()
+                If spawnParkVehicle Then SpawnParkedVehicle() Else SpawnVehicle()
                 Sekarang = Now
             End If
 
             'World.GetAllVehicles.ClearVehicles
             'World.GetAllPeds.ClearPeds
         End If
+
+        If Game.Player.Character.IsInVehicle Then
+            Dim v = Game.Player.Character.LastVehicle
+            Dim t = GetVehicleNodeProperties(v.Position)
+            UI.ShowSubtitle($"Street: {World.GetStreetName(v.Position)}   Density: {t.Item1}   Flag: {t.Item2}")
+        End If
+
 
         If Not vehicleSwaps.Count = 0 Then
             If (Now - XianZai).TotalSeconds > GetCurrentWaitTime() AndAlso Not Game.IsLoading AndAlso Not Game.IsPaused Then

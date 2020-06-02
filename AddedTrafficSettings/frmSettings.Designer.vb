@@ -81,6 +81,9 @@ Partial Class frmSettings
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.tsmiSwapDelete = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
+        Me.btnDelModel = New System.Windows.Forms.Button()
+        Me.btnEditModel = New System.Windows.Forms.Button()
+        Me.btnAddModel = New System.Windows.Forms.Button()
         Me.btnHelp = New System.Windows.Forms.Button()
         Me.lvModelList = New AddedTrafficSettings.ListViewX()
         Me.chListNo = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -109,9 +112,7 @@ Partial Class frmSettings
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.llblWeb = New System.Windows.Forms.LinkLabel()
-        Me.btnDelModel = New System.Windows.Forms.Button()
-        Me.btnEditModel = New System.Windows.Forms.Button()
-        Me.btnAddModel = New System.Windows.Forms.Button()
+        Me.cbParked = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         CType(Me.nudSpawnDistance, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.nudCruiseSpeed, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -139,6 +140,7 @@ Partial Class frmSettings
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.cbParked)
         Me.GroupBox1.Controls.Add(Me.Label10)
         Me.GroupBox1.Controls.Add(Me.cmbRoadType)
         Me.GroupBox1.Controls.Add(Me.Label8)
@@ -596,6 +598,36 @@ Partial Class frmSettings
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "Model List"
         '
+        'btnDelModel
+        '
+        Me.btnDelModel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnDelModel.Location = New System.Drawing.Point(231, 304)
+        Me.btnDelModel.Name = "btnDelModel"
+        Me.btnDelModel.Size = New System.Drawing.Size(38, 23)
+        Me.btnDelModel.TabIndex = 5
+        Me.btnDelModel.Text = "Del"
+        Me.btnDelModel.UseVisualStyleBackColor = True
+        '
+        'btnEditModel
+        '
+        Me.btnEditModel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnEditModel.Location = New System.Drawing.Point(187, 304)
+        Me.btnEditModel.Name = "btnEditModel"
+        Me.btnEditModel.Size = New System.Drawing.Size(38, 23)
+        Me.btnEditModel.TabIndex = 4
+        Me.btnEditModel.Text = "Edit"
+        Me.btnEditModel.UseVisualStyleBackColor = True
+        '
+        'btnAddModel
+        '
+        Me.btnAddModel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnAddModel.Location = New System.Drawing.Point(144, 304)
+        Me.btnAddModel.Name = "btnAddModel"
+        Me.btnAddModel.Size = New System.Drawing.Size(38, 23)
+        Me.btnAddModel.TabIndex = 3
+        Me.btnAddModel.Text = "Add"
+        Me.btnAddModel.UseVisualStyleBackColor = True
+        '
         'btnHelp
         '
         Me.btnHelp.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
@@ -667,31 +699,31 @@ Partial Class frmSettings
         '
         Me.cmsVehicleList.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmiListNew, Me.tsmiListEdit, Me.ToolStripSeparator2, Me.tsmiCopyTo, Me.ToolStripSeparator3, Me.tsmiListDelete})
         Me.cmsVehicleList.Name = "cmsVehicleSwap"
-        Me.cmsVehicleList.Size = New System.Drawing.Size(153, 126)
+        Me.cmsVehicleList.Size = New System.Drawing.Size(118, 104)
         '
         'tsmiListNew
         '
         Me.tsmiListNew.Name = "tsmiListNew"
-        Me.tsmiListNew.Size = New System.Drawing.Size(152, 22)
+        Me.tsmiListNew.Size = New System.Drawing.Size(117, 22)
         Me.tsmiListNew.Text = "New"
         '
         'tsmiListEdit
         '
         Me.tsmiListEdit.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tsmiListEdit.Name = "tsmiListEdit"
-        Me.tsmiListEdit.Size = New System.Drawing.Size(152, 22)
+        Me.tsmiListEdit.Size = New System.Drawing.Size(117, 22)
         Me.tsmiListEdit.Text = "Edit"
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(149, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(114, 6)
         '
         'tsmiCopyTo
         '
         Me.tsmiCopyTo.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmiDT, Me.tsmiVW, Me.tsmiSLS, Me.tsmiPSLS, Me.tsmiELS, Me.tsmiVPC, Me.tsmiLS, Me.tsmiGSD, Me.tsmiSCMR, Me.tsmiBC})
         Me.tsmiCopyTo.Name = "tsmiCopyTo"
-        Me.tsmiCopyTo.Size = New System.Drawing.Size(152, 22)
+        Me.tsmiCopyTo.Size = New System.Drawing.Size(117, 22)
         Me.tsmiCopyTo.Text = "Copy To"
         '
         'tsmiDT
@@ -757,12 +789,12 @@ Partial Class frmSettings
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(149, 6)
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(114, 6)
         '
         'tsmiListDelete
         '
         Me.tsmiListDelete.Name = "tsmiListDelete"
-        Me.tsmiListDelete.Size = New System.Drawing.Size(152, 22)
+        Me.tsmiListDelete.Size = New System.Drawing.Size(117, 22)
         Me.tsmiListDelete.Text = "Delete"
         '
         'tlpTheTwoList
@@ -856,35 +888,15 @@ Partial Class frmSettings
         Me.llblWeb.Text = "www.imnotmental.com"
         Me.llblWeb.VisitedLinkColor = System.Drawing.Color.DodgerBlue
         '
-        'btnDelModel
+        'cbParked
         '
-        Me.btnDelModel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnDelModel.Location = New System.Drawing.Point(231, 304)
-        Me.btnDelModel.Name = "btnDelModel"
-        Me.btnDelModel.Size = New System.Drawing.Size(38, 23)
-        Me.btnDelModel.TabIndex = 5
-        Me.btnDelModel.Text = "Del"
-        Me.btnDelModel.UseVisualStyleBackColor = True
-        '
-        'btnEditModel
-        '
-        Me.btnEditModel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnEditModel.Location = New System.Drawing.Point(187, 304)
-        Me.btnEditModel.Name = "btnEditModel"
-        Me.btnEditModel.Size = New System.Drawing.Size(38, 23)
-        Me.btnEditModel.TabIndex = 4
-        Me.btnEditModel.Text = "Edit"
-        Me.btnEditModel.UseVisualStyleBackColor = True
-        '
-        'btnAddModel
-        '
-        Me.btnAddModel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnAddModel.Location = New System.Drawing.Point(144, 304)
-        Me.btnAddModel.Name = "btnAddModel"
-        Me.btnAddModel.Size = New System.Drawing.Size(38, 23)
-        Me.btnAddModel.TabIndex = 3
-        Me.btnAddModel.Text = "Add"
-        Me.btnAddModel.UseVisualStyleBackColor = True
+        Me.cbParked.AutoSize = True
+        Me.cbParked.Location = New System.Drawing.Point(6, 80)
+        Me.cbParked.Name = "cbParked"
+        Me.cbParked.Size = New System.Drawing.Size(360, 19)
+        Me.cbParked.TabIndex = 5
+        Me.cbParked.Text = "Spawn Parked Vehicles (Experimental, Might cause game crash)"
+        Me.cbParked.UseVisualStyleBackColor = True
         '
         'frmSettings
         '
@@ -1013,4 +1025,5 @@ Partial Class frmSettings
     Friend WithEvents btnDelModel As Button
     Friend WithEvents btnEditModel As Button
     Friend WithEvents btnAddModel As Button
+    Friend WithEvents cbParked As CheckBox
 End Class

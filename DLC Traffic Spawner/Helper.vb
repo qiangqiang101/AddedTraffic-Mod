@@ -2,6 +2,7 @@
 Imports System.IO
 Imports System.Runtime.CompilerServices
 Imports System.Text
+Imports System.Threading
 Imports GTA
 Imports GTA.Math
 Imports GTA.Native
@@ -29,6 +30,7 @@ Module Helper
     Public swapDistance As Single = 100.0F
     Public notify As Boolean = True
     Public showBlip As Boolean = True
+    Public spawnParkVehicle As Boolean = False
     Public roadType As eNodeType = eNodeType.AsphaltRoad
     Public vehicles As Vehicles
     Public vehicleSwaps As New List(Of VehicleSwap)
@@ -48,6 +50,7 @@ Module Helper
         swapDistance = config.SwapDistance
         notify = config.Notify
         showBlip = config.ShowBlip
+        spawnParkVehicle = config.SpawnParkedVehicle
         roadType = config.RoadType
         vehicles = config.Vehicles
         vehicleSwaps = config.VehicleSwaps
@@ -333,7 +336,8 @@ Module Helper
         Dim gpcp = Game.Player.Character.Position
 
         Dim query = (From v In World.GetAllVehicles Where v.IsPersistent = False And Not v.Model.IsBoat And Not v.Model.IsHelicopter And Not v.Model.IsTrain And Not v.Model.IsPlane And
-                     Not v.IsVehicleSpawnByMod And Not v = gpclv And v.IsSeatFree(VehicleSeat.Driver) And Not v.IsOnScreen And vehicleSwaps2.Contains(v.Model) Select v)
+                     Not v.IsVehicleSpawnByMod And Not v = gpclv And v.IsSeatFree(VehicleSeat.Driver) And v.IsStopped And Not v.EngineRunning And Not v.IsOnScreen And
+                     vehicleSwaps2.Contains(v.Model) Select v)
 
         If query.Count <> 0 Then
             Dim veh As Vehicle = query.FirstOrDefault
@@ -391,10 +395,10 @@ Module Helper
                         End If
                         If showBlip Then
                             newveh.AddBlip()
-                            newveh.CurrentBlip.Color = BlipColor.Purple
+                            newveh.CurrentBlip.Color = BlipColor.YellowDark
                             newveh.CurrentBlip.Name = If(newveh.FriendlyName = "NULL", newveh.DisplayName, newveh.FriendlyName)
                         End If
-                        If notify Then UI.Notify($"~b~{vehFriendlyName}~w~ is swapped with ~p~{If(newveh.FriendlyName = "NULL", newveh.DisplayName, newveh.FriendlyName)}~w~ at {World.GetStreetName(veh.Position)}.")
+                        If notify Then UI.Notify($"~b~{vehFriendlyName}~w~ is swapped with ~y~{If(newveh.FriendlyName = "NULL", newveh.DisplayName, newveh.FriendlyName)}(P)~w~ at {World.GetStreetName(veh.Position)}.")
                         model.MarkAsNoLongerNeeded()
                         newveh.MarkAsNoLongerNeeded()
                     Else
@@ -521,25 +525,40 @@ Module Helper
             Dim right As Vector3 = Game.Player.Character.Position + (Game.Player.Character.RightVector * spawnDistance)
             Dim coords As Vector3
 
-            Dim head = Game.Player.Character.Heading
             rdSpawn = New Random()
             Select Case rdSpawn.Next(0, 100)
                 Case 0 To 33
-                    coords = GetPointOnRoadSide(forward)
+                    coords = World.GetNextPositionOnStreet(forward, True)
                 Case 34 To 66
-                    coords = GetPointOnRoadSide(left)
+                    coords = World.GetNextPositionOnStreet(left, True)
                 Case 67 To 100
-                    coords = GetPointOnRoadSide(right)
+                    coords = World.GetNextPositionOnStreet(right, True)
             End Select
 
-            Dim veh As Vehicle = World.CreateVehicle(model, coords, coords.GetCorrectRoadCoords(roadType).Angle)
-            Try
-                veh.Position = (veh.Position + veh.RightVector * 3)
-            Catch ex As Exception
-                If Not veh = Nothing Then veh.Delete()
-                SpawnParkedVehicle()
+            Dim closestVehicleNodeCoords As Vector3 = Vector3.Zero
+            Dim roadHeading As Single = 0F
+            Dim tempCoords, tempRoadHeading As New OutputArgument
+
+            Native.Function.Call(Of Vector3)(Hash.GET_CLOSEST_VEHICLE_NODE_WITH_HEADING, coords.X, coords.Y, coords.Z, tempCoords, tempRoadHeading, roadType, 3.0F, 0)
+            closestVehicleNodeCoords = tempCoords.GetResult(Of Vector3)
+            roadHeading = tempRoadHeading.GetResult(Of Single)
+
+            If closestVehicleNodeCoords.DistanceTo(Game.Player.Character.Position) < (spawnDistance / 2) Then
+                model.MarkAsNoLongerNeeded()
+                SpawnVehicle()
                 Exit Sub
-            End Try
+            End If
+
+            If closestVehicleNodeCoords.GetVehicleNodeProperties.Item2 > 2 Then
+                model.MarkAsNoLongerNeeded()
+                SpawnVehicle()
+                Exit Sub
+            End If
+
+            Dim veh As Vehicle = World.CreateVehicle(model, closestVehicleNodeCoords, roadHeading)
+            While veh.IsOnRoad
+                veh.Position += veh.RightVector * 2
+            End While
 
             veh.EngineRunning = False
             veh.IsPersistent = False
@@ -563,10 +582,10 @@ Module Helper
             End If
             If showBlip Then
                 veh.AddBlip()
-                veh.CurrentBlip.Color = BlipColor.Green2
+                veh.CurrentBlip.Color = BlipColor.GreenDark
                 veh.CurrentBlip.Name = If(veh.FriendlyName = "NULL", veh.DisplayName, veh.FriendlyName)
             End If
-            If notify Then UI.Notify($"~g~{If(veh.FriendlyName = "NULL", veh.DisplayName, veh.FriendlyName)}~w~ is spawned at {World.GetStreetName(veh.Position)}.")
+            If notify Then UI.Notify($"~g~{If(veh.FriendlyName = "NULL", veh.DisplayName, veh.FriendlyName)}(P)~w~ is spawned at {World.GetStreetName(veh.Position)}.")
             model.MarkAsNoLongerNeeded()
             veh.MarkAsNoLongerNeeded()
         Else
@@ -829,14 +848,14 @@ Module Helper
             Case "VESP", "BEACH", "VCANA", "DELSOL"
                 Return vehicles.Vespucci
             Case "DELBE", "DELPE", "LOSPUER", "STAD", "KOREAT", "AIRP", "MORN", "PBLUFF", "BHAMCA", "CHU", "TONGVAH", "TONGVAV", "GREATC", "TATAMO", "LDAM",
-                 "LACT", "PALHIGH", "NOOSE", "MOVIE"
+                         "LACT", "PALHIGH", "NOOSE", "MOVIE"
                 Return vehicles.LosSantos
             Case "DESRT", "JAIL", "RTRAK"
                 Return vehicles.GrandSenoraDesert
             Case "SANCHIA", "WINDF", "PALMPOW", "HUMLAB", "ZQ_UAR"
                 Return vehicles.SanChianskiMountainRange
             Case "PALETO", "PALFOR", "PALCOV", "PROCOB", "HARMO", "SANDY", "MTJOSE", "ZANCUDO", "SLAB", "LAGO", "ARMYB", "NCHU", "CANNY", "CCREAK", "CALAFB", "CMSW", "ALAMO", "GRAPES", "MTGORDO",
-                 "ELGORL", "BRADP", "MTCHIL", "GALFISH", "BRADT"
+                         "ELGORL", "BRADP", "MTCHIL", "GALFISH", "BRADT"
                 Return vehicles.BlaineCounty
             Case Else
                 Return vehicles.LosSantos
@@ -859,10 +878,10 @@ Module Helper
     End Function
 
     <Extension>
-    Public Function GetRoadSidePointWithHeading(pos As Vector3, head As Single) As Vector3
-        Dim out As New OutputArgument()
-        Native.Function.Call(Of Boolean)(&HA0F8A7517A273C05UL, pos.X, pos.Y, pos.Z, head, out)
-        Return out.GetResult(Of Vector3)()
+    Public Function GetRoadSidePointWithHeading(pos As Vector3) As Quaternion
+        Dim outV, outH As New OutputArgument()
+        Native.Function.Call(Of Boolean)(&HA0F8A7517A273C05UL, pos.X, pos.Y, pos.Z, outH, outV)
+        Return New Quaternion(outV.GetResult(Of Vector3)(), outH.GetResult(Of Single)())
     End Function
 
     <Extension>
@@ -890,6 +909,30 @@ Module Helper
         Dim rot = Game.Player.Character.Rotation
         Native.Function.Call(Of Boolean)(Hash.FIND_SPAWN_POINT_IN_DIRECTION, pos.X, pos.Y, pos.Z, rot.X, rot.Y, rot.Z, spawnDistance, out)
         Return out.GetResult(Of Vector3)()
+    End Function
+
+    <Extension>
+    Public Function GetNextPositionOnStreetWithHeading(pos As Vector3) As Quaternion
+        Dim outV, outH, outU As New OutputArgument()
+        Native.Function.Call(Of Boolean)(Hash.GET_NTH_CLOSEST_VEHICLE_NODE_WITH_HEADING, pos.X, pos.Y, pos.Z, 1, outV, outH, outU, 9, 3.0F, 2.5F)
+        Return New Quaternion(outV.GetResult(Of Vector3)(), outH.GetResult(Of Single)())
+    End Function
+
+    <Extension>
+    Public Function IsOnRoad(veh As Vehicle) As Boolean
+        Return Native.Function.Call(Of Boolean)(Hash.IS_POINT_ON_ROAD, veh.Position.X, veh.Position.Y, veh.Position.Z, veh)
+    End Function
+
+    <Extension>
+    Public Function GetClosestVehicleNodeID(pos As Vector3) As Integer
+        Return Native.Function.Call(Of Integer)(Hash.GET_NTH_CLOSEST_VEHICLE_NODE_ID, pos.X, pos.Y, pos.Z, 1, roadType, 1077936128, 0F)
+    End Function
+
+    <Extension>
+    Public Function GetVehicleNodeProperties(pos As Vector3) As Tuple(Of Integer, Integer)
+        Dim outD, outF As New OutputArgument
+        Native.Function.Call(Of Boolean)(Hash.GET_VEHICLE_NODE_PROPERTIES, pos.X, pos.Y, pos.Z, outD, outF)
+        Return New Tuple(Of Integer, Integer)(outD.GetResult(Of Integer)(), outF.GetResult(Of Integer)())
     End Function
 
 End Module
