@@ -2,7 +2,7 @@
 
 Public Class frmSettings
 
-    Private Sub tsmiListEdit_Click(sender As Object, e As EventArgs) Handles tsmiListEdit.Click
+    Private Sub tsmiListEdit_Click(sender As Object, e As EventArgs) Handles tsmiListEdit.Click, btnEditModel.Click
         For Each item As ListViewItem In lvModelList.SelectedItems
             Dim fl As New frmList
             With fl
@@ -15,7 +15,7 @@ Public Class frmSettings
         Next
     End Sub
 
-    Private Sub tsmiListNew_Click(sender As Object, e As EventArgs) Handles tsmiListNew.Click
+    Private Sub tsmiListNew_Click(sender As Object, e As EventArgs) Handles tsmiListNew.Click, btnAddModel.Click
         Dim fl As New frmList
         With fl
             .IsEdit = False
@@ -23,15 +23,15 @@ Public Class frmSettings
         fl.Show()
     End Sub
 
-    Private Sub tsmiListDelete_Click(sender As Object, e As EventArgs) Handles tsmiListDelete.Click
+    Private Sub tsmiListDelete_Click(sender As Object, e As EventArgs) Handles tsmiListDelete.Click, btnDelModel.Click
         For Each item As ListViewItem In lvModelList.SelectedItems
             lvModelList.Items.Remove(item)
         Next
         lvModelList.Striped
-        lvModelList.SetGroupState(ListViewX.ListViewGroupState.Collapsible)
+        lvModelList.AddGroupFooter()
     End Sub
 
-    Private Sub tsmiSwapNew_Click(sender As Object, e As EventArgs) Handles tsmiSwapNew.Click
+    Private Sub tsmiSwapNew_Click(sender As Object, e As EventArgs) Handles tsmiSwapNew.Click, btnAddSwap.Click
         Dim fs As New frmSwap
         With fs
             .VehSwap = New VehicleSwap()
@@ -40,7 +40,7 @@ Public Class frmSettings
         fs.Show()
     End Sub
 
-    Private Sub tsmiSwapEdit_Click(sender As Object, e As EventArgs) Handles tsmiSwapEdit.Click
+    Private Sub tsmiSwapEdit_Click(sender As Object, e As EventArgs) Handles tsmiSwapEdit.Click, btnEditSwap.Click
         For Each item As ListViewItem In lvVehicleSwap.SelectedItems
             Dim fs As New frmSwap
             With fs
@@ -52,7 +52,7 @@ Public Class frmSettings
         Next
     End Sub
 
-    Private Sub tsmiSwapDelete_Click(sender As Object, e As EventArgs) Handles tsmiSwapDelete.Click
+    Private Sub tsmiSwapDelete_Click(sender As Object, e As EventArgs) Handles tsmiSwapDelete.Click, btnDelSwap.Click
         For Each item As ListViewItem In lvVehicleSwap.SelectedItems
             lvVehicleSwap.Items.Remove(item)
         Next
@@ -93,6 +93,8 @@ Public Class frmSettings
             End With
             lvModelList.Items.Add(newItem)
         Next
+        lvModelList.Striped
+        lvModelList.AddGroupFooter
     End Sub
 
     Private Sub tsmiVW_Click(sender As Object, e As EventArgs) Handles tsmiVW.Click
@@ -103,6 +105,8 @@ Public Class frmSettings
             End With
             lvModelList.Items.Add(newItem)
         Next
+        lvModelList.Striped
+        lvModelList.AddGroupFooter
     End Sub
 
     Private Sub tsmiSLS_Click(sender As Object, e As EventArgs) Handles tsmiSLS.Click
@@ -113,6 +117,8 @@ Public Class frmSettings
             End With
             lvModelList.Items.Add(newItem)
         Next
+        lvModelList.Striped
+        lvModelList.AddGroupFooter
     End Sub
 
     Private Sub tsmiPSLS_Click(sender As Object, e As EventArgs) Handles tsmiPSLS.Click
@@ -123,6 +129,8 @@ Public Class frmSettings
             End With
             lvModelList.Items.Add(newItem)
         Next
+        lvModelList.Striped
+        lvModelList.AddGroupFooter
     End Sub
 
     Private Sub tsmiELS_Click(sender As Object, e As EventArgs) Handles tsmiELS.Click
@@ -133,6 +141,8 @@ Public Class frmSettings
             End With
             lvModelList.Items.Add(newItem)
         Next
+        lvModelList.Striped
+        lvModelList.AddGroupFooter
     End Sub
 
     Private Sub tsmiVPC_Click(sender As Object, e As EventArgs) Handles tsmiVPC.Click
@@ -143,6 +153,8 @@ Public Class frmSettings
             End With
             lvModelList.Items.Add(newItem)
         Next
+        lvModelList.Striped
+        lvModelList.AddGroupFooter
     End Sub
 
     Private Sub tsmiLS_Click(sender As Object, e As EventArgs) Handles tsmiLS.Click
@@ -153,6 +165,8 @@ Public Class frmSettings
             End With
             lvModelList.Items.Add(newItem)
         Next
+        lvModelList.Striped
+        lvModelList.AddGroupFooter
     End Sub
 
     Private Sub tsmiGSD_Click(sender As Object, e As EventArgs) Handles tsmiGSD.Click
@@ -163,6 +177,8 @@ Public Class frmSettings
             End With
             lvModelList.Items.Add(newItem)
         Next
+        lvModelList.Striped
+        lvModelList.AddGroupFooter
     End Sub
 
     Private Sub tsmiSCMR_Click(sender As Object, e As EventArgs) Handles tsmiSCMR.Click
@@ -173,6 +189,8 @@ Public Class frmSettings
             End With
             lvModelList.Items.Add(newItem)
         Next
+        lvModelList.Striped
+        lvModelList.AddGroupFooter
     End Sub
 
     Private Sub tsmiBC_Click(sender As Object, e As EventArgs) Handles tsmiBC.Click
@@ -183,6 +201,8 @@ Public Class frmSettings
             End With
             lvModelList.Items.Add(newItem)
         Next
+        lvModelList.Striped
+        lvModelList.AddGroupFooter
     End Sub
 
     Private Sub frmSettings_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -199,12 +219,13 @@ Public Class frmSettings
             nudSpawnDistance.Value = settings.SpawnDistance
             cmbDrivingStyle.Text = settings.DrivingStyle
             cmbRoadType.Text = settings.RoadType
-            cbRdColor.Checked = settings.RandomizeColor
 
             cbNotify.Checked = settings.Notify
             cbBlip.Checked = settings.ShowBlip
 
             cbVehicleUpgrade.Checked = settings.EnableUpgrade
+            cbRdWheels.Checked = settings.RandomizeWheels
+            cbRdColor.Checked = settings.RandomizeColor
             nudUpgradeChance.Value = settings.UpgradeChance
 
             nudSwapChance.Value = settings.SwapChance
@@ -304,7 +325,7 @@ Public Class frmSettings
                 lvModelList.Items.Add(lvi)
             Next
             lvModelList.Striped
-            lvModelList.SetGroupState(ListViewX.ListViewGroupState.Collapsible)
+            lvModelList.AddGroupFooter()
         Else
             Dim result = MessageBox.Show($"AddedTraffic.xml not found, do you want to create one?", "File Not Found", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation)
             If result = DialogResult.Yes Then
@@ -322,12 +343,13 @@ Public Class frmSettings
                 nudSpawnDistance.Value = settings.SpawnDistance
                 cmbDrivingStyle.Text = settings.DrivingStyle
                 cmbRoadType.Text = settings.RoadType
-                cbRdColor.Checked = settings.RandomizeColor
 
                 cbNotify.Checked = settings.Notify
                 cbBlip.Checked = settings.ShowBlip
 
                 cbVehicleUpgrade.Checked = settings.EnableUpgrade
+                cbRdWheels.Checked = settings.RandomizeWheels
+                cbRdColor.Checked = settings.RandomizeColor
                 nudUpgradeChance.Value = settings.UpgradeChance
 
                 nudSwapChance.Value = settings.SwapChance
@@ -427,7 +449,7 @@ Public Class frmSettings
                     lvModelList.Items.Add(lvi)
                 Next
                 lvModelList.Striped
-                lvModelList.SetGroupState(ListViewX.ListViewGroupState.Collapsible)
+                lvModelList.AddGroupFooter()
             End If
         End If
     End Sub
@@ -441,6 +463,7 @@ Public Class frmSettings
             .DrivingStyle = cmbDrivingStyle.Text
             .RoadType = cmbRoadType.Text
             .RandomizeColor = cbRdColor.Checked
+            .RandomizeWheels = cbRdWheels.Checked
             .Notify = cbNotify.Checked
             .ShowBlip = cbBlip.Checked
             .EnableUpgrade = cbVehicleUpgrade.Checked
@@ -522,4 +545,37 @@ Public Class frmSettings
         e.Item.Tag = vehSwap
     End Sub
 
+    Private Sub btnHelp_Click(sender As Object, e As EventArgs) Handles btnHelp.Click
+        Dim helpText As String = "Downtown
+Pillbox Hill, Mission Row, Textile City, Legion Square and Downtown.
+
+Vinewood
+Vinewood, Downtown Vinewood, East Vinewood, Mirror Park, Vinewood Racetrack, West Vinewood, Alta, Hawick, Richman, Richman Glen, GWC and Golfing Society, Rockford Hills and Vinewood Hills
+
+South Los Santos
+Davis, Strawberry, Chamberlain Hills and Rancho
+
+Port of South Los Santos
+Banning, Elysian Island, Terminal and Port of South Los Santos
+
+East Los Santos
+La Mesa, Cypress Flats, El Burro Heights and Murrieta Heights
+
+Vespucci
+Vespucci, Vespucci Beach, Vespucci Canals and Puerto Del Sol
+
+Los Santos
+Del Perro Beach, Del Perro, La Puerta, Maze Bank Arena, Little Seoul, L.S.I.A., Morningwood, Pacific Bluffs, Banham Canyon, Chumash, Tongva Hills, Tongva Valley, Great Chaparral, Tataviam Mountains, Land Act Dam, Land Act Reservoir, Palomino Highlands, N.O.O.S.E and Richards Majestic
+
+Grand Senora Desert
+Grand Senora Desert, Bolingbroke Penitentiary and Redwood Lights Track
+
+San Chianski Mountain Range
+San Chianski Mountain Range, RON Alternates Wind Farm, Palmer-Taylor Power Station, 'Humane Labs and Research' and Davis Quartz
+
+Blaine County
+Paleto Cove, Paleto Bay, Paleto Forest, Procopio Beach, Harmony, Sandy Shores, Mount Josiah, Zancudo River, Stab City, Lago Zancudo, Fort Zancudo, North Chumash, Raton Canyon, Cassidy Creek, Calafia Bridge, Chiliad Mountain State Wilderness, Alamo Sea, Grapeseed, Mount Gordo, El Gordo Lighthouse, Braddock Pass, Braddock Tunnel, Mount Chiliad and Galilee"
+
+        MsgBox(helpText, MsgBoxStyle.Question, "Help")
+    End Sub
 End Class

@@ -28,6 +28,8 @@
             frmSettings.lvModelList.Items.Add(newLVI)
             frmSettings.lvModelList.Striped
         End If
+        frmSettings.lvModelList.Striped
+        frmSettings.lvModelList.AddGroupFooter
         Close()
     End Sub
 

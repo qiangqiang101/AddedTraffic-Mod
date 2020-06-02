@@ -60,7 +60,7 @@ Partial Class frmList
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(55, 46)
+        Me.Label2.Location = New System.Drawing.Point(69, 46)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(41, 15)
         Me.Label2.TabIndex = 6
@@ -69,11 +69,11 @@ Partial Class frmList
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(55, 17)
+        Me.Label1.Location = New System.Drawing.Point(69, 17)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(55, 15)
+        Me.Label1.Size = New System.Drawing.Size(34, 15)
         Me.Label1.TabIndex = 8
-        Me.Label1.Text = "Category"
+        Me.Label1.Text = "Zone"
         '
         'cmbCategory
         '

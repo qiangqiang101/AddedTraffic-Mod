@@ -20,7 +20,7 @@ Public Class Traffic
         If Not GetPlayerZoneVehicleList.Count = 0 Then
             If (Now - Sekarang).TotalSeconds > GetCurrentWaitTime() AndAlso Not Game.IsLoading AndAlso Not Game.IsPaused Then
                 SpawnVehicle()
-                SpawnVehicle()
+                SpawnParkedVehicle()
                 Sekarang = Now
             End If
 

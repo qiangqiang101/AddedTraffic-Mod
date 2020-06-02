@@ -38,4 +38,12 @@ Module Helper
         Next
     End Sub
 
+    <Extension>
+    Public Sub AddGroupFooter(listviewx As ListViewX)
+        For Each lvg As ListViewGroup In listviewx.Groups
+            listviewx.SetGroupFooter(lvg, $"Contain {lvg.Items.Count} models.")
+        Next
+        listviewx.SetGroupState(ListViewX.ListViewGroupState.Collapsible Or ListViewX.ListViewGroupState.Collapsed)
+    End Sub
+
 End Module

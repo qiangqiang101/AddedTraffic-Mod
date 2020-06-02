@@ -37,17 +37,18 @@ Partial Class frmSettings
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.cmbRoadType = New System.Windows.Forms.ComboBox()
-        Me.cbRdColor = New System.Windows.Forms.CheckBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.cmbDrivingStyle = New System.Windows.Forms.ComboBox()
         Me.nudSpawnDistance = New System.Windows.Forms.NumericUpDown()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.nudCruiseSpeed = New System.Windows.Forms.NumericUpDown()
         Me.Label6 = New System.Windows.Forms.Label()
+        Me.cbRdColor = New System.Windows.Forms.CheckBox()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
         Me.cbBlip = New System.Windows.Forms.CheckBox()
         Me.cbNotify = New System.Windows.Forms.CheckBox()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.cbRdWheels = New System.Windows.Forms.CheckBox()
         Me.nudUpgradeChance = New System.Windows.Forms.NumericUpDown()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.cbVehicleUpgrade = New System.Windows.Forms.CheckBox()
@@ -63,6 +64,9 @@ Partial Class frmSettings
         Me.nudMorning = New System.Windows.Forms.NumericUpDown()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.btnDelSwap = New System.Windows.Forms.Button()
+        Me.btnEditSwap = New System.Windows.Forms.Button()
+        Me.btnAddSwap = New System.Windows.Forms.Button()
         Me.nudSwapDistance = New System.Windows.Forms.NumericUpDown()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.nudSwapChance = New System.Windows.Forms.NumericUpDown()
@@ -77,6 +81,7 @@ Partial Class frmSettings
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.tsmiSwapDelete = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
+        Me.btnHelp = New System.Windows.Forms.Button()
         Me.lvModelList = New AddedTrafficSettings.ListViewX()
         Me.chListNo = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.chListModel = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -104,6 +109,9 @@ Partial Class frmSettings
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.llblWeb = New System.Windows.Forms.LinkLabel()
+        Me.btnDelModel = New System.Windows.Forms.Button()
+        Me.btnEditModel = New System.Windows.Forms.Button()
+        Me.btnAddModel = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         CType(Me.nudSpawnDistance, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.nudCruiseSpeed, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -133,7 +141,6 @@ Partial Class frmSettings
         '
         Me.GroupBox1.Controls.Add(Me.Label10)
         Me.GroupBox1.Controls.Add(Me.cmbRoadType)
-        Me.GroupBox1.Controls.Add(Me.cbRdColor)
         Me.GroupBox1.Controls.Add(Me.Label8)
         Me.GroupBox1.Controls.Add(Me.cmbDrivingStyle)
         Me.GroupBox1.Controls.Add(Me.nudSpawnDistance)
@@ -143,7 +150,7 @@ Partial Class frmSettings
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(526, 100)
+        Me.GroupBox1.Size = New System.Drawing.Size(425, 105)
         Me.GroupBox1.TabIndex = 2
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "General"
@@ -166,16 +173,6 @@ Partial Class frmSettings
         Me.cmbRoadType.Name = "cmbRoadType"
         Me.cmbRoadType.Size = New System.Drawing.Size(163, 23)
         Me.cmbRoadType.TabIndex = 4
-        '
-        'cbRdColor
-        '
-        Me.cbRdColor.AutoSize = True
-        Me.cbRdColor.Location = New System.Drawing.Point(421, 24)
-        Me.cbRdColor.Name = "cbRdColor"
-        Me.cbRdColor.Size = New System.Drawing.Size(103, 19)
-        Me.cbRdColor.TabIndex = 5
-        Me.cbRdColor.Text = "Random Color"
-        Me.cbRdColor.UseVisualStyleBackColor = True
         '
         'Label8
         '
@@ -232,6 +229,16 @@ Partial Class frmSettings
         Me.Label6.TabIndex = 10
         Me.Label6.Text = "Cruise Speed"
         '
+        'cbRdColor
+        '
+        Me.cbRdColor.AutoSize = True
+        Me.cbRdColor.Location = New System.Drawing.Point(73, 22)
+        Me.cbRdColor.Name = "cbRdColor"
+        Me.cbRdColor.Size = New System.Drawing.Size(103, 19)
+        Me.cbRdColor.TabIndex = 2
+        Me.cbRdColor.Text = "Random Color"
+        Me.cbRdColor.UseVisualStyleBackColor = True
+        '
         'GroupBox5
         '
         Me.GroupBox5.Controls.Add(Me.cbBlip)
@@ -239,7 +246,7 @@ Partial Class frmSettings
         Me.GroupBox5.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox5.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(89, 100)
+        Me.GroupBox5.Size = New System.Drawing.Size(128, 105)
         Me.GroupBox5.TabIndex = 3
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Debug"
@@ -266,28 +273,40 @@ Partial Class frmSettings
         '
         'GroupBox4
         '
+        Me.GroupBox4.Controls.Add(Me.cbRdWheels)
         Me.GroupBox4.Controls.Add(Me.nudUpgradeChance)
         Me.GroupBox4.Controls.Add(Me.Label9)
+        Me.GroupBox4.Controls.Add(Me.cbRdColor)
         Me.GroupBox4.Controls.Add(Me.cbVehicleUpgrade)
         Me.GroupBox4.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox4.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(153, 100)
+        Me.GroupBox4.Size = New System.Drawing.Size(215, 105)
         Me.GroupBox4.TabIndex = 4
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Vehicle Upgrade"
         '
+        'cbRdWheels
+        '
+        Me.cbRdWheels.AutoSize = True
+        Me.cbRdWheels.Location = New System.Drawing.Point(6, 47)
+        Me.cbRdWheels.Name = "cbRdWheels"
+        Me.cbRdWheels.Size = New System.Drawing.Size(112, 19)
+        Me.cbRdWheels.TabIndex = 3
+        Me.cbRdWheels.Text = "Random Wheels"
+        Me.cbRdWheels.UseVisualStyleBackColor = True
+        '
         'nudUpgradeChance
         '
-        Me.nudUpgradeChance.Location = New System.Drawing.Point(80, 46)
+        Me.nudUpgradeChance.Location = New System.Drawing.Point(80, 72)
         Me.nudUpgradeChance.Name = "nudUpgradeChance"
         Me.nudUpgradeChance.Size = New System.Drawing.Size(65, 23)
-        Me.nudUpgradeChance.TabIndex = 2
+        Me.nudUpgradeChance.TabIndex = 4
         '
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(6, 49)
+        Me.Label9.Location = New System.Drawing.Point(6, 74)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(68, 15)
         Me.Label9.TabIndex = 2
@@ -411,6 +430,9 @@ Partial Class frmSettings
         '
         'GroupBox6
         '
+        Me.GroupBox6.Controls.Add(Me.btnDelSwap)
+        Me.GroupBox6.Controls.Add(Me.btnEditSwap)
+        Me.GroupBox6.Controls.Add(Me.btnAddSwap)
         Me.GroupBox6.Controls.Add(Me.nudSwapDistance)
         Me.GroupBox6.Controls.Add(Me.Label12)
         Me.GroupBox6.Controls.Add(Me.nudSwapChance)
@@ -421,16 +443,46 @@ Partial Class frmSettings
         Me.GroupBox6.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox6.Name = "GroupBox6"
         Me.GroupBox6.Padding = New System.Windows.Forms.Padding(0)
-        Me.GroupBox6.Size = New System.Drawing.Size(506, 336)
+        Me.GroupBox6.Size = New System.Drawing.Size(506, 330)
         Me.GroupBox6.TabIndex = 1
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "Model Swap (If New Model is blank, it will take random model from Model List)"
+        '
+        'btnDelSwap
+        '
+        Me.btnDelSwap.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnDelSwap.Location = New System.Drawing.Point(465, 304)
+        Me.btnDelSwap.Name = "btnDelSwap"
+        Me.btnDelSwap.Size = New System.Drawing.Size(38, 23)
+        Me.btnDelSwap.TabIndex = 6
+        Me.btnDelSwap.Text = "Del"
+        Me.btnDelSwap.UseVisualStyleBackColor = True
+        '
+        'btnEditSwap
+        '
+        Me.btnEditSwap.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnEditSwap.Location = New System.Drawing.Point(421, 304)
+        Me.btnEditSwap.Name = "btnEditSwap"
+        Me.btnEditSwap.Size = New System.Drawing.Size(38, 23)
+        Me.btnEditSwap.TabIndex = 5
+        Me.btnEditSwap.Text = "Edit"
+        Me.btnEditSwap.UseVisualStyleBackColor = True
+        '
+        'btnAddSwap
+        '
+        Me.btnAddSwap.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnAddSwap.Location = New System.Drawing.Point(378, 304)
+        Me.btnAddSwap.Name = "btnAddSwap"
+        Me.btnAddSwap.Size = New System.Drawing.Size(38, 23)
+        Me.btnAddSwap.TabIndex = 4
+        Me.btnAddSwap.Text = "Add"
+        Me.btnAddSwap.UseVisualStyleBackColor = True
         '
         'nudSwapDistance
         '
         Me.nudSwapDistance.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.nudSwapDistance.DecimalPlaces = 2
-        Me.nudSwapDistance.Location = New System.Drawing.Point(268, 310)
+        Me.nudSwapDistance.Location = New System.Drawing.Point(268, 304)
         Me.nudSwapDistance.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
         Me.nudSwapDistance.Name = "nudSwapDistance"
         Me.nudSwapDistance.Size = New System.Drawing.Size(65, 23)
@@ -440,7 +492,7 @@ Partial Class frmSettings
         '
         Me.Label12.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(179, 312)
+        Me.Label12.Location = New System.Drawing.Point(179, 306)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(83, 15)
         Me.Label12.TabIndex = 24
@@ -449,7 +501,7 @@ Partial Class frmSettings
         'nudSwapChance
         '
         Me.nudSwapChance.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.nudSwapChance.Location = New System.Drawing.Point(108, 310)
+        Me.nudSwapChance.Location = New System.Drawing.Point(108, 304)
         Me.nudSwapChance.Name = "nudSwapChance"
         Me.nudSwapChance.Size = New System.Drawing.Size(65, 23)
         Me.nudSwapChance.TabIndex = 2
@@ -458,7 +510,7 @@ Partial Class frmSettings
         '
         Me.Label11.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(3, 312)
+        Me.Label11.Location = New System.Drawing.Point(3, 306)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(99, 15)
         Me.Label11.TabIndex = 22
@@ -475,7 +527,7 @@ Partial Class frmSettings
         Me.lvVehicleSwap.FullRowSelect = True
         Me.lvVehicleSwap.Location = New System.Drawing.Point(3, 19)
         Me.lvVehicleSwap.Name = "lvVehicleSwap"
-        Me.lvVehicleSwap.Size = New System.Drawing.Size(500, 285)
+        Me.lvVehicleSwap.Size = New System.Drawing.Size(500, 279)
         Me.lvVehicleSwap.TabIndex = 1
         Me.lvVehicleSwap.UseCompatibleStateImageBehavior = False
         Me.lvVehicleSwap.View = System.Windows.Forms.View.Details
@@ -529,16 +581,30 @@ Partial Class frmSettings
         '
         'GroupBox7
         '
+        Me.GroupBox7.Controls.Add(Me.btnDelModel)
+        Me.GroupBox7.Controls.Add(Me.btnEditModel)
+        Me.GroupBox7.Controls.Add(Me.btnAddModel)
+        Me.GroupBox7.Controls.Add(Me.btnHelp)
         Me.GroupBox7.Controls.Add(Me.lvModelList)
         Me.GroupBox7.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox7.Location = New System.Drawing.Point(512, 2)
         Me.GroupBox7.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox7.Name = "GroupBox7"
         Me.GroupBox7.Padding = New System.Windows.Forms.Padding(0)
-        Me.GroupBox7.Size = New System.Drawing.Size(272, 336)
+        Me.GroupBox7.Size = New System.Drawing.Size(272, 330)
         Me.GroupBox7.TabIndex = 1
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "Model List"
+        '
+        'btnHelp
+        '
+        Me.btnHelp.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnHelp.Location = New System.Drawing.Point(3, 304)
+        Me.btnHelp.Name = "btnHelp"
+        Me.btnHelp.Size = New System.Drawing.Size(23, 23)
+        Me.btnHelp.TabIndex = 2
+        Me.btnHelp.Text = "?"
+        Me.btnHelp.UseVisualStyleBackColor = True
         '
         'lvModelList
         '
@@ -550,28 +616,38 @@ Partial Class frmSettings
         Me.lvModelList.FullRowSelect = True
         ListViewGroup1.Header = "Downtown"
         ListViewGroup1.Name = "Downtown"
+        ListViewGroup1.Tag = ""
         ListViewGroup2.Header = "Vinewood"
         ListViewGroup2.Name = "Vinewood"
+        ListViewGroup2.Tag = ""
         ListViewGroup3.Header = "South Los Santos"
         ListViewGroup3.Name = "South Los Santos"
+        ListViewGroup3.Tag = ""
         ListViewGroup4.Header = "Port of South Los Santos"
         ListViewGroup4.Name = "Port of South Los Santos"
+        ListViewGroup4.Tag = ""
         ListViewGroup5.Header = "East Los Santos"
         ListViewGroup5.Name = "East Los Santos"
+        ListViewGroup5.Tag = ""
         ListViewGroup6.Header = "Vespucci"
         ListViewGroup6.Name = "Vespucci"
+        ListViewGroup6.Tag = ""
         ListViewGroup7.Header = "Los Santos"
         ListViewGroup7.Name = "Los Santos"
+        ListViewGroup7.Tag = ""
         ListViewGroup8.Header = "Grand Senora Desert"
         ListViewGroup8.Name = "Grand Senora Desert"
+        ListViewGroup8.Tag = ""
         ListViewGroup9.Header = "San Chianski Mountain Range"
         ListViewGroup9.Name = "San Chianski Mountain Range"
+        ListViewGroup9.Tag = ""
         ListViewGroup10.Header = "Blaine County"
         ListViewGroup10.Name = "Blaine County"
+        ListViewGroup10.Tag = ""
         Me.lvModelList.Groups.AddRange(New System.Windows.Forms.ListViewGroup() {ListViewGroup1, ListViewGroup2, ListViewGroup3, ListViewGroup4, ListViewGroup5, ListViewGroup6, ListViewGroup7, ListViewGroup8, ListViewGroup9, ListViewGroup10})
         Me.lvModelList.Location = New System.Drawing.Point(3, 19)
         Me.lvModelList.Name = "lvModelList"
-        Me.lvModelList.Size = New System.Drawing.Size(266, 314)
+        Me.lvModelList.Size = New System.Drawing.Size(266, 279)
         Me.lvModelList.TabIndex = 1
         Me.lvModelList.UseCompatibleStateImageBehavior = False
         Me.lvModelList.View = System.Windows.Forms.View.Details
@@ -591,31 +667,31 @@ Partial Class frmSettings
         '
         Me.cmsVehicleList.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmiListNew, Me.tsmiListEdit, Me.ToolStripSeparator2, Me.tsmiCopyTo, Me.ToolStripSeparator3, Me.tsmiListDelete})
         Me.cmsVehicleList.Name = "cmsVehicleSwap"
-        Me.cmsVehicleList.Size = New System.Drawing.Size(118, 104)
+        Me.cmsVehicleList.Size = New System.Drawing.Size(153, 126)
         '
         'tsmiListNew
         '
         Me.tsmiListNew.Name = "tsmiListNew"
-        Me.tsmiListNew.Size = New System.Drawing.Size(117, 22)
+        Me.tsmiListNew.Size = New System.Drawing.Size(152, 22)
         Me.tsmiListNew.Text = "New"
         '
         'tsmiListEdit
         '
         Me.tsmiListEdit.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tsmiListEdit.Name = "tsmiListEdit"
-        Me.tsmiListEdit.Size = New System.Drawing.Size(117, 22)
+        Me.tsmiListEdit.Size = New System.Drawing.Size(152, 22)
         Me.tsmiListEdit.Text = "Edit"
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(114, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(149, 6)
         '
         'tsmiCopyTo
         '
         Me.tsmiCopyTo.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmiDT, Me.tsmiVW, Me.tsmiSLS, Me.tsmiPSLS, Me.tsmiELS, Me.tsmiVPC, Me.tsmiLS, Me.tsmiGSD, Me.tsmiSCMR, Me.tsmiBC})
         Me.tsmiCopyTo.Name = "tsmiCopyTo"
-        Me.tsmiCopyTo.Size = New System.Drawing.Size(117, 22)
+        Me.tsmiCopyTo.Size = New System.Drawing.Size(152, 22)
         Me.tsmiCopyTo.Text = "Copy To"
         '
         'tsmiDT
@@ -681,12 +757,12 @@ Partial Class frmSettings
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(114, 6)
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(149, 6)
         '
         'tsmiListDelete
         '
         Me.tsmiListDelete.Name = "tsmiListDelete"
-        Me.tsmiListDelete.Size = New System.Drawing.Size(117, 22)
+        Me.tsmiListDelete.Size = New System.Drawing.Size(152, 22)
         Me.tsmiListDelete.Text = "Delete"
         '
         'tlpTheTwoList
@@ -699,12 +775,12 @@ Partial Class frmSettings
         Me.tlpTheTwoList.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.0!))
         Me.tlpTheTwoList.Controls.Add(Me.GroupBox6, 0, 0)
         Me.tlpTheTwoList.Controls.Add(Me.GroupBox7, 1, 0)
-        Me.tlpTheTwoList.Location = New System.Drawing.Point(9, 183)
+        Me.tlpTheTwoList.Location = New System.Drawing.Point(9, 189)
         Me.tlpTheTwoList.Margin = New System.Windows.Forms.Padding(0)
         Me.tlpTheTwoList.Name = "tlpTheTwoList"
         Me.tlpTheTwoList.RowCount = 1
         Me.tlpTheTwoList.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpTheTwoList.Size = New System.Drawing.Size(786, 340)
+        Me.tlpTheTwoList.Size = New System.Drawing.Size(786, 334)
         Me.tlpTheTwoList.TabIndex = 5
         '
         'btnSave
@@ -722,9 +798,9 @@ Partial Class frmSettings
         Me.tlpTheThreeGroups.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.tlpTheThreeGroups.ColumnCount = 3
-        Me.tlpTheThreeGroups.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 68.0!))
-        Me.tlpTheThreeGroups.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.0!))
-        Me.tlpTheThreeGroups.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.0!))
+        Me.tlpTheThreeGroups.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55.0!))
+        Me.tlpTheThreeGroups.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 17.0!))
+        Me.tlpTheThreeGroups.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.0!))
         Me.tlpTheThreeGroups.Controls.Add(Me.Panel1, 0, 0)
         Me.tlpTheThreeGroups.Controls.Add(Me.Panel2, 1, 0)
         Me.tlpTheThreeGroups.Controls.Add(Me.Panel3, 2, 0)
@@ -733,7 +809,7 @@ Partial Class frmSettings
         Me.tlpTheThreeGroups.Padding = New System.Windows.Forms.Padding(3)
         Me.tlpTheThreeGroups.RowCount = 1
         Me.tlpTheThreeGroups.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpTheThreeGroups.Size = New System.Drawing.Size(786, 109)
+        Me.tlpTheThreeGroups.Size = New System.Drawing.Size(786, 115)
         Me.tlpTheThreeGroups.TabIndex = 7
         '
         'Panel1
@@ -743,27 +819,27 @@ Partial Class frmSettings
         Me.Panel1.Location = New System.Drawing.Point(5, 5)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(526, 100)
+        Me.Panel1.Size = New System.Drawing.Size(425, 105)
         Me.Panel1.TabIndex = 5
         '
         'Panel2
         '
         Me.Panel2.Controls.Add(Me.GroupBox5)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel2.Location = New System.Drawing.Point(535, 5)
+        Me.Panel2.Location = New System.Drawing.Point(434, 5)
         Me.Panel2.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(89, 100)
+        Me.Panel2.Size = New System.Drawing.Size(128, 105)
         Me.Panel2.TabIndex = 6
         '
         'Panel3
         '
         Me.Panel3.Controls.Add(Me.GroupBox4)
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel3.Location = New System.Drawing.Point(628, 5)
+        Me.Panel3.Location = New System.Drawing.Point(566, 5)
         Me.Panel3.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(153, 100)
+        Me.Panel3.Size = New System.Drawing.Size(215, 105)
         Me.Panel3.TabIndex = 7
         '
         'llblWeb
@@ -779,6 +855,36 @@ Partial Class frmSettings
         Me.llblWeb.TabStop = True
         Me.llblWeb.Text = "www.imnotmental.com"
         Me.llblWeb.VisitedLinkColor = System.Drawing.Color.DodgerBlue
+        '
+        'btnDelModel
+        '
+        Me.btnDelModel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnDelModel.Location = New System.Drawing.Point(231, 304)
+        Me.btnDelModel.Name = "btnDelModel"
+        Me.btnDelModel.Size = New System.Drawing.Size(38, 23)
+        Me.btnDelModel.TabIndex = 5
+        Me.btnDelModel.Text = "Del"
+        Me.btnDelModel.UseVisualStyleBackColor = True
+        '
+        'btnEditModel
+        '
+        Me.btnEditModel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnEditModel.Location = New System.Drawing.Point(187, 304)
+        Me.btnEditModel.Name = "btnEditModel"
+        Me.btnEditModel.Size = New System.Drawing.Size(38, 23)
+        Me.btnEditModel.TabIndex = 4
+        Me.btnEditModel.Text = "Edit"
+        Me.btnEditModel.UseVisualStyleBackColor = True
+        '
+        'btnAddModel
+        '
+        Me.btnAddModel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnAddModel.Location = New System.Drawing.Point(144, 304)
+        Me.btnAddModel.Name = "btnAddModel"
+        Me.btnAddModel.Size = New System.Drawing.Size(38, 23)
+        Me.btnAddModel.TabIndex = 3
+        Me.btnAddModel.Text = "Add"
+        Me.btnAddModel.UseVisualStyleBackColor = True
         '
         'frmSettings
         '
@@ -899,4 +1005,12 @@ Partial Class frmSettings
     Friend WithEvents nudSwapChance As NumericUpDown
     Friend WithEvents Label11 As Label
     Friend WithEvents llblWeb As LinkLabel
+    Friend WithEvents cbRdWheels As CheckBox
+    Friend WithEvents btnHelp As Button
+    Friend WithEvents btnDelSwap As Button
+    Friend WithEvents btnEditSwap As Button
+    Friend WithEvents btnAddSwap As Button
+    Friend WithEvents btnDelModel As Button
+    Friend WithEvents btnEditModel As Button
+    Friend WithEvents btnAddModel As Button
 End Class

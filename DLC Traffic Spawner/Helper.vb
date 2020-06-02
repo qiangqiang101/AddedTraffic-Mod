@@ -10,7 +10,7 @@ Imports Metadata
 Module Helper
 
     Public modDecor As String = "inm_traffic"
-    Public rdVehicle, rdColor, rdMod, rdSpawn, rdSwap As Random
+    Public rdVehicle, rdColor, rdMod, rdSpawn, rdSwap, rdWheel As Random
     Public Sekarang As Date = Now
     Public XianZai As Date = Now
     Public XMLFileDate As Date = File.GetLastWriteTime(".\scripts\AddedTraffic.xml")
@@ -24,6 +24,7 @@ Module Helper
     Public enableUpgrade As Boolean = True
     Public upgradeChance As Integer = 20
     Public randomizeColor As Boolean = True
+    Public randomizeWheels As Boolean = True
     Public swapChance As Integer = 50
     Public swapDistance As Single = 100.0F
     Public notify As Boolean = True
@@ -42,6 +43,7 @@ Module Helper
         enableUpgrade = config.EnableUpgrade
         upgradeChance = config.UpgradeChance
         randomizeColor = config.RandomizeColor
+        randomizeWheels = config.RandomizeWheels
         swapChance = config.SwapChance
         swapDistance = config.SwapDistance
         notify = config.Notify
@@ -121,6 +123,106 @@ Module Helper
                 ped.Delete()
             End If
         Next p
+    End Sub
+
+    Public Sub SwapVehicleHaveDriverOffScreen()
+        Dim gpclv = Game.Player.Character.LastVehicle
+        Dim gpcp = Game.Player.Character.Position
+
+        Dim query = (From v In World.GetAllVehicles Where v.IsPersistent = False And Not v.Model.IsBoat And Not v.Model.IsHelicopter And Not v.Model.IsTrain And Not v.Model.IsPlane And
+                     Not v.IsVehicleSpawnByMod And Not v = gpclv And Not v.IsSeatFree(VehicleSeat.Driver) And v.Position.DistanceTo(gpcp) <= swapDistance And Not v.IsOnScreen And
+                     vehicleSwaps2.Contains(v.Model) Select v)
+
+        If query.Count <> 0 Then
+            Dim veh As Vehicle = query.FirstOrDefault
+
+            If veh = Nothing Then
+                SwapVehicleHaveDriverOffScreen()
+                Exit Sub
+            Else
+                rdSwap = New Random
+                Dim schance As Integer = rdSwap.Next(0, 100)
+                If schance >= 0 AndAlso schance <= swapChance Then
+                    Dim modelString As String = vehicleSwaps.Where(Function(x) New Model(x.OldVehicle) = veh.Model).FirstOrDefault.NewVehicle
+                    If String.IsNullOrEmpty(modelString) Then
+                        If Not GetPlayerZoneVehicleList.Count = 0 Then
+                            rdVehicle = New Random
+                            modelString = GetPlayerZoneVehicleList(rdVehicle.Next(0, GetPlayerZoneVehicleList.Count))
+                        Else
+                            Exit Sub
+                        End If
+                    End If
+
+                    Dim model As Model = New Model(modelString)
+                    model.Request(250)
+                    If model.IsInCdImage AndAlso model.IsValid Then
+                        While Not model.IsLoaded
+                            Script.Wait(50)
+                        End While
+
+                        Dim vehFriendlyName As String = If(veh.FriendlyName = "NULL", veh.DisplayName, veh.FriendlyName)
+
+                        Dim driver As Ped = veh.Driver
+                        driver.IsPersistent = True
+                        Dim passengers As Ped() = veh.Passengers
+                        Dim isCop As Boolean = driver.IsInPoliceVehicle
+                        driver.AlwaysKeepTask = False
+
+                        Dim newveh As Vehicle = World.CreateVehicle(model, veh.Position, veh.Heading)
+                        veh.SetNoCollision(newveh, True)
+
+                        newveh.EngineRunning = True
+                        driver.SetIntoVehicle(newveh, VehicleSeat.Driver)
+                        driver.SetPedIsSpawnByMod
+                        driver.IsPersistent = False
+                        driver.Task.CruiseWithVehicle(newveh, cruiseSpeed, drivingStyle)
+                        driver.MarkAsNoLongerNeeded()
+
+                        For Each pass As Ped In passengers
+                            pass.SetIntoVehicle(newveh, pass.SeatIndex)
+                            pass.MarkAsNoLongerNeeded()
+                        Next
+
+                        newveh.IsPersistent = veh.IsPersistent
+                        newveh.SetVehicleIsSpawnByMod
+                        newveh.LockStatus = veh.LockStatus
+                        newveh.ForwardSpeed(veh.Speed)
+                        newveh.Velocity = veh.Velocity
+
+                        veh.Delete()
+
+                        If Not randomizeColor Then newveh.PaintVehicle
+                        If enableUpgrade Then
+                            rdMod = New Random
+                            Dim chance As Integer = rdMod.Next(0, 100)
+                            If chance >= 0 AndAlso chance <= upgradeChance Then
+                                Dim fullOrRandom As Integer = rdMod.Next(0, 100)
+                                Select Case fullOrRandom
+                                    Case 0 To 50
+                                        newveh.FullyUpgradeVehicle
+                                    Case Else
+                                        newveh.RandomlyUpgradeVehicle
+                                End Select
+                            End If
+                        End If
+                        If showBlip Then
+                            newveh.AddBlip()
+                            newveh.CurrentBlip.Color = BlipColor.YellowDark
+                            newveh.CurrentBlip.Name = If(newveh.FriendlyName = "NULL", newveh.DisplayName, newveh.FriendlyName)
+                        End If
+                        If notify Then UI.Notify($"~b~{vehFriendlyName}~w~ is swapped with ~y~{If(newveh.FriendlyName = "NULL", newveh.DisplayName, newveh.FriendlyName)}~w~ at {World.GetStreetName(newveh.Position)}.")
+                        model.MarkAsNoLongerNeeded()
+                        newveh.MarkAsNoLongerNeeded()
+                    Else
+                        UI.Notify($"{modelString} is not a valid model.")
+                        SwapVehicleHaveDriverOffScreen()
+                        Exit Sub
+                    End If
+                Else
+                    veh.SetVehicleIsSpawnByMod
+                End If
+            End If
+        End If
     End Sub
 
     Public Sub SwapVehicleHaveDriver()
@@ -220,6 +322,9 @@ Module Helper
                     veh.SetVehicleIsSpawnByMod
                 End If
             End If
+        Else
+            SwapVehicleHaveDriverOffScreen()
+            Exit Sub
         End If
     End Sub
 
@@ -264,9 +369,9 @@ Module Helper
 
                         newveh.IsPersistent = veh.IsPersistent
                         newveh.SetVehicleIsSpawnByMod
-                        newveh.LockStatus = veh.LockStatus
-                        newveh.ForwardSpeed(veh.Speed)
-                        newveh.Velocity = veh.Velocity
+                        veh.HasAlarm = True
+                        veh.LockStatus = VehicleLockStatus.CanBeBrokenInto
+                        veh.NeedsToBeHotwired = True
 
                         veh.Delete()
 
@@ -315,25 +420,22 @@ Module Helper
             End While
 
             Dim forward As Vector3 = Game.Player.Character.Position + (Game.Player.Character.ForwardVector * spawnDistance)
-            Dim backward As Vector3 = Game.Player.Character.Position - (Game.Player.Character.ForwardVector * spawnDistance)
             Dim left As Vector3 = Game.Player.Character.Position - (Game.Player.Character.RightVector * spawnDistance)
             Dim right As Vector3 = Game.Player.Character.Position + (Game.Player.Character.RightVector * spawnDistance)
             Dim coords As Vector3
 
             rdSpawn = New Random()
             Select Case rdSpawn.Next(0, 100)
-                Case 0 To 24
+                Case 0 To 33
                     coords = World.GetNextPositionOnStreet(forward, False)
-                Case 25 To 49
-                    coords = World.GetNextPositionOnStreet(backward, False)
-                Case 50 To 74
+                Case 34 To 66
                     coords = World.GetNextPositionOnStreet(left, False)
-                Case 75 To 100
+                Case 67 To 100
                     coords = World.GetNextPositionOnStreet(right, False)
             End Select
 
             Dim closestVehicleNodeCoords As Vector3 = Vector3.Zero
-            Dim roadHeading As Single
+            Dim roadHeading As Single = 0F
             Dim tempCoords, tempRoadHeading As New OutputArgument
 
             Native.Function.Call(Of Vector3)(Hash.GET_CLOSEST_VEHICLE_NODE_WITH_HEADING, coords.X, coords.Y, coords.Z, tempCoords, tempRoadHeading, roadType, 3.0F, 0)
@@ -354,6 +456,12 @@ Module Helper
                     driver = World.CreatePed(PedHash.Cop01SMY, veh.Position)
                     driver.Task.WarpIntoVehicle(veh, VehicleSeat.Driver)
                     driver.SetAsCop
+                    driver.Weapons.Give(WeaponHash.Pistol, 9999, True, True)
+                    driver.Weapons.Give(WeaponHash.PumpShotgun, 9999, False, True)
+                    driver.Weapons.Give(WeaponHash.CarbineRifle, 9999, False, True)
+                    driver.Weapons.Give(WeaponHash.MicroSMG, 9999, False, True)
+                    driver.Weapons.Give(WeaponHash.AssaultShotgun, 9999, False, True)
+                    driver.Armor = 100
                 End If
                 driver.SetPedIsSpawnByMod
                 driver.IsPersistent = False
@@ -398,6 +506,76 @@ Module Helper
         End If
     End Sub
 
+    Public Sub SpawnParkedVehicle()
+        rdVehicle = New Random
+        Dim modelString As String = GetPlayerZoneVehicleList(rdVehicle.Next(0, GetPlayerZoneVehicleList.Count))
+        Dim model As Model = New Model(modelString)
+        model.Request(250)
+        If model.IsInCdImage AndAlso model.IsValid Then
+            While Not model.IsLoaded
+                Script.Wait(50)
+            End While
+
+            Dim forward As Vector3 = Game.Player.Character.Position + (Game.Player.Character.ForwardVector * spawnDistance)
+            Dim left As Vector3 = Game.Player.Character.Position - (Game.Player.Character.RightVector * spawnDistance)
+            Dim right As Vector3 = Game.Player.Character.Position + (Game.Player.Character.RightVector * spawnDistance)
+            Dim coords As Vector3
+
+            Dim head = Game.Player.Character.Heading
+            rdSpawn = New Random()
+            Select Case rdSpawn.Next(0, 100)
+                Case 0 To 33
+                    coords = GetPointOnRoadSide(forward)
+                Case 34 To 66
+                    coords = GetPointOnRoadSide(left)
+                Case 67 To 100
+                    coords = GetPointOnRoadSide(right)
+            End Select
+
+            Dim veh As Vehicle = World.CreateVehicle(model, coords, coords.GetCorrectRoadCoords(roadType).Angle)
+            Try
+                veh.Position = (veh.Position + veh.RightVector * 3)
+            Catch ex As Exception
+                If Not veh = Nothing Then veh.Delete()
+                SpawnParkedVehicle()
+                Exit Sub
+            End Try
+
+            veh.EngineRunning = False
+            veh.IsPersistent = False
+            veh.HasAlarm = True
+            veh.LockStatus = VehicleLockStatus.CanBeBrokenInto
+            veh.NeedsToBeHotwired = True
+            veh.SetVehicleIsSpawnByMod
+            If Not randomizeColor Then veh.PaintVehicle
+            If enableUpgrade Then
+                rdMod = New Random
+                Dim chance As Integer = rdMod.Next(0, 100)
+                If chance >= 0 AndAlso chance <= upgradeChance Then
+                    Dim fullOrRandom As Integer = rdMod.Next(0, 100)
+                    Select Case fullOrRandom
+                        Case 0 To 50
+                            veh.FullyUpgradeVehicle
+                        Case Else
+                            veh.RandomlyUpgradeVehicle
+                    End Select
+                End If
+            End If
+            If showBlip Then
+                veh.AddBlip()
+                veh.CurrentBlip.Color = BlipColor.Green2
+                veh.CurrentBlip.Name = If(veh.FriendlyName = "NULL", veh.DisplayName, veh.FriendlyName)
+            End If
+            If notify Then UI.Notify($"~g~{If(veh.FriendlyName = "NULL", veh.DisplayName, veh.FriendlyName)}~w~ is spawned at {World.GetStreetName(veh.Position)}.")
+            model.MarkAsNoLongerNeeded()
+            veh.MarkAsNoLongerNeeded()
+        Else
+            UI.Notify($"{modelString} is not a valid model.")
+            SpawnParkedVehicle()
+            Exit Sub
+        End If
+    End Sub
+
     Public Function GetPlayerZone() As String
         Dim pos As Vector3 = Game.Player.Character.Position
         Return Native.Function.Call(Of String)(Hash.GET_NAME_OF_ZONE, pos.X, pos.Y, pos.Z)
@@ -405,12 +583,14 @@ Module Helper
 
     <Extension>
     Public Sub FullyUpgradeVehicle(veh As Vehicle)
+        rdWheel = New Random
+
         veh.InstallModKit()
         veh.SetMod(43, veh.GetModCount(43) - 1, True)
         veh.SetMod(40, veh.GetModCount(40) - 1, True)
         veh.SetMod(42, veh.GetModCount(42) - 1, True)
         veh.SetMod(16, veh.GetModCount(16) - 1, True)
-        veh.SetMod(24, veh.GetModCount(24) - 1, True)
+        veh.SetMod(24, rdWheel.Next(-1, veh.GetModCount(24) - 1), CBool(rdWheel.Next(0, 2) > 0))
         veh.SetMod(12, veh.GetModCount(12) - 1, True)
         veh.SetMod(34, veh.GetModCount(34) - 1, True)
         veh.SetMod(29, veh.GetModCount(29) - 1, True)
@@ -422,7 +602,7 @@ Module Helper
         veh.SetMod(8, veh.GetModCount(8) - 1, True)
         veh.SetMod(5, veh.GetModCount(5) - 1, True)
         veh.SetMod(1, veh.GetModCount(1) - 1, True)
-        veh.SetMod(23, veh.GetModCount(23) - 1, True)
+        veh.SetMod(23, rdWheel.Next(-1, veh.GetModCount(23) - 1), CBool(rdWheel.Next(0, 2) > 0))
         veh.SetMod(6, veh.GetModCount(6) - 1, True)
         veh.SetMod(7, veh.GetModCount(7) - 1, True)
         veh.SetMod(14, veh.GetModCount(14) - 1, True)
@@ -594,7 +774,7 @@ Module Helper
         Select Case zone
             Case "PBOX", "SKID", "TEXTI", "LEGSQU", "DOWNT"
                 Return eZone.Downtown
-            Case "DTVINE", "EAST_V", "MIRR", "HORS", "WVINE", "ALTA", "HAWICK", "VINE"
+            Case "DTVINE", "EAST_V", "MIRR", "HORS", "WVINE", "ALTA", "HAWICK", "VINE", "RICHM", "GOLF", "ROCKF", "CHIL", "RGLEN"
                 Return eZone.Vinewood
             Case "DAVIS", "STRAW", "CHAMH", "RANCHO"
                 Return eZone.SouthLosSantos
@@ -604,7 +784,7 @@ Module Helper
                 Return eZone.EastLosSantos
             Case "VESP", "BEACH", "VCANA", "DELSOL"
                 Return eZone.Vespucci
-            Case "DELBE", "DELPE", "LOSPUER", "STAD", "KOREAT", "AIRP", "MORN", "PBLUFF", "RICHM", "GOLF", "ROCKF", "CHIL", "RGLEN", "BHAMCA", "CHU", "TONGVAH", "TONGVAV", "GREATC", "TATAMO", "LDAM",
+            Case "DELBE", "DELPE", "LOSPUER", "STAD", "KOREAT", "AIRP", "MORN", "PBLUFF", "BHAMCA", "CHU", "TONGVAH", "TONGVAV", "GREATC", "TATAMO", "LDAM",
                  "LACT", "PALHIGH", "NOOSE", "MOVIE"
                 Return eZone.LosSantos
             Case "DESRT", "JAIL", "RTRAK"
@@ -638,7 +818,7 @@ Module Helper
         Select Case zone
             Case "PBOX", "SKID", "TEXTI", "LEGSQU", "DOWNT"
                 Return vehicles.Downtown
-            Case "DTVINE", "EAST_V", "MIRR", "HORS", "WVINE", "ALTA", "HAWICK", "VINE"
+            Case "DTVINE", "EAST_V", "MIRR", "HORS", "WVINE", "ALTA", "HAWICK", "VINE", "RICHM", "GOLF", "ROCKF", "CHIL", "RGLEN"
                 Return vehicles.Vinewood
             Case "DAVIS", "STRAW", "CHAMH", "RANCHO"
                 Return vehicles.SouthLosSantos
@@ -648,7 +828,7 @@ Module Helper
                 Return vehicles.EastLosSantos
             Case "VESP", "BEACH", "VCANA", "DELSOL"
                 Return vehicles.Vespucci
-            Case "DELBE", "DELPE", "LOSPUER", "STAD", "KOREAT", "AIRP", "MORN", "PBLUFF", "RICHM", "GOLF", "ROCKF", "CHIL", "RGLEN", "BHAMCA", "CHU", "TONGVAH", "TONGVAV", "GREATC", "TATAMO", "LDAM",
+            Case "DELBE", "DELPE", "LOSPUER", "STAD", "KOREAT", "AIRP", "MORN", "PBLUFF", "BHAMCA", "CHU", "TONGVAH", "TONGVAV", "GREATC", "TATAMO", "LDAM",
                  "LACT", "PALHIGH", "NOOSE", "MOVIE"
                 Return vehicles.LosSantos
             Case "DESRT", "JAIL", "RTRAK"
@@ -676,6 +856,40 @@ Module Helper
             Case Else
                 Return waitTime.Night
         End Select
+    End Function
+
+    <Extension>
+    Public Function GetRoadSidePointWithHeading(pos As Vector3, head As Single) As Vector3
+        Dim out As New OutputArgument()
+        Native.Function.Call(Of Boolean)(&HA0F8A7517A273C05UL, pos.X, pos.Y, pos.Z, head, out)
+        Return out.GetResult(Of Vector3)()
+    End Function
+
+    <Extension>
+    Public Function GetPointOnRoadSide(pos As Vector3) As Vector3
+        Dim out As New OutputArgument()
+        Native.Function.Call(Of Boolean)(&H16F46FB18C8009E4, pos.X, pos.Y, pos.Z, -1, out)
+        Return out.GetResult(Of Vector3)()
+    End Function
+
+    <Extension>
+    Public Function GetCorrectRoadCoords(coords As Vector3, roadtype As eNodeType) As Quaternion
+        Dim closestVehicleNodeCoords As Vector3 = Vector3.Zero
+        Dim roadHeading As Single = 0F
+        Dim tempCoords, tempRoadHeading As New OutputArgument
+
+        Native.Function.Call(Of Vector3)(Hash.GET_CLOSEST_VEHICLE_NODE_WITH_HEADING, coords.X, coords.Y, coords.Z, tempCoords, tempRoadHeading, roadtype, 3.0F, 0)
+        closestVehicleNodeCoords = tempCoords.GetResult(Of Vector3)
+        roadHeading = tempRoadHeading.GetResult(Of Single)
+        Return New Quaternion(closestVehicleNodeCoords, roadHeading)
+    End Function
+
+    <Extension>
+    Public Function FindSpawnPointInDirection(pos As Vector3) As Vector3
+        Dim out As New OutputArgument()
+        Dim rot = Game.Player.Character.Rotation
+        Native.Function.Call(Of Boolean)(Hash.FIND_SPAWN_POINT_IN_DIRECTION, pos.X, pos.Y, pos.Z, rot.X, rot.Y, rot.Z, spawnDistance, out)
+        Return out.GetResult(Of Vector3)()
     End Function
 
 End Module
