@@ -34,3 +34,4 @@ E:\Users\Bartholomew\Documents\GitHub\AddedTraffic-Mod\DLC Traffic Spawner\obj\R
 E:\Users\Bartholomew\Documents\GitHub\AddedTraffic-Mod\DLC Traffic Spawner\obj\Release\AddedTraffic.dll
 E:\Users\Bartholomew\Documents\GitHub\AddedTraffic-Mod\DLC Traffic Spawner\obj\Release\AddedTraffic.xml
 E:\Users\Bartholomew\Documents\GitHub\AddedTraffic-Mod\DLC Traffic Spawner\obj\Release\AddedTraffic.pdb
+E:\Users\Bartholomew\Documents\GitHub\AddedTraffic-Mod\DLC Traffic Spawner\obj\Release\AddedTraffic.vbprojResolveAssemblyReference.cache

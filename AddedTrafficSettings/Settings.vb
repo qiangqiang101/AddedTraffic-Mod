@@ -1,7 +1,5 @@
 ﻿Imports System.IO
 Imports System.Xml.Serialization
-Imports GTA
-Imports GTA.Native
 
 Public Structure Settings
     Public ReadOnly Property Instance As Settings

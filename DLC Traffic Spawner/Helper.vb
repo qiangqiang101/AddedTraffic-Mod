@@ -18,6 +18,7 @@ Module Helper
 
     'Settings
     Public config As Settings = New Settings(".\scripts\AddedTraffic.xml").Instance
+    Public parking As Parking = New Parking(".\scripts\AddedTrafficParking.xml").Instance
     Public waitTime As WaitTime = New WaitTime(15, 10, 15, 10, 5)
     Public cruiseSpeed As Single = 20.0F
     Public spawnDistance As Single = 150.0F
@@ -58,12 +59,17 @@ Module Helper
         For Each veh In vehicleSwaps
             If veh.Enable Then vehicleSwaps2.Add(New Model(veh.OldVehicle))
         Next
+        dumpVehList = parking.Coords
     End Sub
 
     Public Sub CreateConfig()
         If Not File.Exists(".\scripts\AddedTraffic.xml") Then
             config.FileName = ".\scripts\AddedTraffic.xml"
             config.Save()
+        End If
+        If Not File.Exists(".\scripts\AddedTrafficParking.xml") Then
+            Parking.FileName = ".\scripts\AddedTrafficParking.xml"
+            Parking.Save()
         End If
     End Sub
 
@@ -881,10 +887,10 @@ Module Helper
     End Function
 
     <Extension>
-    Public Function GetRoadSidePointWithHeading(pos As Vector3) As Quaternion
+    Public Function GetRoadSidePointWithHeading(pos As Vector3) As Vector4
         Dim outV, outH As New OutputArgument()
         Native.Function.Call(Of Boolean)(&HA0F8A7517A273C05UL, pos.X, pos.Y, pos.Z, outH, outV)
-        Return New Quaternion(outV.GetResult(Of Vector3)(), outH.GetResult(Of Single)())
+        Return New Vector4(outV.GetResult(Of Vector3)(), outH.GetResult(Of Single)())
     End Function
 
     <Extension>
@@ -895,7 +901,7 @@ Module Helper
     End Function
 
     <Extension>
-    Public Function GetCorrectRoadCoords(coords As Vector3, roadtype As eNodeType) As Quaternion
+    Public Function GetCorrectRoadCoords(coords As Vector3, roadtype As eNodeType) As Vector4
         Dim closestVehicleNodeCoords As Vector3 = Vector3.Zero
         Dim roadHeading As Single = 0F
         Dim tempCoords, tempRoadHeading As New OutputArgument
@@ -903,7 +909,7 @@ Module Helper
         Native.Function.Call(Of Vector3)(Hash.GET_CLOSEST_VEHICLE_NODE_WITH_HEADING, coords.X, coords.Y, coords.Z, tempCoords, tempRoadHeading, roadtype, 3.0F, 0)
         closestVehicleNodeCoords = tempCoords.GetResult(Of Vector3)
         roadHeading = tempRoadHeading.GetResult(Of Single)
-        Return New Quaternion(closestVehicleNodeCoords, roadHeading)
+        Return New Vector4(closestVehicleNodeCoords, roadHeading)
     End Function
 
     <Extension>
@@ -915,10 +921,10 @@ Module Helper
     End Function
 
     <Extension>
-    Public Function GetNextPositionOnStreetWithHeading(pos As Vector3) As Quaternion
+    Public Function GetNextPositionOnStreetWithHeading(pos As Vector3) As Vector4
         Dim outV, outH, outU As New OutputArgument()
         Native.Function.Call(Of Boolean)(Hash.GET_NTH_CLOSEST_VEHICLE_NODE_WITH_HEADING, pos.X, pos.Y, pos.Z, 1, outV, outH, outU, 9, 3.0F, 2.5F)
-        Return New Quaternion(outV.GetResult(Of Vector3)(), outH.GetResult(Of Single)())
+        Return New Vector4(outV.GetResult(Of Vector3)(), outH.GetResult(Of Single)())
     End Function
 
     <Extension>
@@ -937,5 +943,16 @@ Module Helper
         Native.Function.Call(Of Boolean)(Hash.GET_VEHICLE_NODE_PROPERTIES, pos.X, pos.Y, pos.Z, outD, outF)
         Return New Tuple(Of Integer, Integer)(outD.GetResult(Of Integer)(), outF.GetResult(Of Integer)())
     End Function
+
+    Public dumpVehList As New List(Of Vector4)
+    Public Sub DumpAllParkedVehicleOnMapVectorToListToXml()
+        Dim allVeh = (From v In World.GetAllVehicles Where Not v.EngineRunning And Not v.IsPersistent And Not v.Model.IsBoat And Not v.Model.IsHelicopter And Not v.Model.IsPlane And
+                      Not v.Model.IsTrain And v.IsSeatFree(VehicleSeat.Driver) And v.IsStopped Select v)
+
+        For Each veh As Vehicle In allVeh
+            Dim toAdd As New Vector4(veh.Position, veh.Heading)
+            If Not dumpVehList.Contains(toAdd) Then dumpVehList.Add(toAdd)
+        Next
+    End Sub
 
 End Module

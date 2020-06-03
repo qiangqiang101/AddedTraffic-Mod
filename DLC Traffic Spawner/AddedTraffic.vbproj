@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helper.vb" />
+    <Compile Include="Parking.vb" />
     <Compile Include="Settings.vb" />
     <Compile Include="Traffic.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -110,8 +111,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>
-    <PostBuildEvent>COPY "$(TargetDir)$(TargetFileName)" "D:\Program Files (x86)\Steam\SteamApps\common\Grand Theft Auto V\scripts"
-COPY "$(TargetDir)$(TargetName).pdb" "D:\Program Files (x86)\Steam\SteamApps\common\Grand Theft Auto V\scripts"</PostBuildEvent>
+    <PostBuildEvent>COPY "$(TargetDir)$(TargetFileName)" "E:\Program Files (x86)\Steam\SteamApps\common\Grand Theft Auto V\scripts"
+COPY "$(TargetDir)$(TargetName).pdb" "E:\Program Files (x86)\Steam\SteamApps\common\Grand Theft Auto V\scripts"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
