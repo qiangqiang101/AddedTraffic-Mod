@@ -31,9 +31,11 @@ Public Class Traffic
         If Game.Player.Character.IsInVehicle Then
             Dim v = Game.Player.Character.LastVehicle
             Dim t = GetVehicleNodeProperties(v.Position)
-            UI.ShowSubtitle($"Street: {World.GetStreetName(v.Position)}   Density: {t.Item1}   Flag: {t.Item2}")
+            Dim r = IsOnRoad(v)
+            Dim str = $"Street: {World.GetStreetName(v.Position)}   Density: {t.Item1}   Flag: {t.Item2}   On Road: {r}"
+            Dim uit = New UIText(str, New Drawing.Point(1, 1), 0.3F, Drawing.Color.White, Font.ChaletLondon, False, True, True)
+            uit.Draw()
         End If
-
 
         If Not vehicleSwaps.Count = 0 Then
             If (Now - XianZai).TotalSeconds > GetCurrentWaitTime() AndAlso Not Game.IsLoading AndAlso Not Game.IsPaused Then

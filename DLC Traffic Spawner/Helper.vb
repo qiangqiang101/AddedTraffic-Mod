@@ -555,7 +555,10 @@ Module Helper
                 Exit Sub
             End If
 
-            Dim veh As Vehicle = World.CreateVehicle(model, closestVehicleNodeCoords, roadHeading)
+            Dim roadside = GetPointOnRoadSide(closestVehicleNodeCoords)
+
+            Dim veh As Vehicle = World.CreateVehicle(model, roadside, roadHeading)
+            veh.Position -= veh.RightVector * 3
             While veh.IsOnRoad
                 veh.Position += veh.RightVector * 2
             End While

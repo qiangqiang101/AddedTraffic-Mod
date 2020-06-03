@@ -35,6 +35,7 @@ Partial Class frmSettings
         Dim ListViewGroup10 As System.Windows.Forms.ListViewGroup = New System.Windows.Forms.ListViewGroup("Blaine County", System.Windows.Forms.HorizontalAlignment.Left)
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSettings))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.cbParked = New System.Windows.Forms.CheckBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.cmbRoadType = New System.Windows.Forms.ComboBox()
         Me.Label8 = New System.Windows.Forms.Label()
@@ -112,7 +113,6 @@ Partial Class frmSettings
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.llblWeb = New System.Windows.Forms.LinkLabel()
-        Me.cbParked = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         CType(Me.nudSpawnDistance, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.nudCruiseSpeed, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -156,6 +156,16 @@ Partial Class frmSettings
         Me.GroupBox1.TabIndex = 2
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "General"
+        '
+        'cbParked
+        '
+        Me.cbParked.AutoSize = True
+        Me.cbParked.Location = New System.Drawing.Point(6, 80)
+        Me.cbParked.Name = "cbParked"
+        Me.cbParked.Size = New System.Drawing.Size(179, 19)
+        Me.cbParked.TabIndex = 5
+        Me.cbParked.Text = "Spawn Parked Vehicles (Beta)"
+        Me.cbParked.UseVisualStyleBackColor = True
         '
         'Label10
         '
@@ -887,16 +897,6 @@ Partial Class frmSettings
         Me.llblWeb.TabStop = True
         Me.llblWeb.Text = "www.imnotmental.com"
         Me.llblWeb.VisitedLinkColor = System.Drawing.Color.DodgerBlue
-        '
-        'cbParked
-        '
-        Me.cbParked.AutoSize = True
-        Me.cbParked.Location = New System.Drawing.Point(6, 80)
-        Me.cbParked.Name = "cbParked"
-        Me.cbParked.Size = New System.Drawing.Size(360, 19)
-        Me.cbParked.TabIndex = 5
-        Me.cbParked.Text = "Spawn Parked Vehicles (Experimental, Might cause game crash)"
-        Me.cbParked.UseVisualStyleBackColor = True
         '
         'frmSettings
         '
