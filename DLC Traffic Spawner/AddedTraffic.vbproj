@@ -70,8 +70,8 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CarGens.vb" />
     <Compile Include="Helper.vb" />
-    <Compile Include="Parking.vb" />
     <Compile Include="Settings.vb" />
     <Compile Include="Traffic.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -89,6 +89,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Vector4.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

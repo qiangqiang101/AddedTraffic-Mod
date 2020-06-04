@@ -219,7 +219,6 @@ Public Class frmSettings
             nudSpawnDistance.Value = settings.SpawnDistance
             cmbDrivingStyle.Text = settings.DrivingStyle
             cmbRoadType.Text = settings.RoadType
-            cbParked.Checked = settings.SpawnParkedVehicle
 
             cbNotify.Checked = settings.Notify
             cbBlip.Checked = settings.ShowBlip
@@ -344,7 +343,6 @@ Public Class frmSettings
                 nudSpawnDistance.Value = settings.SpawnDistance
                 cmbDrivingStyle.Text = settings.DrivingStyle
                 cmbRoadType.Text = settings.RoadType
-                cbParked.Checked = settings.SpawnParkedVehicle
 
                 cbNotify.Checked = settings.Notify
                 cbBlip.Checked = settings.ShowBlip
@@ -472,7 +470,6 @@ Public Class frmSettings
             .UpgradeChance = nudUpgradeChance.Value
             .SwapChance = nudSwapChance.Value
             .SwapDistance = nudSwapDistance.Value
-            .SpawnParkedVehicle = cbParked.Checked
 
             Dim mSwap As New List(Of VehicleSwap)
             For Each item As ListViewItem In lvVehicleSwap.Items
@@ -581,4 +578,5 @@ Paleto Cove, Paleto Bay, Paleto Forest, Procopio Beach, Harmony, Sandy Shores, M
 
         MsgBox(helpText, MsgBoxStyle.Question, "Help")
     End Sub
+
 End Class

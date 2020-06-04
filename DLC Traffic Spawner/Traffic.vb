@@ -17,46 +17,37 @@ Public Class Traffic
             Decor.Lock()
         End If
 
-        'If Not GetPlayerZoneVehicleList.Count = 0 Then
-        '    If (Now - Sekarang).TotalSeconds > GetCurrentWaitTime() AndAlso Not Game.IsLoading AndAlso Not Game.IsPaused Then
-        '        SpawnVehicle()
-        '        If spawnParkVehicle Then SpawnParkedVehicle() Else SpawnVehicle()
-        '        Sekarang = Now
-        '    End If
+        If Not GetPlayerZoneVehicleList.Count = 0 Then
+            If (Now - Sekarang).TotalSeconds > GetCurrentWaitTime() AndAlso Not Game.IsLoading AndAlso Not Game.IsPaused Then
+                SpawnVehicle()
+                SpawnParkedVehicle()
+                Sekarang = Now
+            End If
 
-        '    'World.GetAllVehicles.ClearVehicles
-        '    'World.GetAllPeds.ClearPeds
-        'End If
-
-        If Game.Player.Character.IsInVehicle Then
-            Dim v = Game.Player.Character.LastVehicle
-            Dim t = GetVehicleNodeProperties(v.Position)
-            Dim r = IsOnRoad(v)
-            Dim p = v.Position
-            Dim str = $"Street: {World.GetStreetName(v.Position)}   Density: {t.Item1}   Flag: {t.Item2}   On Road: {r}   Position: x {p.X}, y {p.Y}, z {p.Z}"
-            Dim uit = New UIText(str, New Drawing.Point(1, 1), 0.3F, Drawing.Color.White, Font.ChaletLondon, False, True, True)
-            uit.Draw()
+            'World.GetAllVehicles.ClearVehicles
+            'World.GetAllPeds.ClearPeds
         End If
 
-        DumpAllParkedVehicleOnMapVectorToListToXml()
-
-        If Game.IsControlJustReleased(0, Control.VehicleDuck) Then
-            If dumpVehList.Count <> 0 Then
-                Dim newParking As New Parking(".\scripts\AddedTrafficParking.xml")
-                With newParking
-                    .Coords = dumpVehList
-                End With
-                newParking.Save()
+        If notify AndAlso showBlip Then
+            If Game.Player.Character.IsInVehicle Then
+                Dim sz = GetSafeZoneSize()
+                Dim v = Game.Player.Character.LastVehicle
+                Dim t = GetVehicleNodeProperties(v.Position)
+                Dim r = IsOnRoad(v)
+                Dim p = v.Position
+                Dim str = $"Street: {World.GetStreetName(v.Position)}   Density: {t.Item1}   Flag: {t.Item2}   On Road: {r}   Position: x {p.X}, y {p.Y}, z {p.Z}"
+                Dim uit = New UIText(str, sz, 0.4F, Drawing.Color.White, Font.ChaletLondon, False, True, True)
+                uit.Draw()
             End If
         End If
 
-        'If Not vehicleSwaps.Count = 0 Then
-        '    If (Now - XianZai).TotalSeconds > GetCurrentWaitTime() AndAlso Not Game.IsLoading AndAlso Not Game.IsPaused Then
-        '        SwapVehicleHaveDriver()
-        '        SwapParkedVehicle()
-        '        XianZai = Now
-        '    End If
-        'End If
+        If Not vehicleSwaps.Count = 0 Then
+            If (Now - XianZai).TotalSeconds > GetCurrentWaitTime() AndAlso Not Game.IsLoading AndAlso Not Game.IsPaused Then
+                SwapVehicleHaveDriver()
+                SwapParkedVehicle()
+                XianZai = Now
+            End If
+        End If
 
         If File.GetLastWriteTime(".\scripts\AddedTraffic.xml") <> XMLFileDate Then
             UI.Notify($"Added Traffic settings refreshed.")

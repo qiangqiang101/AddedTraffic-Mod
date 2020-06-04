@@ -18,7 +18,6 @@ Module Helper
 
     'Settings
     Public config As Settings = New Settings(".\scripts\AddedTraffic.xml").Instance
-    Public parking As Parking = New Parking(".\scripts\AddedTrafficParking.xml").Instance
     Public waitTime As WaitTime = New WaitTime(15, 10, 15, 10, 5)
     Public cruiseSpeed As Single = 20.0F
     Public spawnDistance As Single = 150.0F
@@ -31,7 +30,6 @@ Module Helper
     Public swapDistance As Single = 100.0F
     Public notify As Boolean = True
     Public showBlip As Boolean = True
-    Public spawnParkVehicle As Boolean = False
     Public roadType As eNodeType = eNodeType.AsphaltRoad
     Public vehicles As Vehicles
     Public vehicleSwaps As New List(Of VehicleSwap)
@@ -51,7 +49,6 @@ Module Helper
         swapDistance = config.SwapDistance
         notify = config.Notify
         showBlip = config.ShowBlip
-        spawnParkVehicle = config.SpawnParkedVehicle
         roadType = config.RoadType
         vehicles = config.Vehicles
         vehicleSwaps = config.VehicleSwaps
@@ -59,17 +56,12 @@ Module Helper
         For Each veh In vehicleSwaps
             If veh.Enable Then vehicleSwaps2.Add(New Model(veh.OldVehicle))
         Next
-        dumpVehList = parking.Coords
     End Sub
 
     Public Sub CreateConfig()
         If Not File.Exists(".\scripts\AddedTraffic.xml") Then
             config.FileName = ".\scripts\AddedTraffic.xml"
             config.Save()
-        End If
-        If Not File.Exists(".\scripts\AddedTrafficParking.xml") Then
-            Parking.FileName = ".\scripts\AddedTrafficParking.xml"
-            Parking.Save()
         End If
     End Sub
 
@@ -224,8 +216,6 @@ Module Helper
                         newveh.MarkAsNoLongerNeeded()
                     Else
                         UI.Notify($"{modelString} is not a valid model.")
-                        SwapVehicleHaveDriverOffScreen()
-                        Exit Sub
                     End If
                 Else
                     veh.SetVehicleIsSpawnByMod
@@ -324,8 +314,6 @@ Module Helper
                         newveh.MarkAsNoLongerNeeded()
                     Else
                         UI.Notify($"{modelString} is not a valid model.")
-                        SwapVehicleHaveDriver()
-                        Exit Sub
                     End If
                 Else
                     veh.SetVehicleIsSpawnByMod
@@ -401,7 +389,7 @@ Module Helper
                         End If
                         If showBlip Then
                             newveh.AddBlip()
-                            newveh.CurrentBlip.Color = BlipColor.YellowDark
+                            newveh.CurrentBlip.Color = BlipColor.Yellow
                             newveh.CurrentBlip.Name = If(newveh.FriendlyName = "NULL", newveh.DisplayName, newveh.FriendlyName)
                         End If
                         If notify Then UI.Notify($"~b~{vehFriendlyName}~w~ is swapped with ~y~{If(newveh.FriendlyName = "NULL", newveh.DisplayName, newveh.FriendlyName)}(P)~w~ at {World.GetStreetName(veh.Position)}.")
@@ -409,8 +397,6 @@ Module Helper
                         newveh.MarkAsNoLongerNeeded()
                     Else
                         UI.Notify($"{modelString} is not a valid model.")
-                        SwapParkedVehicle()
-                        Exit Sub
                     End If
                 Else
                     veh.SetVehicleIsSpawnByMod
@@ -511,8 +497,6 @@ Module Helper
             driver.MarkAsNoLongerNeeded()
         Else
             UI.Notify($"{modelString} is not a valid model.")
-            SpawnVehicle()
-            Exit Sub
         End If
     End Sub
 
@@ -541,33 +525,21 @@ Module Helper
                     coords = World.GetNextPositionOnStreet(right, True)
             End Select
 
-            Dim closestVehicleNodeCoords As Vector3 = Vector3.Zero
-            Dim roadHeading As Single = 0F
-            Dim tempCoords, tempRoadHeading As New OutputArgument
+            Dim parkingSpotPos = coords.GetNearestParkingSpot
 
-            Native.Function.Call(Of Vector3)(Hash.GET_CLOSEST_VEHICLE_NODE_WITH_HEADING, coords.X, coords.Y, coords.Z, tempCoords, tempRoadHeading, roadType, 3.0F, 0)
-            closestVehicleNodeCoords = tempCoords.GetResult(Of Vector3)
-            roadHeading = tempRoadHeading.GetResult(Of Single)
-
-            If closestVehicleNodeCoords.DistanceTo(Game.Player.Character.Position) < (spawnDistance / 2) Then
+            If parkingSpotPos.Vector3.IsPositionOccupied(5.0F) Then
                 model.MarkAsNoLongerNeeded()
                 SpawnVehicle()
                 Exit Sub
             End If
 
-            If closestVehicleNodeCoords.GetVehicleNodeProperties.Item2 > 2 Then
+            If parkingSpotPos.Vector3.DistanceTo(Game.Player.Character.Position) < (spawnDistance / 2) Then
                 model.MarkAsNoLongerNeeded()
                 SpawnVehicle()
                 Exit Sub
             End If
 
-            Dim roadside = GetPointOnRoadSide(closestVehicleNodeCoords)
-
-            Dim veh As Vehicle = World.CreateVehicle(model, roadside, roadHeading)
-            veh.Position -= veh.RightVector * 3
-            While veh.IsOnRoad
-                veh.Position += veh.RightVector * 2
-            End While
+            Dim veh As Vehicle = World.CreateVehicle(model, parkingSpotPos.Vector3, parkingSpotPos.Vector2.ToHeading)
 
             veh.EngineRunning = False
             veh.IsPersistent = False
@@ -591,7 +563,7 @@ Module Helper
             End If
             If showBlip Then
                 veh.AddBlip()
-                veh.CurrentBlip.Color = BlipColor.GreenDark
+                veh.CurrentBlip.Color = BlipColor.Green
                 veh.CurrentBlip.Name = If(veh.FriendlyName = "NULL", veh.DisplayName, veh.FriendlyName)
             End If
             If notify Then UI.Notify($"~g~{If(veh.FriendlyName = "NULL", veh.DisplayName, veh.FriendlyName)}(P)~w~ is spawned at {World.GetStreetName(veh.Position)}.")
@@ -599,8 +571,6 @@ Module Helper
             veh.MarkAsNoLongerNeeded()
         Else
             UI.Notify($"{modelString} is not a valid model.")
-            SpawnParkedVehicle()
-            Exit Sub
         End If
     End Sub
 
@@ -944,15 +914,28 @@ Module Helper
         Return New Tuple(Of Integer, Integer)(outD.GetResult(Of Integer)(), outF.GetResult(Of Integer)())
     End Function
 
-    Public dumpVehList As New List(Of Vector4)
-    Public Sub DumpAllParkedVehicleOnMapVectorToListToXml()
-        Dim allVeh = (From v In World.GetAllVehicles Where Not v.EngineRunning And Not v.IsPersistent And Not v.Model.IsBoat And Not v.Model.IsHelicopter And Not v.Model.IsPlane And
-                      Not v.Model.IsTrain And v.IsSeatFree(VehicleSeat.Driver) And v.IsStopped Select v)
+    Public Function GetSafeZoneSize() As Point
+        Dim t As Single = Native.Function.Call(Of Single)(Hash.GET_SAFE_ZONE_SIZE)
+        Dim g As Double = System.Math.Round(CDbl(t), 2)
+        g = (g * 100) - 90
+        g = 10 - g
 
-        For Each veh As Vehicle In allVeh
-            Dim toAdd As New Vector4(veh.Position, veh.Heading)
-            If Not dumpVehList.Contains(toAdd) Then dumpVehList.Add(toAdd)
-        Next
-    End Sub
+        Dim sw = Game.ScreenResolution.Width
+        Dim sh = Game.ScreenResolution.Height
+
+        Dim r = CSng(sw / sh)
+        Dim wmp = r * 5.4F
+        Return New Point(CInt(System.Math.Round(g * wmp)), CInt(System.Math.Round(g * 5.4F)))
+    End Function
+
+    <Extension>
+    Public Function GetNearestParkingSpot(pos As Vector3) As Vector5
+        Return ParkingSpots.OrderBy(Function(x) System.Math.Abs(x.Vector3.DistanceTo(pos))).First
+    End Function
+
+    <Extension>
+    Public Function IsPositionOccupied(pos As Vector3, range As Single) As Boolean
+        Return Native.Function.Call(Of Boolean)(Hash.IS_POSITION_OCCUPIED, pos.X, pos.Y, pos.Z, range, False, True, False, False, False, 0, False)
+    End Function
 
 End Module
