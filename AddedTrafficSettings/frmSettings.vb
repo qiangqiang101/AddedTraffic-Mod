@@ -227,6 +227,7 @@ Public Class frmSettings
             cbRdWheels.Checked = settings.RandomizeWheels
             cbRdColor.Checked = settings.RandomizeColor
             nudUpgradeChance.Value = settings.UpgradeChance
+            cbNeon.Checked = settings.EnableNeonUpgrade
 
             nudSwapChance.Value = settings.SwapChance
             nudSwapDistance.Value = settings.SwapDistance
@@ -351,6 +352,7 @@ Public Class frmSettings
                 cbRdWheels.Checked = settings.RandomizeWheels
                 cbRdColor.Checked = settings.RandomizeColor
                 nudUpgradeChance.Value = settings.UpgradeChance
+                cbNeon.Checked = settings.EnableNeonUpgrade
 
                 nudSwapChance.Value = settings.SwapChance
                 nudSwapDistance.Value = settings.SwapDistance
@@ -470,6 +472,7 @@ Public Class frmSettings
             .UpgradeChance = nudUpgradeChance.Value
             .SwapChance = nudSwapChance.Value
             .SwapDistance = nudSwapDistance.Value
+            .EnableNeonUpgrade = cbNeon.Checked
 
             Dim mSwap As New List(Of VehicleSwap)
             For Each item As ListViewItem In lvVehicleSwap.Items

@@ -21,6 +21,10 @@ Settings:
 Run AddedTrafficSettings.exe to modify the xml file.
 
 Changelog:
+v2.2.1
+- Updated Global to support latest GTAV update.
+- Added option to disable neon upgrade.
+
 v2.2
 - Fixed Spawned police officers don't have weapon and armour.
 - Moved Richman, Richman Glen, Golf, Rockford Hills and Vinewood Hills from Los Santos Zone to Vinewood Zone.

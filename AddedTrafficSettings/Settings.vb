@@ -19,6 +19,7 @@ Public Structure Settings
     Public UpgradeChance As Integer
     Public RandomizeColor As Boolean
     Public RandomizeWheels As Boolean
+    Public EnableNeonUpgrade As Boolean
     Public SwapChance As Integer
     Public SwapDistance As Single
     Public Notify As Boolean
@@ -94,7 +95,7 @@ Public Structure Settings
         If Not File.Exists(FileName) Then
             Return New Settings(FileName) With {.WaitTime = New WaitTime(15, 10, 15, 10, 20), .CruiseSpeed = 20.0F, .SpawnDistance = 150.0F, .DrivingStyle = "Normal", .EnableUpgrade = True,
                                                 .UpgradeChance = 20, .RandomizeColor = True, .SwapChance = 100, .SwapDistance = 100.0F, .Notify = False, .ShowBlip = False, .RoadType = "AsphaltRoad",
-                                                .Vehicles = GenerateVehicleList(), .VehicleSwaps = GenerateVehicleSwapList(), .RandomizeWheels = True}
+                                                .Vehicles = GenerateVehicleList(), .VehicleSwaps = GenerateVehicleSwapList(), .RandomizeWheels = True, .EnableNeonUpgrade = True}
         End If
 
         Try
@@ -106,7 +107,7 @@ Public Structure Settings
         Catch ex As Exception
             Return New Settings(FileName) With {.WaitTime = New WaitTime(15, 10, 15, 10, 20), .CruiseSpeed = 20.0F, .SpawnDistance = 150.0F, .DrivingStyle = "Normal", .EnableUpgrade = True,
                                                 .UpgradeChance = 20, .RandomizeColor = True, .SwapChance = 100, .SwapDistance = 100.0F, .Notify = False, .ShowBlip = False, .RoadType = "AsphaltRoad",
-                                                .Vehicles = GenerateVehicleList(), .VehicleSwaps = GenerateVehicleSwapList(), .RandomizeWheels = True}
+                                                .Vehicles = GenerateVehicleList(), .VehicleSwaps = GenerateVehicleSwapList(), .RandomizeWheels = True, .EnableNeonUpgrade = True}
         End Try
     End Function
 
