@@ -17,18 +17,19 @@ Public Class Traffic
             Decor.Lock()
         End If
 
-        'If Not GetPlayerZoneVehicleList.Count = 0 Then
-        '    If (Now - Sekarang).TotalSeconds > GetCurrentWaitTime() AndAlso Not Game.IsLoading AndAlso Not Game.IsPaused Then
-        '        If Not GetPlayerZone() = "OCEANA" Then
-        '            SpawnVehicle()
-        '            If spawnParkedVehicles Then SpawnParkedVehicle()
-        '        End If
-        '        Sekarang = Now
-        '    End If
+        If Not GetPlayerZoneVehicleList.Count = 0 Then
+            If (Now - Sekarang).TotalSeconds > GetCurrentWaitTime() AndAlso Not Game.IsLoading AndAlso Not Game.IsPaused Then
+                If Not GetPlayerZone() = "OCEANA" Then SpawnVehicle()
+                If Not GetPlayerZone() = "HORS" Or GetPlayerZone() = "LDAM" Or GetPlayerZone() = "LACT" Or GetPlayerZone() = "MTJOSE" Or GetPlayerZone() = "CALAFB" Or
+                    GetPlayerZone() = "BRADP" Or GetPlayerZone() = "ELGORL" Or GetPlayerZone() = "BRADT" Or GetPlayerZone() = "OCEANA" Then
+                    If spawnParkedVehicles Then SpawnParkedVehicle()
+                End If
+                Sekarang = Now
+            End If
 
-        '    'World.GetAllVehicles.ClearVehicles
-        '    'World.GetAllPeds.ClearPeds
-        'End If
+            'World.GetAllVehicles.ClearVehicles
+            'World.GetAllPeds.ClearPeds
+        End If
 
         If notify AndAlso showBlip Then
             If Game.Player.Character.IsInVehicle Then
@@ -44,15 +45,15 @@ Public Class Traffic
             End If
         End If
 
-        'If Not vehicleSwaps.Count = 0 Then
-        '    If (Now - XianZai).TotalSeconds > GetCurrentWaitTime() AndAlso Not Game.IsLoading AndAlso Not Game.IsPaused Then
-        '        If Not GetPlayerZone() = "OCEANA" Then
-        '            SwapVehicleHaveDriver()
-        '            SwapParkedVehicle()
-        '        End If
-        '        XianZai = Now
-        '    End If
-        'End If
+        If Not vehicleSwaps.Count = 0 Then
+            If (Now - XianZai).TotalSeconds > GetCurrentWaitTime() AndAlso Not Game.IsLoading AndAlso Not Game.IsPaused Then
+                If Not GetPlayerZone() = "OCEANA" Then
+                    SwapVehicleHaveDriver()
+                    SwapParkedVehicle()
+                End If
+                XianZai = Now
+            End If
+        End If
 
         If File.GetLastWriteTime(".\scripts\AddedTraffic.xml") <> XMLFileDate Then
             UI.Notify($"Added Traffic settings refreshed.")

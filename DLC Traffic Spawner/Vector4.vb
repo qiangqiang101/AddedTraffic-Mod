@@ -22,4 +22,9 @@ Public Class Vector5
         Vector2 = v2
     End Sub
 
+    Public Shared Function Zero() As Vector5
+        Return New Vector5(Vector3.Zero, Vector2.Zero)
+    End Function
+
+
 End Class

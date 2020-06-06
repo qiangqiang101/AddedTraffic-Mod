@@ -1,13 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "AddedTraffic", "DLC Traffic Spawner\AddedTraffic.vbproj", "{7CFF8A62-ABEA-404D-A5F1-40D602B27651}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "AddedTrafficSettings", "AddedTrafficSettings\AddedTrafficSettings.vbproj", "{5D963BC9-B039-47A0-B5CC-96968BA27200}"
-EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SplitParking", "SplitParking\SplitParking.vbproj", "{64B9EF3E-31C2-412A-86B1-2819FF8B7D2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +21,6 @@ Global
 		{5D963BC9-B039-47A0-B5CC-96968BA27200}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D963BC9-B039-47A0-B5CC-96968BA27200}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D963BC9-B039-47A0-B5CC-96968BA27200}.Release|Any CPU.Build.0 = Release|Any CPU
-		{64B9EF3E-31C2-412A-86B1-2819FF8B7D2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{64B9EF3E-31C2-412A-86B1-2819FF8B7D2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{64B9EF3E-31C2-412A-86B1-2819FF8B7D2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{64B9EF3E-31C2-412A-86B1-2819FF8B7D2F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

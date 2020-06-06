@@ -417,6 +417,7 @@ Module Helper
             Try
                 veh.Position = (veh.Position + veh.RightVector * 3)
                 driver = veh.CreateRandomPedOnSeat(VehicleSeat.Driver)
+                If Not driver.IsHuman Then driver = veh.CreateRandomPedOnSeat(VehicleSeat.Driver)
                 If driver.IsInPoliceVehicle Then
                     driver = World.CreatePed(PedHash.Cop01SMY, veh.Position)
                     driver.Task.WarpIntoVehicle(veh, VehicleSeat.Driver)
@@ -495,6 +496,12 @@ Module Helper
             End Select
 
             Dim parkingSpotPos = coords.GetNearestParkingSpot
+
+            If parkingSpotPos Is Vector5.Zero Then
+                model.MarkAsNoLongerNeeded()
+                SpawnVehicle()
+                Exit Sub
+            End If
 
             If parkingSpotPos.Vector3.IsPositionOccupied(5.0F) Then
                 model.MarkAsNoLongerNeeded()
@@ -825,28 +832,160 @@ Module Helper
     Public Function GetParkingSpotByZone(pp As Vector3) As List(Of Vector5)
         Dim zone = Native.Function.Call(Of String)(Hash.GET_NAME_OF_ZONE, pp.X, pp.Y, pp.Z)
         Select Case zone
-            Case "PBOX", "SKID", "TEXTI", "LEGSQU", "DOWNT"
-                Return DowntownParkingSpots
-            Case "DTVINE", "EAST_V", "MIRR", "HORS", "WVINE", "ALTA", "HAWICK", "VINE", "RICHM", "golf", "ROCKF", "CHIL", "RGLEN", "OBSERV", "GALLI"
-                Return VinewoodParkingSpots
-            Case "DAVIS", "STRAW", "CHAMH", "RANCHO"
-                Return SouthLosSantosParkingSpots
-            Case "BANNING", "ELYSIAN", "TERMINA", "ZP_ORT"
-                Return PortOfSouthLosSantosParkingSpots
-            Case "LMESA", "CYPRE", "EBURO", "MURRI"
-                Return EastLosSantosParkingSpots
-            Case "VESP", "BEACH", "VCANA", "DELSOL"
-                Return VespucciParkingSpots
-            Case "DELBE", "DELPE", "LOSPUER", "STAD", "KOREAT", "AIRP", "MORN", "PBLUFF", "BHAMCA", "CHU", "TONGVAH", "TONGVAV", "GREATC", "TATAMO", "LDAM",
-                 "LACT", "PALHIGH", "NOOSE", "MOVIE", "SanAnd"
-                Return LosSantosParkingSpots
-            Case "DESRT", "JAIL", "RTRAK"
-                Return GrandSenoraDesertParkingSpots
-            Case "SANCHIA", "WINDF", "PALMPOW", "HUMLAB", "ZQ_UAR"
-                Return SanChainskiMountainRangeParkingRange
-            Case "PALETO", "PALFOR", "PALCOV", "PROCOB", "HARMO", "SANDY", "MTJOSE", "ZANCUDO", "SLAB", "LAGO", "ARMYB", "NCHU", "CANNY", "CCREAK", "CALAFB", "CMSW", "ALAMO", "GRAPES", "MTGORDO",
-                 "ELGORL", "BRADP", "MTCHIL", "GALFISH", "BRADT"
-                Return BlaineCountyParkingSpots
+            Case "DOWNT", "VINE"
+                Return DOWNT
+            Case "GALLI", "CHIL"
+                Return CHIL
+            Case "DESRT", "GREATC"
+                Return DESRT
+            Case "CMSW", "PALCOV"
+                Return CMSW
+            Case "PBOX"
+                Return PBOX
+            Case "SKID"
+                Return SKID
+            Case "TEXTI"
+                Return TEXTI
+            Case "LEGSQU"
+                Return LEGSQU
+            Case "CANNY"
+                Return CANNY
+            Case "DTVINE"
+                Return DTVINE
+            Case "EAST_V"
+                Return EAST_V
+            Case "MIRR"
+                Return MIRR
+            Case "WVINE"
+                Return WVINE
+            Case "ALTA"
+                Return ALTA
+            Case "HAWICK"
+                Return HAWICK
+            Case "RICHM"
+                Return RICHM
+            Case "golf"
+                Return golf
+            Case "ROCKF"
+                Return ROCKF
+            Case "CCREAK"
+                Return CCREAK
+            Case "RGLEN"
+                Return RGLEN
+            Case "OBSERV"
+                Return OBSERV
+            Case "DAVIS"
+                Return DAVIS
+            Case "STRAW"
+                Return STRAW
+            Case "CHAMH"
+                Return CHAMH
+            Case "RANCHO"
+                Return RANCHO
+            Case "BANNING"
+                Return BANNING
+            Case "ELYSIAN"
+                Return ELYSIAN
+            Case "TERMINA"
+                Return TERMINA
+            Case "ZP_ORT"
+                Return ZP_ORT
+            Case "LMESA"
+                Return LMESA
+            Case "CYPRE"
+                Return CYPRE
+            Case "EBURO"
+                Return EBURO
+            Case "MURRI"
+                Return MURRI
+            Case "VESP"
+                Return VESP
+            Case "BEACH"
+                Return BEACH
+            Case "VCANA"
+                Return VCANA
+            Case "DELSOL"
+                Return DELSOL
+            Case "DELBE"
+                Return DELBE
+            Case "DELPE"
+                Return DELPE
+            Case "LOSPUER"
+                Return LOSPUER
+            Case "STAD"
+                Return STAD
+            Case "KOREAT"
+                Return KOREAT
+            Case "AIRP"
+                Return AIRP
+            Case "MORN"
+                Return MORN
+            Case "PBLUFF"
+                Return PBLUFF
+            Case "BHAMCA"
+                Return BHAMCA
+            Case "CHU"
+                Return CHU
+            Case "TONGVAH"
+                Return TONGVAH
+            Case "TONGVAV"
+                Return TONGVAV
+            Case "TATAMO"
+                Return TATAMO
+            Case "PALHIGH"
+                Return PALHIGH
+            Case "NOOSE"
+                Return NOOSE
+            Case "MOVIE"
+                Return MOVIE
+            Case "SanAnd"
+                Return SanAnd
+            Case "ALAMO"
+                Return ALAMO
+            Case "JAIL"
+                Return JAIL
+            Case "RTRAK"
+                Return RTRAK
+            Case "SANCHIA"
+                Return SANCHIA
+            Case "WINDF"
+                Return WINDF
+            Case "PALMPOW"
+                Return PALMPOW
+            Case "HUMLAB"
+                Return HUMLAB
+            Case "ZQ_UAR"
+                Return ZQ_UAR
+            Case "PALETO"
+                Return PALETO
+            Case "PALFOR"
+                Return PALFOR
+            Case "PROCOB"
+                Return PROCOB
+            Case "HARMO"
+                Return HARMO
+            Case "SANDY"
+                Return SANDY
+            Case "ZANCUDO"
+                Return ZANCUDO
+            Case "SLAB"
+                Return SLAB
+            Case "NCHU"
+                Return NCHU
+            Case "GRAPES"
+                Return GRAPES
+            Case "MTGORDO"
+                Return MTGORDO
+            Case "MTCHIL"
+                Return MTCHIL
+            Case "GALFISH"
+                Return GALFISH
+            Case "LAGO"
+                Return LAGO
+            Case "ARMYB"
+                Return ARMYB
+            Case "BURTON"
+                Return BURTON
             Case Else
                 Return New List(Of Vector5)
         End Select
@@ -854,7 +993,12 @@ Module Helper
 
     <Extension>
     Public Function GetNearestParkingSpot(pos As Vector3) As Vector5
-        Return pos.GetParkingSpotByZone.OrderBy(Function(x) System.Math.Abs(x.Vector3.DistanceToSquared(pos))).First
+        Dim result = pos.GetParkingSpotByZone.OrderBy(Function(x) System.Math.Abs(x.Vector3.DistanceToSquared(pos)))
+        If result.Count <> 0 Then
+            Return result.FirstOrDefault
+        Else
+            Return Vector5.Zero
+        End If
     End Function
 
     <Extension>
