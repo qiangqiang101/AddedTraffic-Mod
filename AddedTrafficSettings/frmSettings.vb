@@ -205,6 +205,18 @@ Public Class frmSettings
         lvModelList.AddGroupFooter
     End Sub
 
+    Private Sub tsmiFZ_Click(sender As Object, e As EventArgs) Handles tsmiFZ.Click
+        For Each item As ListViewItem In lvModelList.SelectedItems
+            Dim newItem As ListViewItem = item.Clone
+            With newItem
+                .Group = lvModelList.Groups("Fort Zancudo")
+            End With
+            lvModelList.Items.Add(newItem)
+        Next
+        lvModelList.Striped
+        lvModelList.AddGroupFooter
+    End Sub
+
     Private Sub frmSettings_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         If IO.File.Exists(".\AddedTraffic.xml") Then
             Dim settings = New Settings(".\AddedTraffic.xml").Instance
@@ -219,6 +231,7 @@ Public Class frmSettings
             nudSpawnDistance.Value = settings.SpawnDistance
             cmbDrivingStyle.Text = settings.DrivingStyle
             cmbRoadType.Text = settings.RoadType
+            cbSpawnParkedVeh.Checked = settings.SpawnParkedVehicle
 
             cbNotify.Checked = settings.Notify
             cbBlip.Checked = settings.ShowBlip
@@ -325,6 +338,14 @@ Public Class frmSettings
                 End With
                 lvModelList.Items.Add(lvi)
             Next
+            For Each ml In vehList.FortZancudo
+                Dim lvi As New ListViewItem("")
+                With lvi
+                    .SubItems.Add(ml)
+                    .Group = lvModelList.Groups("Fort Zancudo")
+                End With
+                lvModelList.Items.Add(lvi)
+            Next
             lvModelList.Striped
             lvModelList.AddGroupFooter()
         Else
@@ -344,6 +365,7 @@ Public Class frmSettings
                 nudSpawnDistance.Value = settings.SpawnDistance
                 cmbDrivingStyle.Text = settings.DrivingStyle
                 cmbRoadType.Text = settings.RoadType
+                cbSpawnParkedVeh.Checked = settings.SpawnParkedVehicle
 
                 cbNotify.Checked = settings.Notify
                 cbBlip.Checked = settings.ShowBlip
@@ -450,6 +472,14 @@ Public Class frmSettings
                     End With
                     lvModelList.Items.Add(lvi)
                 Next
+                For Each ml In vehList.FortZancudo
+                    Dim lvi As New ListViewItem("")
+                    With lvi
+                        .SubItems.Add(ml)
+                        .Group = lvModelList.Groups("Fort Zancudo")
+                    End With
+                    lvModelList.Items.Add(lvi)
+                Next
                 lvModelList.Striped
                 lvModelList.AddGroupFooter()
             End If
@@ -473,6 +503,7 @@ Public Class frmSettings
             .SwapChance = nudSwapChance.Value
             .SwapDistance = nudSwapDistance.Value
             .EnableNeonUpgrade = cbNeon.Checked
+            .SpawnParkedVehicle = cbSpawnParkedVeh.Checked
 
             Dim mSwap As New List(Of VehicleSwap)
             For Each item As ListViewItem In lvVehicleSwap.Items
@@ -490,6 +521,7 @@ Public Class frmSettings
             Dim gsd As New List(Of String)
             Dim scmr As New List(Of String)
             Dim bc As New List(Of String)
+            Dim fz As New List(Of String)
 
             For Each group As ListViewGroup In lvModelList.Groups
                 For Each item As ListViewItem In group.Items
@@ -514,6 +546,8 @@ Public Class frmSettings
                             scmr.Add(item.SubItems(1).Text)
                         Case "Blaine County"
                             bc.Add(item.SubItems(1).Text)
+                        Case "Fort Zancudo"
+                            fz.Add(item.SubItems(1).Text)
                     End Select
                 Next
             Next
@@ -530,6 +564,7 @@ Public Class frmSettings
                 .GrandSenoraDesert = gsd
                 .SanChianskiMountainRange = scmr
                 .BlaineCounty = bc
+                .FortZancudo = fz
             End With
             .Vehicles = mList
         End With
@@ -577,7 +612,10 @@ San Chianski Mountain Range
 San Chianski Mountain Range, RON Alternates Wind Farm, Palmer-Taylor Power Station, 'Humane Labs and Research' and Davis Quartz
 
 Blaine County
-Paleto Cove, Paleto Bay, Paleto Forest, Procopio Beach, Harmony, Sandy Shores, Mount Josiah, Zancudo River, Stab City, Lago Zancudo, Fort Zancudo, North Chumash, Raton Canyon, Cassidy Creek, Calafia Bridge, Chiliad Mountain State Wilderness, Alamo Sea, Grapeseed, Mount Gordo, El Gordo Lighthouse, Braddock Pass, Braddock Tunnel, Mount Chiliad and Galilee"
+Paleto Cove, Paleto Bay, Paleto Forest, Procopio Beach, Harmony, Sandy Shores, Mount Josiah, Zancudo River, Stab City, Lago Zancudo, Fort Zancudo, North Chumash, Raton Canyon, Cassidy Creek, Calafia Bridge, Chiliad Mountain State Wilderness, Alamo Sea, Grapeseed, Mount Gordo, El Gordo Lighthouse, Braddock Pass, Braddock Tunnel, Mount Chiliad and Galilee
+
+Fort Zancudo
+Fort Zancudo Only"
 
         MsgBox(helpText, MsgBoxStyle.Question, "Help")
     End Sub

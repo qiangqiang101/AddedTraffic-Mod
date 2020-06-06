@@ -29,6 +29,7 @@ Public Structure Settings
     Public RoadType As eNodeType
     Public VehicleSwaps As List(Of VehicleSwap)
     Public Vehicles As Vehicles
+    Public SpawnParkedVehicle As Boolean
 
     Public Sub New(_filename As String)
         FileName = _filename
@@ -49,7 +50,7 @@ Public Structure Settings
                                                   "chino", "moonbeam", "nightshade", "coquette3", "fcr", "diablous", "zombieb", "zombiea", "wolfsbane", "faggio3", "faggio", "esskey", "defiler", "daemon2",
                                                   "chimera", "avarus", "xls", "baller4", "baller3", "brioso", "tailgater", "buffalo2", "yosemite", "ellie", "dominator3", "clique", "deviant", "impaler", "tulip",
                                                   "vamos", "gauntlet3", "gauntlet4", "yosemite2", "sentinel3", "flashgt", "gb200", "issi7", "sugoi", "sultan2", "rapidgt3", "retinue", "deluxo", "hermes",
-                                                  "hustler", "savestra", "z190", "cheburek", "jester3", "michelli", "fagaloa", "nebula", "zion3", "retinue2", "streiter", "issi3", "asbo", "kanjo"}
+                                                  "hustler", "savestra", "z190", "cheburek", "jester3", "michelli", "fagaloa", "nebula", "zion3", "retinue2", "streiter", "issi3", "asbo", "kanjo", "boxville4"}
             'Rich place
             .Vinewood = New List(Of String) From {"tempesta", "penetrator", "nero2", "nero", "italigtb2", "italigtb", "le7b", "sheava", "tyrus", "reaper", "prototipo", "pfister811", "fmj", "t20", "osiris",
                                                   "fcr2", "diablous2", "vortex", "specter2", "sanctus", "nightblade", "hakuchou2", "vindicator", "xls", "baller4", "btype3", "mamba", "btype2", "feltzer3",
@@ -57,14 +58,14 @@ Public Structure Settings
                                                   "pariah", "raiden", "revolter", "schlagen", "drafter", "jugular", "locust", "paragon", "imorgon", "komoda", "vstr", "oppressor", "oppressor2", "infernus2",
                                                   "turismo2", "ardent", "cheetah2", "torero", "gt500", "stromberg", "viseris", "stafford", "swinger", "dynasty", "jb7002", "patriot2", "toros", "novak", "rebla",
                                                   "voltic2", "gp1", "vagner", "xa21", "cyclone", "visione", "autarch", "sc1", "entity2", "tyrant", "tezeract", "taipan", "scramjet", "deveste", "italigto",
-                                                  "emerus", "krieger", "neo", "s80", "thrax", "zorrusso", "furia"}
+                                                  "emerus", "krieger", "neo", "s80", "thrax", "zorrusso", "furia", "pbus2", "shotaro", "lectro", "ruiner2"}
             'Gang place
             .SouthLosSantos = New List(Of String) From {"dubsta3", "raptor", "virgo3", "virgo2", "tornado5", "slamvan3", "sabregt2", "minivan2", "faction3", "voodoo", "primo2", "moonbeam2", "faction2",
-                                                        "chino2", "buccaneer2"}
+                                                        "chino2", "buccaneer2", "brutus", "imperator", "gburrito", "gburrito2", "slamvan2"}
             'Port place
-            .PortOfSouthLosSantos = New List(Of String) From {"rumpo3", "speedo4"}
+            .PortOfSouthLosSantos = New List(Of String) From {"rumpo3", "speedo4", "boxville4", "mule4", "pounder2", "terbyte", "mule3"}
             'Industrial
-            .EastLosSantos = New List(Of String) From {"youga2", "zhaba", "speedo4"}
+            .EastLosSantos = New List(Of String) From {"youga2", "speedo4", "mule4", "pounder2", "terbyte", "boxville4", "guardian", "mule3"}
             'Beach, tourist attraction
             .Vespucci = New List(Of String) From {"sultanrs", "banshee2", "kalahari", "bifta", "elegy", "comet3", "raptor", "vagrant"}
             'Los santos city
@@ -72,17 +73,22 @@ Public Structure Settings
                                                    "chino", "moonbeam", "nightshade", "coquette3", "fcr", "diablous", "zombieb", "zombiea", "wolfsbane", "faggio3", "faggio", "esskey", "defiler", "daemon2",
                                                    "chimera", "avarus", "xls", "baller4", "baller3", "brioso", "tailgater", "buffalo2", "yosemite", "ellie", "dominator3", "clique", "deviant", "impaler", "tulip",
                                                    "vamos", "gauntlet3", "gauntlet4", "yosemite2", "sentinel3", "flashgt", "gb200", "issi7", "sugoi", "sultan2", "rapidgt3", "retinue", "deluxo",
-                                                   "hermes", "hustler", "savestra", "z190", "cheburek", "jester3", "michelli", "fagaloa", "nebula", "zion3", "retinue2", "streiter", "issi3", "asbo", "kanjo"}
+                                                   "hermes", "hustler", "savestra", "z190", "cheburek", "jester3", "michelli", "fagaloa", "nebula", "zion3", "retinue2", "streiter", "issi3", "asbo", "kanjo",
+                                                   "boxville4"}
             'Offroad and dirty cars
             .GrandSenoraDesert = New List(Of String) From {"brawler", "dubsta3", "bifta", "youga2", "rumpo3", "zombieb", "zombiea", "wolfsbane", "tornado6", "ratbike", "manchez", "esskey", "bf400",
                                                            "cliffhanger", "gargoyle", "contender", "xls", "baller4", "baller3", "bodhi2", "trophytruck", "trophytruck2", "blazer4", "blazer5", "kamacho",
-                                                           "riata", "freecrawler", "caracara2", "hellion", "everon", "outlaw", "vagrant", "peyote2", "rrocket", "stryder", "nebula", "comet4"}
+                                                           "riata", "freecrawler", "caracara2", "hellion", "everon", "outlaw", "vagrant", "peyote2", "rrocket", "stryder", "nebula", "comet4", "deathbike",
+                                                           "rallytruck"}
             'Mountain area
             .SanChianskiMountainRange = New List(Of String) From {"brawler", "bifta", "manchez", "bf400", "cliffhanger", "gargoyle", "trophytruck", "trophytruck2", "blazer4", "blazer5", "stryder"}
             'Offroad and dirty cars
             .BlaineCounty = New List(Of String) From {"brawler", "dubsta3", "bifta", "youga2", "rumpo3", "zombieb", "zombiea", "wolfsbane", "tornado6", "ratbike", "manchez", "esskey", "bf400", "cliffhanger",
                                                       "gargoyle", "contender", "xls", "baller4", "baller3", "bodhi2", "trophytruck", "trophytruck2", "blazer4", "blazer5", "kamacho", "riata", "freecrawler",
-                                                      "caracara2", "hellion", "everon", "outlaw", "vagrant", "peyote2", "comet4", "rrocket", "stryder", "nebula"}
+                                                      "caracara2", "hellion", "everon", "outlaw", "vagrant", "peyote2", "comet4", "rrocket", "stryder", "nebula", "wastelander"}
+            'Army Base
+            .FortZancudo = New List(Of String) From {"limo2", "caracara", "barrage", "chernobog", "khanjali", "riot2", "thruster", "scarab", "brickade", "apc", "caddy3", "dune3", "halftrack", "insurgent",
+                                                     "insurgent2", "insurgent3", "nightshark", "technical3", "barracks3", "technical", "zhaba"}
         End With
         Return vehicles
     End Function
@@ -97,7 +103,7 @@ Public Structure Settings
         If Not File.Exists(FileName) Then
             Return New Settings(FileName) With {.WaitTime = New WaitTime(15, 10, 15, 10, 20), .CruiseSpeed = 20.0F, .SpawnDistance = 150.0F, .DrivingStyle = DrivingStyle.Normal, .EnableUpgrade = True,
                                                 .UpgradeChance = 20, .RandomizeColor = True, .SwapChance = 100, .SwapDistance = 100.0F, .Notify = False, .ShowBlip = False, .RoadType = eNodeType.AsphaltRoad,
-                                                .Vehicles = GenerateVehicleList(), .VehicleSwaps = GenerateVehicleSwapList(), .RandomizeWheels = True, .EnableNeonUpgrade = True}
+                                                .Vehicles = GenerateVehicleList(), .VehicleSwaps = GenerateVehicleSwapList(), .RandomizeWheels = True, .EnableNeonUpgrade = True, .SpawnParkedVehicle = True}
         End If
 
         Try
@@ -109,7 +115,7 @@ Public Structure Settings
         Catch ex As Exception
             Return New Settings(FileName) With {.WaitTime = New WaitTime(15, 10, 15, 10, 20), .CruiseSpeed = 20.0F, .SpawnDistance = 150.0F, .DrivingStyle = DrivingStyle.Normal, .EnableUpgrade = True,
                                                 .UpgradeChance = 20, .RandomizeColor = True, .SwapChance = 1000, .SwapDistance = 100.0F, .Notify = False, .ShowBlip = False, .RoadType = eNodeType.AsphaltRoad,
-                                                .Vehicles = GenerateVehicleList(), .VehicleSwaps = GenerateVehicleSwapList(), .RandomizeWheels = True, .EnableNeonUpgrade = True}
+                                                .Vehicles = GenerateVehicleList(), .VehicleSwaps = GenerateVehicleSwapList(), .RandomizeWheels = True, .EnableNeonUpgrade = True, .SpawnParkedVehicle = True}
         End Try
     End Function
 
@@ -146,9 +152,10 @@ Public Structure Vehicles
     Public GrandSenoraDesert As List(Of String)
     Public SanChianskiMountainRange As List(Of String)
     Public BlaineCounty As List(Of String)
+    Public FortZancudo As List(Of String)
 
     Public Sub New(dt As List(Of String), vw As List(Of String), sls As List(Of String), psls As List(Of String), els As List(Of String), ves As List(Of String), ls As List(Of String),
-                   gsd As List(Of String), scmr As List(Of String), bc As List(Of String))
+                   gsd As List(Of String), scmr As List(Of String), bc As List(Of String), fz As List(Of String))
         Downtown = dt
         Vinewood = vw
         SouthLosSantos = sls
@@ -159,6 +166,7 @@ Public Structure Vehicles
         GrandSenoraDesert = gsd
         SanChianskiMountainRange = scmr
         BlaineCounty = bc
+        FortZancudo = fz
     End Sub
 
 End Structure

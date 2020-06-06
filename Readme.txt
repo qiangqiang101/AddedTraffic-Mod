@@ -21,9 +21,16 @@ Settings:
 Run AddedTrafficSettings.exe to modify the xml file.
 
 Changelog:
-v2.2.1
+v2.3
+- Fixed Missing Observatory, Burton and Gallileo Park in spawn zone.
 - Updated Global to support latest GTAV update.
+- Seperate Fort Zancudo into it's own zone.
 - Added option to disable neon upgrade.
+- Added option to disable Parked vehicle spawn. (for Potato PC only)
+- Added a few missing models from existin game DLC, mostly are Army vehicles.
+- Splitted the Parking Coordinates into it's own zone, hopefully it will increase performance issues.
+- Improved Parked vehicle spawn, no more pop-up infront of you.
+- Other bugs fixes and improvements.
 
 v2.2
 - Fixed Spawned police officers don't have weapon and armour.

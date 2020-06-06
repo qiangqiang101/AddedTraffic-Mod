@@ -13,50 +13,52 @@
   <EnableUpgrade>true</EnableUpgrade>
   <UpgradeChance>20</UpgradeChance>
   <RandomizeColor>true</RandomizeColor>
-  <SwapChance>50</SwapChance>
+  <RandomizeWheels>true</RandomizeWheels>
+  <EnableNeonUpgrade>true</EnableNeonUpgrade>
+  <SwapChance>100</SwapChance>
   <SwapDistance>100</SwapDistance>
   <Notify>false</Notify>
   <ShowBlip>false</ShowBlip>
   <RoadType>AsphaltRoad</RoadType>
   <VehicleSwaps>
     <VehicleSwap>
-      <OldVehicle>panto</OldVehicle>
-      <Enable>true</Enable>
-    </VehicleSwap>
-    <VehicleSwap>
-      <OldVehicle>issi2</OldVehicle>
-      <Enable>true</Enable>
-    </VehicleSwap>
-    <VehicleSwap>
-      <OldVehicle>huntley</OldVehicle>
+      <OldVehicle>police</OldVehicle>
+      <NewVehicle>dune4</NewVehicle>
       <Enable>false</Enable>
     </VehicleSwap>
     <VehicleSwap>
-      <OldVehicle>seminole</OldVehicle>
+      <OldVehicle>police2</OldVehicle>
+      <NewVehicle>dune5</NewVehicle>
       <Enable>false</Enable>
     </VehicleSwap>
     <VehicleSwap>
-      <OldVehicle>dominator</OldVehicle>
+      <OldVehicle>police3</OldVehicle>
+      <NewVehicle>dune4</NewVehicle>
       <Enable>false</Enable>
     </VehicleSwap>
     <VehicleSwap>
-      <OldVehicle>penumbra</OldVehicle>
+      <OldVehicle>police4</OldVehicle>
+      <NewVehicle>dune5</NewVehicle>
       <Enable>false</Enable>
     </VehicleSwap>
     <VehicleSwap>
-      <OldVehicle>sabregt</OldVehicle>
+      <OldVehicle>policeb</OldVehicle>
+      <NewVehicle>dune4</NewVehicle>
       <Enable>false</Enable>
     </VehicleSwap>
     <VehicleSwap>
-      <OldVehicle>warrener</OldVehicle>
+      <OldVehicle>policet</OldVehicle>
+      <NewVehicle>dune5</NewVehicle>
       <Enable>false</Enable>
     </VehicleSwap>
     <VehicleSwap>
-      <OldVehicle>oracle2</OldVehicle>
+      <OldVehicle>sheriff</OldVehicle>
+      <NewVehicle>dune4</NewVehicle>
       <Enable>false</Enable>
     </VehicleSwap>
     <VehicleSwap>
-      <OldVehicle>ruiner</OldVehicle>
+      <OldVehicle>sheriff2</OldVehicle>
+      <NewVehicle>dune5</NewVehicle>
       <Enable>false</Enable>
     </VehicleSwap>
   </VehicleSwaps>
@@ -133,6 +135,7 @@
       <string>issi3</string>
       <string>asbo</string>
       <string>kanjo</string>
+      <string>boxville4</string>
     </Downtown>
     <Vinewood>
       <string>tempesta</string>
@@ -230,6 +233,10 @@
       <string>thrax</string>
       <string>zorrusso</string>
       <string>furia</string>
+      <string>pbus2</string>
+      <string>shotaro</string>
+      <string>lectro</string>
+      <string>ruiner2</string>
     </Vinewood>
     <SouthLosSantos>
       <string>dubsta3</string>
@@ -247,15 +254,30 @@
       <string>faction2</string>
       <string>chino2</string>
       <string>buccaneer2</string>
+      <string>brutus</string>
+      <string>imperator</string>
+      <string>gburrito</string>
+      <string>gburrito2</string>
+      <string>slamvan2</string>
     </SouthLosSantos>
     <PortOfSouthLosSantos>
       <string>rumpo3</string>
       <string>speedo4</string>
+      <string>boxville4</string>
+      <string>mule4</string>
+      <string>pounder2</string>
+      <string>terbyte</string>
+      <string>mule3</string>
     </PortOfSouthLosSantos>
     <EastLosSantos>
       <string>youga2</string>
-      <string>zhaba</string>
       <string>speedo4</string>
+      <string>mule4</string>
+      <string>pounder2</string>
+      <string>terbyte</string>
+      <string>boxville4</string>
+      <string>guardian</string>
+      <string>mule3</string>
     </EastLosSantos>
     <Vespucci>
       <string>sultanrs</string>
@@ -339,6 +361,7 @@
       <string>issi3</string>
       <string>asbo</string>
       <string>kanjo</string>
+      <string>boxville4</string>
     </LosSantos>
     <GrandSenoraDesert>
       <string>brawler</string>
@@ -378,6 +401,8 @@
       <string>stryder</string>
       <string>nebula</string>
       <string>comet4</string>
+      <string>deathbike</string>
+      <string>rallytruck</string>
     </GrandSenoraDesert>
     <SanChianskiMountainRange>
       <string>brawler</string>
@@ -430,6 +455,30 @@
       <string>rrocket</string>
       <string>stryder</string>
       <string>nebula</string>
+      <string>wastelander</string>
     </BlaineCounty>
+    <FortZancudo>
+      <string>limo2</string>
+      <string>caracara</string>
+      <string>barrage</string>
+      <string>chernobog</string>
+      <string>khanjali</string>
+      <string>riot2</string>
+      <string>thruster</string>
+      <string>scarab</string>
+      <string>brickade</string>
+      <string>apc</string>
+      <string>caddy3</string>
+      <string>dune3</string>
+      <string>halftrack</string>
+      <string>insurgent</string>
+      <string>insurgent2</string>
+      <string>insurgent3</string>
+      <string>nightshark</string>
+      <string>technical3</string>
+      <string>barracks3</string>
+      <string>technical</string>
+      <string>zhaba</string>
+    </FortZancudo>
   </Vehicles>
 </Settings>

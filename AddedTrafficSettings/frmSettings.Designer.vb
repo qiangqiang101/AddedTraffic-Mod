@@ -33,6 +33,7 @@ Partial Class frmSettings
         Dim ListViewGroup8 As System.Windows.Forms.ListViewGroup = New System.Windows.Forms.ListViewGroup("Grand Senora Desert", System.Windows.Forms.HorizontalAlignment.Left)
         Dim ListViewGroup9 As System.Windows.Forms.ListViewGroup = New System.Windows.Forms.ListViewGroup("San Chianski Mountain Range", System.Windows.Forms.HorizontalAlignment.Left)
         Dim ListViewGroup10 As System.Windows.Forms.ListViewGroup = New System.Windows.Forms.ListViewGroup("Blaine County", System.Windows.Forms.HorizontalAlignment.Left)
+        Dim ListViewGroup11 As System.Windows.Forms.ListViewGroup = New System.Windows.Forms.ListViewGroup("Fort Zancudo", System.Windows.Forms.HorizontalAlignment.Left)
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSettings))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Label10 = New System.Windows.Forms.Label()
@@ -48,6 +49,7 @@ Partial Class frmSettings
         Me.cbBlip = New System.Windows.Forms.CheckBox()
         Me.cbNotify = New System.Windows.Forms.CheckBox()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.cbNeon = New System.Windows.Forms.CheckBox()
         Me.cbRdWheels = New System.Windows.Forms.CheckBox()
         Me.nudUpgradeChance = New System.Windows.Forms.NumericUpDown()
         Me.Label9 = New System.Windows.Forms.Label()
@@ -85,9 +87,6 @@ Partial Class frmSettings
         Me.btnEditModel = New System.Windows.Forms.Button()
         Me.btnAddModel = New System.Windows.Forms.Button()
         Me.btnHelp = New System.Windows.Forms.Button()
-        Me.lvModelList = New AddedTrafficSettings.ListViewX()
-        Me.chListNo = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.chListModel = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.cmsVehicleList = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.tsmiListNew = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsmiListEdit = New System.Windows.Forms.ToolStripMenuItem()
@@ -112,7 +111,11 @@ Partial Class frmSettings
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.llblWeb = New System.Windows.Forms.LinkLabel()
-        Me.cbNeon = New System.Windows.Forms.CheckBox()
+        Me.tsmiFZ = New System.Windows.Forms.ToolStripMenuItem()
+        Me.lvModelList = New AddedTrafficSettings.ListViewX()
+        Me.chListNo = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.chListModel = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.cbSpawnParkedVeh = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         CType(Me.nudSpawnDistance, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.nudCruiseSpeed, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -140,6 +143,7 @@ Partial Class frmSettings
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.cbSpawnParkedVeh)
         Me.GroupBox1.Controls.Add(Me.Label10)
         Me.GroupBox1.Controls.Add(Me.cmbRoadType)
         Me.GroupBox1.Controls.Add(Me.Label8)
@@ -287,6 +291,16 @@ Partial Class frmSettings
         Me.GroupBox4.TabIndex = 4
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Vehicle Upgrade"
+        '
+        'cbNeon
+        '
+        Me.cbNeon.AutoSize = True
+        Me.cbNeon.Location = New System.Drawing.Point(124, 47)
+        Me.cbNeon.Name = "cbNeon"
+        Me.cbNeon.Size = New System.Drawing.Size(55, 19)
+        Me.cbNeon.TabIndex = 4
+        Me.cbNeon.Text = "Neon"
+        Me.cbNeon.UseVisualStyleBackColor = True
         '
         'cbRdWheels
         '
@@ -638,63 +652,6 @@ Partial Class frmSettings
         Me.btnHelp.Text = "?"
         Me.btnHelp.UseVisualStyleBackColor = True
         '
-        'lvModelList
-        '
-        Me.lvModelList.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lvModelList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.chListNo, Me.chListModel})
-        Me.lvModelList.ContextMenuStrip = Me.cmsVehicleList
-        Me.lvModelList.FullRowSelect = True
-        ListViewGroup1.Header = "Downtown"
-        ListViewGroup1.Name = "Downtown"
-        ListViewGroup1.Tag = ""
-        ListViewGroup2.Header = "Vinewood"
-        ListViewGroup2.Name = "Vinewood"
-        ListViewGroup2.Tag = ""
-        ListViewGroup3.Header = "South Los Santos"
-        ListViewGroup3.Name = "South Los Santos"
-        ListViewGroup3.Tag = ""
-        ListViewGroup4.Header = "Port of South Los Santos"
-        ListViewGroup4.Name = "Port of South Los Santos"
-        ListViewGroup4.Tag = ""
-        ListViewGroup5.Header = "East Los Santos"
-        ListViewGroup5.Name = "East Los Santos"
-        ListViewGroup5.Tag = ""
-        ListViewGroup6.Header = "Vespucci"
-        ListViewGroup6.Name = "Vespucci"
-        ListViewGroup6.Tag = ""
-        ListViewGroup7.Header = "Los Santos"
-        ListViewGroup7.Name = "Los Santos"
-        ListViewGroup7.Tag = ""
-        ListViewGroup8.Header = "Grand Senora Desert"
-        ListViewGroup8.Name = "Grand Senora Desert"
-        ListViewGroup8.Tag = ""
-        ListViewGroup9.Header = "San Chianski Mountain Range"
-        ListViewGroup9.Name = "San Chianski Mountain Range"
-        ListViewGroup9.Tag = ""
-        ListViewGroup10.Header = "Blaine County"
-        ListViewGroup10.Name = "Blaine County"
-        ListViewGroup10.Tag = ""
-        Me.lvModelList.Groups.AddRange(New System.Windows.Forms.ListViewGroup() {ListViewGroup1, ListViewGroup2, ListViewGroup3, ListViewGroup4, ListViewGroup5, ListViewGroup6, ListViewGroup7, ListViewGroup8, ListViewGroup9, ListViewGroup10})
-        Me.lvModelList.Location = New System.Drawing.Point(3, 19)
-        Me.lvModelList.Name = "lvModelList"
-        Me.lvModelList.Size = New System.Drawing.Size(259, 279)
-        Me.lvModelList.TabIndex = 1
-        Me.lvModelList.UseCompatibleStateImageBehavior = False
-        Me.lvModelList.View = System.Windows.Forms.View.Details
-        '
-        'chListNo
-        '
-        Me.chListNo.Text = ""
-        Me.chListNo.Width = 0
-        '
-        'chListModel
-        '
-        Me.chListModel.Text = "Model"
-        Me.chListModel.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.chListModel.Width = 200
-        '
         'cmsVehicleList
         '
         Me.cmsVehicleList.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmiListNew, Me.tsmiListEdit, Me.ToolStripSeparator2, Me.tsmiCopyTo, Me.ToolStripSeparator3, Me.tsmiListDelete})
@@ -721,7 +678,7 @@ Partial Class frmSettings
         '
         'tsmiCopyTo
         '
-        Me.tsmiCopyTo.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmiDT, Me.tsmiVW, Me.tsmiSLS, Me.tsmiPSLS, Me.tsmiELS, Me.tsmiVPC, Me.tsmiLS, Me.tsmiGSD, Me.tsmiSCMR, Me.tsmiBC})
+        Me.tsmiCopyTo.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmiDT, Me.tsmiVW, Me.tsmiSLS, Me.tsmiPSLS, Me.tsmiELS, Me.tsmiVPC, Me.tsmiLS, Me.tsmiGSD, Me.tsmiSCMR, Me.tsmiBC, Me.tsmiFZ})
         Me.tsmiCopyTo.Name = "tsmiCopyTo"
         Me.tsmiCopyTo.Size = New System.Drawing.Size(117, 22)
         Me.tsmiCopyTo.Text = "Copy To"
@@ -888,15 +845,80 @@ Partial Class frmSettings
         Me.llblWeb.Text = "www.imnotmental.com"
         Me.llblWeb.VisitedLinkColor = System.Drawing.Color.DodgerBlue
         '
-        'cbNeon
+        'tsmiFZ
         '
-        Me.cbNeon.AutoSize = True
-        Me.cbNeon.Location = New System.Drawing.Point(124, 47)
-        Me.cbNeon.Name = "cbNeon"
-        Me.cbNeon.Size = New System.Drawing.Size(55, 19)
-        Me.cbNeon.TabIndex = 4
-        Me.cbNeon.Text = "Neon"
-        Me.cbNeon.UseVisualStyleBackColor = True
+        Me.tsmiFZ.Name = "tsmiFZ"
+        Me.tsmiFZ.Size = New System.Drawing.Size(232, 22)
+        Me.tsmiFZ.Text = "Fort Zancudo"
+        '
+        'lvModelList
+        '
+        Me.lvModelList.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lvModelList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.chListNo, Me.chListModel})
+        Me.lvModelList.ContextMenuStrip = Me.cmsVehicleList
+        Me.lvModelList.FullRowSelect = True
+        ListViewGroup1.Header = "Downtown"
+        ListViewGroup1.Name = "Downtown"
+        ListViewGroup1.Tag = ""
+        ListViewGroup2.Header = "Vinewood"
+        ListViewGroup2.Name = "Vinewood"
+        ListViewGroup2.Tag = ""
+        ListViewGroup3.Header = "South Los Santos"
+        ListViewGroup3.Name = "South Los Santos"
+        ListViewGroup3.Tag = ""
+        ListViewGroup4.Header = "Port of South Los Santos"
+        ListViewGroup4.Name = "Port of South Los Santos"
+        ListViewGroup4.Tag = ""
+        ListViewGroup5.Header = "East Los Santos"
+        ListViewGroup5.Name = "East Los Santos"
+        ListViewGroup5.Tag = ""
+        ListViewGroup6.Header = "Vespucci"
+        ListViewGroup6.Name = "Vespucci"
+        ListViewGroup6.Tag = ""
+        ListViewGroup7.Header = "Los Santos"
+        ListViewGroup7.Name = "Los Santos"
+        ListViewGroup7.Tag = ""
+        ListViewGroup8.Header = "Grand Senora Desert"
+        ListViewGroup8.Name = "Grand Senora Desert"
+        ListViewGroup8.Tag = ""
+        ListViewGroup9.Header = "San Chianski Mountain Range"
+        ListViewGroup9.Name = "San Chianski Mountain Range"
+        ListViewGroup9.Tag = ""
+        ListViewGroup10.Header = "Blaine County"
+        ListViewGroup10.Name = "Blaine County"
+        ListViewGroup10.Tag = ""
+        ListViewGroup11.Header = "Fort Zancudo"
+        ListViewGroup11.Name = "Fort Zancudo"
+        Me.lvModelList.Groups.AddRange(New System.Windows.Forms.ListViewGroup() {ListViewGroup1, ListViewGroup2, ListViewGroup3, ListViewGroup4, ListViewGroup5, ListViewGroup6, ListViewGroup7, ListViewGroup8, ListViewGroup9, ListViewGroup10, ListViewGroup11})
+        Me.lvModelList.Location = New System.Drawing.Point(3, 19)
+        Me.lvModelList.Name = "lvModelList"
+        Me.lvModelList.Size = New System.Drawing.Size(259, 279)
+        Me.lvModelList.TabIndex = 1
+        Me.lvModelList.UseCompatibleStateImageBehavior = False
+        Me.lvModelList.View = System.Windows.Forms.View.Details
+        '
+        'chListNo
+        '
+        Me.chListNo.Text = ""
+        Me.chListNo.Width = 0
+        '
+        'chListModel
+        '
+        Me.chListModel.Text = "Model"
+        Me.chListModel.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.chListModel.Width = 200
+        '
+        'cbSpawnParkedVeh
+        '
+        Me.cbSpawnParkedVeh.AutoSize = True
+        Me.cbSpawnParkedVeh.Location = New System.Drawing.Point(6, 80)
+        Me.cbSpawnParkedVeh.Name = "cbSpawnParkedVeh"
+        Me.cbSpawnParkedVeh.Size = New System.Drawing.Size(145, 19)
+        Me.cbSpawnParkedVeh.TabIndex = 5
+        Me.cbSpawnParkedVeh.Text = "Spawn Parked Vehicles"
+        Me.cbSpawnParkedVeh.UseVisualStyleBackColor = True
         '
         'frmSettings
         '
@@ -1026,4 +1048,6 @@ Partial Class frmSettings
     Friend WithEvents btnEditModel As Button
     Friend WithEvents btnAddModel As Button
     Friend WithEvents cbNeon As CheckBox
+    Friend WithEvents tsmiFZ As ToolStripMenuItem
+    Friend WithEvents cbSpawnParkedVeh As CheckBox
 End Class

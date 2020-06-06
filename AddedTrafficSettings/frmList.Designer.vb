@@ -79,7 +79,7 @@ Partial Class frmList
         '
         Me.cmbCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbCategory.FormattingEnabled = True
-        Me.cmbCategory.Items.AddRange(New Object() {"Downtown", "Vinewood", "South Los Santos", "Port of South Los Santos", "East Los Santos", "Vespucci", "Los Santos", "Grand Senora Desert", "San Chianski Mountain Range", "Blaine County"})
+        Me.cmbCategory.Items.AddRange(New Object() {"Downtown", "Vinewood", "South Los Santos", "Port of South Los Santos", "East Los Santos", "Vespucci", "Los Santos", "Grand Senora Desert", "San Chianski Mountain Range", "Blaine County", "Fort Zancudo"})
         Me.cmbCategory.Location = New System.Drawing.Point(116, 14)
         Me.cmbCategory.Name = "cmbCategory"
         Me.cmbCategory.Size = New System.Drawing.Size(159, 23)

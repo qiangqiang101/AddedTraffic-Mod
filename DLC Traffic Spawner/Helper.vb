@@ -35,6 +35,7 @@ Module Helper
     Public vehicles As Vehicles
     Public vehicleSwaps As New List(Of VehicleSwap)
     Public vehicleSwaps2 As List(Of Model)
+    Public spawnParkedVehicles As Boolean
 
     Public Sub LoadSettings()
         CreateConfig()
@@ -58,6 +59,7 @@ Module Helper
         For Each veh In vehicleSwaps
             If veh.Enable Then vehicleSwaps2.Add(New Model(veh.OldVehicle))
         Next
+        spawnParkedVehicles = config.SpawnParkedVehicle
     End Sub
 
     Public Sub CreateConfig()
@@ -742,6 +744,7 @@ Module Helper
         GrandSenoraDesert
         SanChianskiMountainRange
         BlaineCounty
+        FortZancudo
     End Enum
 
     Public Function GetPlayerZoneVehicleList() As List(Of String)
@@ -750,7 +753,7 @@ Module Helper
         Select Case zone
             Case "PBOX", "SKID", "TEXTI", "LEGSQU", "DOWNT"
                 Return vehicles.Downtown
-            Case "DTVINE", "EAST_V", "MIRR", "HORS", "WVINE", "ALTA", "HAWICK", "VINE", "RICHM", "GOLF", "ROCKF", "CHIL", "RGLEN"
+            Case "DTVINE", "EAST_V", "MIRR", "HORS", "WVINE", "ALTA", "HAWICK", "VINE", "RICHM", "golf", "ROCKF", "CHIL", "RGLEN", "OBSERV", "GALLI"
                 Return vehicles.Vinewood
             Case "DAVIS", "STRAW", "CHAMH", "RANCHO"
                 Return vehicles.SouthLosSantos
@@ -761,17 +764,19 @@ Module Helper
             Case "VESP", "BEACH", "VCANA", "DELSOL"
                 Return vehicles.Vespucci
             Case "DELBE", "DELPE", "LOSPUER", "STAD", "KOREAT", "AIRP", "MORN", "PBLUFF", "BHAMCA", "CHU", "TONGVAH", "TONGVAV", "GREATC", "TATAMO", "LDAM",
-                         "LACT", "PALHIGH", "NOOSE", "MOVIE"
+                 "LACT", "PALHIGH", "NOOSE", "MOVIE", "SanAnd"
                 Return vehicles.LosSantos
             Case "DESRT", "JAIL", "RTRAK"
                 Return vehicles.GrandSenoraDesert
             Case "SANCHIA", "WINDF", "PALMPOW", "HUMLAB", "ZQ_UAR"
                 Return vehicles.SanChianskiMountainRange
-            Case "PALETO", "PALFOR", "PALCOV", "PROCOB", "HARMO", "SANDY", "MTJOSE", "ZANCUDO", "SLAB", "LAGO", "ARMYB", "NCHU", "CANNY", "CCREAK", "CALAFB", "CMSW", "ALAMO", "GRAPES", "MTGORDO",
-                         "ELGORL", "BRADP", "MTCHIL", "GALFISH", "BRADT"
+            Case "PALETO", "PALFOR", "PALCOV", "PROCOB", "HARMO", "SANDY", "MTJOSE", "ZANCUDO", "SLAB", "NCHU", "CANNY", "CCREAK", "CALAFB", "CMSW", "ALAMO", "GRAPES", "MTGORDO",
+                 "ELGORL", "BRADP", "MTCHIL", "GALFISH", "BRADT", "LAGO"
                 Return vehicles.BlaineCounty
+            Case "ARMYB"
+                Return vehicles.FortZancudo
             Case Else
-                Return vehicles.LosSantos
+                Return New List(Of String)
         End Select
     End Function
 
@@ -796,11 +801,6 @@ Module Helper
     End Function
 
     <Extension>
-    Public Function GetClosestVehicleNodeID(pos As Vector3) As Integer
-        Return Native.Function.Call(Of Integer)(Hash.GET_NTH_CLOSEST_VEHICLE_NODE_ID, pos.X, pos.Y, pos.Z, 1, roadType, 1077936128, 0F)
-    End Function
-
-    <Extension>
     Public Function GetVehicleNodeProperties(pos As Vector3) As Tuple(Of Integer, Integer)
         Dim outD, outF As New OutputArgument
         Native.Function.Call(Of Boolean)(Hash.GET_VEHICLE_NODE_PROPERTIES, pos.X, pos.Y, pos.Z, outD, outF)
@@ -822,13 +822,49 @@ Module Helper
     End Function
 
     <Extension>
+    Public Function GetParkingSpotByZone(pp As Vector3) As List(Of Vector5)
+        Dim zone = Native.Function.Call(Of String)(Hash.GET_NAME_OF_ZONE, pp.X, pp.Y, pp.Z)
+        Select Case zone
+            Case "PBOX", "SKID", "TEXTI", "LEGSQU", "DOWNT"
+                Return DowntownParkingSpots
+            Case "DTVINE", "EAST_V", "MIRR", "HORS", "WVINE", "ALTA", "HAWICK", "VINE", "RICHM", "golf", "ROCKF", "CHIL", "RGLEN", "OBSERV", "GALLI"
+                Return VinewoodParkingSpots
+            Case "DAVIS", "STRAW", "CHAMH", "RANCHO"
+                Return SouthLosSantosParkingSpots
+            Case "BANNING", "ELYSIAN", "TERMINA", "ZP_ORT"
+                Return PortOfSouthLosSantosParkingSpots
+            Case "LMESA", "CYPRE", "EBURO", "MURRI"
+                Return EastLosSantosParkingSpots
+            Case "VESP", "BEACH", "VCANA", "DELSOL"
+                Return VespucciParkingSpots
+            Case "DELBE", "DELPE", "LOSPUER", "STAD", "KOREAT", "AIRP", "MORN", "PBLUFF", "BHAMCA", "CHU", "TONGVAH", "TONGVAV", "GREATC", "TATAMO", "LDAM",
+                 "LACT", "PALHIGH", "NOOSE", "MOVIE", "SanAnd"
+                Return LosSantosParkingSpots
+            Case "DESRT", "JAIL", "RTRAK"
+                Return GrandSenoraDesertParkingSpots
+            Case "SANCHIA", "WINDF", "PALMPOW", "HUMLAB", "ZQ_UAR"
+                Return SanChainskiMountainRangeParkingRange
+            Case "PALETO", "PALFOR", "PALCOV", "PROCOB", "HARMO", "SANDY", "MTJOSE", "ZANCUDO", "SLAB", "LAGO", "ARMYB", "NCHU", "CANNY", "CCREAK", "CALAFB", "CMSW", "ALAMO", "GRAPES", "MTGORDO",
+                 "ELGORL", "BRADP", "MTCHIL", "GALFISH", "BRADT"
+                Return BlaineCountyParkingSpots
+            Case Else
+                Return New List(Of Vector5)
+        End Select
+    End Function
+
+    <Extension>
     Public Function GetNearestParkingSpot(pos As Vector3) As Vector5
-        Return ParkingSpots.OrderBy(Function(x) System.Math.Abs(x.Vector3.DistanceTo(pos))).First
+        Return pos.GetParkingSpotByZone.OrderBy(Function(x) System.Math.Abs(x.Vector3.DistanceToSquared(pos))).First
     End Function
 
     <Extension>
     Public Function IsPositionOccupied(pos As Vector3, range As Single) As Boolean
         Return Native.Function.Call(Of Boolean)(Hash.IS_POSITION_OCCUPIED, pos.X, pos.Y, pos.Z, range, False, True, False, False, False, 0, False)
+    End Function
+
+    Public Function GetPlayerZone() As String
+        Dim pos As Vector3 = Game.Player.Character.Position
+        Return Native.Function.Call(Of String)(Hash.GET_NAME_OF_ZONE, pos.X, pos.Y, pos.Z)
     End Function
 
 End Module

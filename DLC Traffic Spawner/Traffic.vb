@@ -19,8 +19,10 @@ Public Class Traffic
 
         If Not GetPlayerZoneVehicleList.Count = 0 Then
             If (Now - Sekarang).TotalSeconds > GetCurrentWaitTime() AndAlso Not Game.IsLoading AndAlso Not Game.IsPaused Then
-                SpawnVehicle()
-                SpawnParkedVehicle()
+                If Not GetPlayerZone() = "OCEANA" Then
+                    SpawnVehicle()
+                    If spawnParkedVehicles Then SpawnParkedVehicle()
+                End If
                 Sekarang = Now
             End If
 
@@ -35,7 +37,8 @@ Public Class Traffic
                 Dim t = GetVehicleNodeProperties(v.Position)
                 Dim r = IsOnRoad(v)
                 Dim p = v.Position
-                Dim str = $"Street: {World.GetStreetName(v.Position)}   Density: {t.Item1}   Flag: {t.Item2}   On Road: {r}   Position: x {p.X}, y {p.Y}, z {p.Z}"
+                Dim z = GetPlayerZone()
+                Dim str = $"Street: {World.GetStreetName(v.Position)} ({z})   Density: {t.Item1}   Flag: {t.Item2}   On Road: {r}   Position: x {p.X}, y {p.Y}, z {p.Z}"
                 Dim uit = New UIText(str, sz, 0.4F, Drawing.Color.White, Font.ChaletLondon, False, True, True)
                 uit.Draw()
             End If
@@ -43,8 +46,10 @@ Public Class Traffic
 
         If Not vehicleSwaps.Count = 0 Then
             If (Now - XianZai).TotalSeconds > GetCurrentWaitTime() AndAlso Not Game.IsLoading AndAlso Not Game.IsPaused Then
-                SwapVehicleHaveDriver()
-                SwapParkedVehicle()
+                If Not GetPlayerZone() = "OCEANA" Then
+                    SwapVehicleHaveDriver()
+                    SwapParkedVehicle()
+                End If
                 XianZai = Now
             End If
         End If
