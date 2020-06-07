@@ -14,31 +14,7 @@ Module UselessHelper
         Return Native.Function.Call(Of VehicleClass)(Hash.GET_VEHICLE_CLASS_FROM_NAME, model.GetHashCode)
     End Function
 
-    <Extension>
-    Public Sub ClearVehicles(spawnVehicles As Vehicle())
-        For v As Integer = 0 To spawnVehicles.Count - 1
-            Dim veh As Vehicle = spawnVehicles(v)
-            If veh.IsVehicleSpawnByMod AndAlso veh.Position.DistanceTo(Game.Player.Character.Position) > (spawnDistance * 4) Then
-                For p As Integer = 0 To veh.PassengerCount - 1
-                    veh.Passengers(p).Delete()
-                Next
-                If showBlip Then veh.CurrentBlip.Remove()
-                If notify Then UI.Notify($"~r~{If(veh.FriendlyName = "NULL", veh.DisplayName, veh.FriendlyName)}~w~ at {World.GetStreetName(veh.Position)} is despawned.")
-                veh.Delete()
-            End If
-        Next v
-    End Sub
 
-    <Extension>
-    Public Sub ClearPeds(spawnPeds As Ped())
-        For p As Integer = 0 To spawnPeds.Count - 1
-            Dim ped As Ped = spawnPeds(p)
-            If ped.IsPedSpawnByMod AndAlso ped.Position.DistanceTo(Game.Player.Character.Position) > (spawnDistance * 4) Then
-                If notify Then UI.Notify($"A ped at {World.GetStreetName(ped.Position)} is despawned.")
-                ped.Delete()
-            End If
-        Next p
-    End Sub
 
     Public Function GetPlayerZone2() As eZone
         Dim pp = Game.Player.Character.Position

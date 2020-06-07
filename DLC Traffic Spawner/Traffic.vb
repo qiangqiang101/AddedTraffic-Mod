@@ -27,8 +27,8 @@ Public Class Traffic
                 Sekarang = Now
             End If
 
-            'World.GetAllVehicles.ClearVehicles
-            'World.GetAllPeds.ClearPeds
+            World.GetAllVehicles.ClearVehicles
+            World.GetAllPeds.ClearPeds
         End If
 
         If notify AndAlso showBlip Then

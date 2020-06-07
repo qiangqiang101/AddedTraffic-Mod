@@ -1011,4 +1011,30 @@ Module Helper
         Return Native.Function.Call(Of String)(Hash.GET_NAME_OF_ZONE, pos.X, pos.Y, pos.Z)
     End Function
 
+    <Extension>
+    Public Sub ClearVehicles(spawnVehicles As Vehicle())
+        For v As Integer = 0 To spawnVehicles.Count - 1
+            Dim veh As Vehicle = spawnVehicles(v)
+            If veh.IsVehicleSpawnByMod AndAlso veh.Position.DistanceTo(Game.Player.Character.Position) > (spawnDistance * 4) Then
+                For p As Integer = 0 To veh.PassengerCount - 1
+                    veh.Passengers(p).Delete()
+                Next
+                If showBlip Then veh.CurrentBlip.Remove()
+                If notify Then UI.Notify($"~r~{If(veh.FriendlyName = "NULL", veh.DisplayName, veh.FriendlyName)}~w~ at {World.GetStreetName(veh.Position)} was despawned.")
+                veh.Delete()
+            End If
+        Next v
+    End Sub
+
+    <Extension>
+    Public Sub ClearPeds(spawnPeds As Ped())
+        For p As Integer = 0 To spawnPeds.Count - 1
+            Dim ped As Ped = spawnPeds(p)
+            If ped.IsPedSpawnByMod AndAlso ped.Position.DistanceTo(Game.Player.Character.Position) > (spawnDistance * 4) Then
+                If notify Then UI.Notify($"A ped at {World.GetStreetName(ped.Position)} was despawned.")
+                ped.Delete()
+            End If
+        Next p
+    End Sub
+
 End Module
