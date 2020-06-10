@@ -36,6 +36,7 @@ Partial Class frmSettings
         Dim ListViewGroup11 As System.Windows.Forms.ListViewGroup = New System.Windows.Forms.ListViewGroup("Fort Zancudo", System.Windows.Forms.HorizontalAlignment.Left)
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSettings))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.cbSpawnParkedVeh = New System.Windows.Forms.CheckBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.cmbRoadType = New System.Windows.Forms.ComboBox()
         Me.Label8 = New System.Windows.Forms.Label()
@@ -102,6 +103,7 @@ Partial Class frmSettings
         Me.tsmiGSD = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsmiSCMR = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsmiBC = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tsmiFZ = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
         Me.tsmiListDelete = New System.Windows.Forms.ToolStripMenuItem()
         Me.tlpTheTwoList = New System.Windows.Forms.TableLayoutPanel()
@@ -111,11 +113,12 @@ Partial Class frmSettings
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.llblWeb = New System.Windows.Forms.LinkLabel()
-        Me.tsmiFZ = New System.Windows.Forms.ToolStripMenuItem()
+        Me.nudMaxVeh = New System.Windows.Forms.NumericUpDown()
+        Me.Label13 = New System.Windows.Forms.Label()
         Me.lvModelList = New AddedTrafficSettings.ListViewX()
         Me.chListNo = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.chListModel = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.cbSpawnParkedVeh = New System.Windows.Forms.CheckBox()
+        Me.cbDebugText = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         CType(Me.nudSpawnDistance, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.nudCruiseSpeed, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -139,10 +142,13 @@ Partial Class frmSettings
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel3.SuspendLayout()
+        CType(Me.nudMaxVeh, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.nudMaxVeh)
+        Me.GroupBox1.Controls.Add(Me.Label13)
         Me.GroupBox1.Controls.Add(Me.cbSpawnParkedVeh)
         Me.GroupBox1.Controls.Add(Me.Label10)
         Me.GroupBox1.Controls.Add(Me.cmbRoadType)
@@ -155,10 +161,20 @@ Partial Class frmSettings
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(452, 105)
+        Me.GroupBox1.Size = New System.Drawing.Size(452, 108)
         Me.GroupBox1.TabIndex = 2
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "General"
+        '
+        'cbSpawnParkedVeh
+        '
+        Me.cbSpawnParkedVeh.AutoSize = True
+        Me.cbSpawnParkedVeh.Location = New System.Drawing.Point(173, 81)
+        Me.cbSpawnParkedVeh.Name = "cbSpawnParkedVeh"
+        Me.cbSpawnParkedVeh.Size = New System.Drawing.Size(145, 19)
+        Me.cbSpawnParkedVeh.TabIndex = 6
+        Me.cbSpawnParkedVeh.Text = "Spawn Parked Vehicles"
+        Me.cbSpawnParkedVeh.UseVisualStyleBackColor = True
         '
         'Label10
         '
@@ -196,7 +212,7 @@ Partial Class frmSettings
         Me.cmbDrivingStyle.Location = New System.Drawing.Point(252, 22)
         Me.cmbDrivingStyle.Name = "cmbDrivingStyle"
         Me.cmbDrivingStyle.Size = New System.Drawing.Size(163, 23)
-        Me.cmbDrivingStyle.TabIndex = 3
+        Me.cmbDrivingStyle.TabIndex = 2
         '
         'nudSpawnDistance
         '
@@ -205,7 +221,7 @@ Partial Class frmSettings
         Me.nudSpawnDistance.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
         Me.nudSpawnDistance.Name = "nudSpawnDistance"
         Me.nudSpawnDistance.Size = New System.Drawing.Size(65, 23)
-        Me.nudSpawnDistance.TabIndex = 2
+        Me.nudSpawnDistance.TabIndex = 3
         '
         'Label7
         '
@@ -246,12 +262,13 @@ Partial Class frmSettings
         '
         'GroupBox5
         '
+        Me.GroupBox5.Controls.Add(Me.cbDebugText)
         Me.GroupBox5.Controls.Add(Me.cbBlip)
         Me.GroupBox5.Controls.Add(Me.cbNotify)
         Me.GroupBox5.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox5.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(110, 105)
+        Me.GroupBox5.Size = New System.Drawing.Size(110, 108)
         Me.GroupBox5.TabIndex = 3
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Debug"
@@ -287,7 +304,7 @@ Partial Class frmSettings
         Me.GroupBox4.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox4.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(186, 105)
+        Me.GroupBox4.Size = New System.Drawing.Size(186, 108)
         Me.GroupBox4.TabIndex = 4
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Vehicle Upgrade"
@@ -459,7 +476,7 @@ Partial Class frmSettings
         Me.GroupBox6.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox6.Name = "GroupBox6"
         Me.GroupBox6.Padding = New System.Windows.Forms.Padding(0)
-        Me.GroupBox6.Size = New System.Drawing.Size(493, 330)
+        Me.GroupBox6.Size = New System.Drawing.Size(493, 327)
         Me.GroupBox6.TabIndex = 1
         Me.GroupBox6.TabStop = False
         Me.GroupBox6.Text = "Model Swap (If New Model is blank, it will take random model from Model List)"
@@ -467,7 +484,7 @@ Partial Class frmSettings
         'btnDelSwap
         '
         Me.btnDelSwap.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnDelSwap.Location = New System.Drawing.Point(452, 304)
+        Me.btnDelSwap.Location = New System.Drawing.Point(452, 301)
         Me.btnDelSwap.Name = "btnDelSwap"
         Me.btnDelSwap.Size = New System.Drawing.Size(38, 23)
         Me.btnDelSwap.TabIndex = 6
@@ -477,7 +494,7 @@ Partial Class frmSettings
         'btnEditSwap
         '
         Me.btnEditSwap.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnEditSwap.Location = New System.Drawing.Point(408, 304)
+        Me.btnEditSwap.Location = New System.Drawing.Point(408, 301)
         Me.btnEditSwap.Name = "btnEditSwap"
         Me.btnEditSwap.Size = New System.Drawing.Size(38, 23)
         Me.btnEditSwap.TabIndex = 5
@@ -487,7 +504,7 @@ Partial Class frmSettings
         'btnAddSwap
         '
         Me.btnAddSwap.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnAddSwap.Location = New System.Drawing.Point(365, 304)
+        Me.btnAddSwap.Location = New System.Drawing.Point(365, 301)
         Me.btnAddSwap.Name = "btnAddSwap"
         Me.btnAddSwap.Size = New System.Drawing.Size(38, 23)
         Me.btnAddSwap.TabIndex = 4
@@ -498,7 +515,7 @@ Partial Class frmSettings
         '
         Me.nudSwapDistance.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.nudSwapDistance.DecimalPlaces = 2
-        Me.nudSwapDistance.Location = New System.Drawing.Point(268, 304)
+        Me.nudSwapDistance.Location = New System.Drawing.Point(268, 301)
         Me.nudSwapDistance.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
         Me.nudSwapDistance.Name = "nudSwapDistance"
         Me.nudSwapDistance.Size = New System.Drawing.Size(65, 23)
@@ -508,7 +525,7 @@ Partial Class frmSettings
         '
         Me.Label12.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(179, 306)
+        Me.Label12.Location = New System.Drawing.Point(179, 303)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(83, 15)
         Me.Label12.TabIndex = 24
@@ -517,7 +534,7 @@ Partial Class frmSettings
         'nudSwapChance
         '
         Me.nudSwapChance.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.nudSwapChance.Location = New System.Drawing.Point(108, 304)
+        Me.nudSwapChance.Location = New System.Drawing.Point(108, 301)
         Me.nudSwapChance.Name = "nudSwapChance"
         Me.nudSwapChance.Size = New System.Drawing.Size(65, 23)
         Me.nudSwapChance.TabIndex = 2
@@ -526,7 +543,7 @@ Partial Class frmSettings
         '
         Me.Label11.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(3, 306)
+        Me.Label11.Location = New System.Drawing.Point(3, 303)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(99, 15)
         Me.Label11.TabIndex = 22
@@ -543,7 +560,7 @@ Partial Class frmSettings
         Me.lvVehicleSwap.FullRowSelect = True
         Me.lvVehicleSwap.Location = New System.Drawing.Point(3, 19)
         Me.lvVehicleSwap.Name = "lvVehicleSwap"
-        Me.lvVehicleSwap.Size = New System.Drawing.Size(487, 279)
+        Me.lvVehicleSwap.Size = New System.Drawing.Size(487, 276)
         Me.lvVehicleSwap.TabIndex = 1
         Me.lvVehicleSwap.UseCompatibleStateImageBehavior = False
         Me.lvVehicleSwap.View = System.Windows.Forms.View.Details
@@ -607,7 +624,7 @@ Partial Class frmSettings
         Me.GroupBox7.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox7.Name = "GroupBox7"
         Me.GroupBox7.Padding = New System.Windows.Forms.Padding(0)
-        Me.GroupBox7.Size = New System.Drawing.Size(265, 330)
+        Me.GroupBox7.Size = New System.Drawing.Size(265, 327)
         Me.GroupBox7.TabIndex = 1
         Me.GroupBox7.TabStop = False
         Me.GroupBox7.Text = "Model List"
@@ -615,7 +632,7 @@ Partial Class frmSettings
         'btnDelModel
         '
         Me.btnDelModel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnDelModel.Location = New System.Drawing.Point(224, 304)
+        Me.btnDelModel.Location = New System.Drawing.Point(224, 301)
         Me.btnDelModel.Name = "btnDelModel"
         Me.btnDelModel.Size = New System.Drawing.Size(38, 23)
         Me.btnDelModel.TabIndex = 5
@@ -625,7 +642,7 @@ Partial Class frmSettings
         'btnEditModel
         '
         Me.btnEditModel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnEditModel.Location = New System.Drawing.Point(180, 304)
+        Me.btnEditModel.Location = New System.Drawing.Point(180, 301)
         Me.btnEditModel.Name = "btnEditModel"
         Me.btnEditModel.Size = New System.Drawing.Size(38, 23)
         Me.btnEditModel.TabIndex = 4
@@ -635,7 +652,7 @@ Partial Class frmSettings
         'btnAddModel
         '
         Me.btnAddModel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnAddModel.Location = New System.Drawing.Point(137, 304)
+        Me.btnAddModel.Location = New System.Drawing.Point(137, 301)
         Me.btnAddModel.Name = "btnAddModel"
         Me.btnAddModel.Size = New System.Drawing.Size(38, 23)
         Me.btnAddModel.TabIndex = 3
@@ -645,7 +662,7 @@ Partial Class frmSettings
         'btnHelp
         '
         Me.btnHelp.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnHelp.Location = New System.Drawing.Point(3, 304)
+        Me.btnHelp.Location = New System.Drawing.Point(3, 301)
         Me.btnHelp.Name = "btnHelp"
         Me.btnHelp.Size = New System.Drawing.Size(23, 23)
         Me.btnHelp.TabIndex = 2
@@ -743,6 +760,12 @@ Partial Class frmSettings
         Me.tsmiBC.Size = New System.Drawing.Size(232, 22)
         Me.tsmiBC.Text = "Blaine County"
         '
+        'tsmiFZ
+        '
+        Me.tsmiFZ.Name = "tsmiFZ"
+        Me.tsmiFZ.Size = New System.Drawing.Size(232, 22)
+        Me.tsmiFZ.Text = "Fort Zancudo"
+        '
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
@@ -764,12 +787,12 @@ Partial Class frmSettings
         Me.tlpTheTwoList.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.0!))
         Me.tlpTheTwoList.Controls.Add(Me.GroupBox6, 0, 0)
         Me.tlpTheTwoList.Controls.Add(Me.GroupBox7, 1, 0)
-        Me.tlpTheTwoList.Location = New System.Drawing.Point(9, 189)
+        Me.tlpTheTwoList.Location = New System.Drawing.Point(9, 192)
         Me.tlpTheTwoList.Margin = New System.Windows.Forms.Padding(0)
         Me.tlpTheTwoList.Name = "tlpTheTwoList"
         Me.tlpTheTwoList.RowCount = 1
         Me.tlpTheTwoList.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpTheTwoList.Size = New System.Drawing.Size(766, 334)
+        Me.tlpTheTwoList.Size = New System.Drawing.Size(766, 331)
         Me.tlpTheTwoList.TabIndex = 5
         '
         'btnSave
@@ -798,7 +821,7 @@ Partial Class frmSettings
         Me.tlpTheThreeGroups.Padding = New System.Windows.Forms.Padding(3)
         Me.tlpTheThreeGroups.RowCount = 1
         Me.tlpTheThreeGroups.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpTheThreeGroups.Size = New System.Drawing.Size(766, 115)
+        Me.tlpTheThreeGroups.Size = New System.Drawing.Size(766, 118)
         Me.tlpTheThreeGroups.TabIndex = 7
         '
         'Panel1
@@ -808,7 +831,7 @@ Partial Class frmSettings
         Me.Panel1.Location = New System.Drawing.Point(5, 5)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(452, 105)
+        Me.Panel1.Size = New System.Drawing.Size(452, 108)
         Me.Panel1.TabIndex = 5
         '
         'Panel2
@@ -818,7 +841,7 @@ Partial Class frmSettings
         Me.Panel2.Location = New System.Drawing.Point(461, 5)
         Me.Panel2.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(110, 105)
+        Me.Panel2.Size = New System.Drawing.Size(110, 108)
         Me.Panel2.TabIndex = 6
         '
         'Panel3
@@ -828,7 +851,7 @@ Partial Class frmSettings
         Me.Panel3.Location = New System.Drawing.Point(575, 5)
         Me.Panel3.Margin = New System.Windows.Forms.Padding(2)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(186, 105)
+        Me.Panel3.Size = New System.Drawing.Size(186, 108)
         Me.Panel3.TabIndex = 7
         '
         'llblWeb
@@ -845,11 +868,21 @@ Partial Class frmSettings
         Me.llblWeb.Text = "www.imnotmental.com"
         Me.llblWeb.VisitedLinkColor = System.Drawing.Color.DodgerBlue
         '
-        'tsmiFZ
+        'nudMaxVeh
         '
-        Me.tsmiFZ.Name = "tsmiFZ"
-        Me.tsmiFZ.Size = New System.Drawing.Size(232, 22)
-        Me.tsmiFZ.Text = "Fort Zancudo"
+        Me.nudMaxVeh.Location = New System.Drawing.Point(102, 80)
+        Me.nudMaxVeh.Name = "nudMaxVeh"
+        Me.nudMaxVeh.Size = New System.Drawing.Size(65, 23)
+        Me.nudMaxVeh.TabIndex = 5
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(6, 82)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(78, 15)
+        Me.Label13.TabIndex = 21
+        Me.Label13.Text = "Max. Vehicles"
         '
         'lvModelList
         '
@@ -894,7 +927,7 @@ Partial Class frmSettings
         Me.lvModelList.Groups.AddRange(New System.Windows.Forms.ListViewGroup() {ListViewGroup1, ListViewGroup2, ListViewGroup3, ListViewGroup4, ListViewGroup5, ListViewGroup6, ListViewGroup7, ListViewGroup8, ListViewGroup9, ListViewGroup10, ListViewGroup11})
         Me.lvModelList.Location = New System.Drawing.Point(3, 19)
         Me.lvModelList.Name = "lvModelList"
-        Me.lvModelList.Size = New System.Drawing.Size(259, 279)
+        Me.lvModelList.Size = New System.Drawing.Size(259, 276)
         Me.lvModelList.TabIndex = 1
         Me.lvModelList.UseCompatibleStateImageBehavior = False
         Me.lvModelList.View = System.Windows.Forms.View.Details
@@ -910,15 +943,15 @@ Partial Class frmSettings
         Me.chListModel.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.chListModel.Width = 200
         '
-        'cbSpawnParkedVeh
+        'cbDebugText
         '
-        Me.cbSpawnParkedVeh.AutoSize = True
-        Me.cbSpawnParkedVeh.Location = New System.Drawing.Point(6, 80)
-        Me.cbSpawnParkedVeh.Name = "cbSpawnParkedVeh"
-        Me.cbSpawnParkedVeh.Size = New System.Drawing.Size(145, 19)
-        Me.cbSpawnParkedVeh.TabIndex = 5
-        Me.cbSpawnParkedVeh.Text = "Spawn Parked Vehicles"
-        Me.cbSpawnParkedVeh.UseVisualStyleBackColor = True
+        Me.cbDebugText.AutoSize = True
+        Me.cbDebugText.Location = New System.Drawing.Point(6, 72)
+        Me.cbDebugText.Name = "cbDebugText"
+        Me.cbDebugText.Size = New System.Drawing.Size(47, 19)
+        Me.cbDebugText.TabIndex = 3
+        Me.cbDebugText.Text = "Text"
+        Me.cbDebugText.UseVisualStyleBackColor = True
         '
         'frmSettings
         '
@@ -964,6 +997,7 @@ Partial Class frmSettings
         Me.Panel1.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         Me.Panel3.ResumeLayout(False)
+        CType(Me.nudMaxVeh, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1050,4 +1084,7 @@ Partial Class frmSettings
     Friend WithEvents cbNeon As CheckBox
     Friend WithEvents tsmiFZ As ToolStripMenuItem
     Friend WithEvents cbSpawnParkedVeh As CheckBox
+    Friend WithEvents nudMaxVeh As NumericUpDown
+    Friend WithEvents Label13 As Label
+    Friend WithEvents cbDebugText As CheckBox
 End Class

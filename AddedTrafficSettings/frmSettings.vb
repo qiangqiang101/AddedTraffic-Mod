@@ -244,6 +244,8 @@ Public Class frmSettings
 
             nudSwapChance.Value = settings.SwapChance
             nudSwapDistance.Value = settings.SwapDistance
+            nudMaxVeh.Value = settings.MaxVehicleAllow
+            cbDebugText.Checked = settings.DebugText
 
             For Each vs In settings.VehicleSwaps
                 Dim lvi As New ListViewItem("")
@@ -378,6 +380,8 @@ Public Class frmSettings
 
                 nudSwapChance.Value = settings.SwapChance
                 nudSwapDistance.Value = settings.SwapDistance
+                nudMaxVeh.Value = settings.MaxVehicleAllow
+                cbDebugText.Checked = settings.DebugText
 
                 For Each vs In settings.VehicleSwaps
                     Dim lvi As New ListViewItem("")
@@ -504,6 +508,8 @@ Public Class frmSettings
             .SwapDistance = nudSwapDistance.Value
             .EnableNeonUpgrade = cbNeon.Checked
             .SpawnParkedVehicle = cbSpawnParkedVeh.Checked
+            .MaxVehicleAllow = nudMaxVeh.Value
+            .DebugText = cbDebugText.Checked
 
             Dim mSwap As New List(Of VehicleSwap)
             For Each item As ListViewItem In lvVehicleSwap.Items

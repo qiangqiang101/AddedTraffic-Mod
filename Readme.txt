@@ -12,7 +12,7 @@ Requirements:
 - Latest Microsoft .NET Framework according to SHVDN
 
 Install:
-If you have 2.0.x or older installed, remove all the files before installing this version.
+If you have older version installed, remove AddedTraffic.xml and create a new one with AddedTrafficSettings.exe.
 If you already have Metadata.dll file installed, be sure to check the file version. Keep the latest version on your scripts folder.
 1. Make sure you have all Requirements Installed. 
 2. Extract, Drag and Drop the files into your scripts Folder. 
@@ -29,6 +29,8 @@ v2.3
 - Added option to disable neon upgrade.
 - Added option to disable Parked vehicle spawn. (for Potato PC only)
 - Added a few missing models from existing game DLC, mostly are Army vehicles.
+- Added Nitro upgrade if Nitro For All Vehicle mod was installed.
+- Added Script paused if maximum of vehicle spawns on map. 
 - Splitted the Parking Coordinates into it's own zone, hopefully it will increase performance issues.
 - Improved Parked vehicle spawn, no more pop-up infront of you.
 - Other bugs fixes and improvements.

@@ -10,6 +10,7 @@ Imports Metadata
 
 Module Helper
 
+    Public nitroModDecor As String = "inm_nitro_active"
     Public modDecor As String = "inm_traffic"
     Public rdVehicle, rdColor, rdMod, rdSpawn, rdSwap, rdWheel As Random
     Public Sekarang As Date = Now
@@ -36,6 +37,8 @@ Module Helper
     Public vehicleSwaps As New List(Of VehicleSwap)
     Public vehicleSwaps2 As List(Of Model)
     Public spawnParkedVehicles As Boolean
+    Public maxVehicles As Integer = 10
+    Public debugText As Boolean
 
     Public Sub LoadSettings()
         CreateConfig()
@@ -60,6 +63,8 @@ Module Helper
             If veh.Enable Then vehicleSwaps2.Add(New Model(veh.OldVehicle))
         Next
         spawnParkedVehicles = config.SpawnParkedVehicle
+        maxVehicles = config.MaxVehicleAllow
+        debugText = config.DebugText
     End Sub
 
     Public Sub CreateConfig()
@@ -597,9 +602,9 @@ Module Helper
         veh.SetMod(37, veh.GetModCount(37) - 1, True)
         veh.SetMod(26, veh.GetModCount(26) - 1, True)
         veh.SetMod(46, veh.GetModCount(46) - 1, True)
-        veh.ToggleMod(21, True)
-        veh.ToggleMod(17, True)
-        veh.ToggleMod(19, True)
+        veh.ToggleMod(21, CBool(rdWheel.Next(0, 2) > 0))
+        veh.ToggleMod(17, CBool(rdWheel.Next(0, 2) > 0))
+        veh.ToggleMod(19, CBool(rdWheel.Next(0, 2) > 0))
         veh.SetNeonLightsOn(3, enableNeon)
         veh.SetNeonLightsOn(2, enableNeon)
         veh.SetNeonLightsOn(0, enableNeon)
@@ -608,6 +613,7 @@ Module Helper
         veh.NeonLightsColor = Color.FromArgb(rdColor.Next(0, 255), rdColor.Next(0, 255), rdColor.Next(0, 255))
         veh.WindowTint = VehicleWindowTint.None
         veh.XenonLightsColor(rdColor.Next(0, 11))
+        If IsNitroModInstalled() Then veh.SetBool(nitroModDecor, True)
     End Sub
 
     <Extension>
@@ -656,9 +662,9 @@ Module Helper
         veh.SetMod(37, rdMod.Next(-1, veh.GetModCount(37) - 1), True)
         veh.SetMod(26, rdMod.Next(-1, veh.GetModCount(26) - 1), True)
         veh.SetMod(46, rdMod.Next(-1, veh.GetModCount(46) - 1), True)
-        veh.ToggleMod(21, True)
-        veh.ToggleMod(17, True)
-        veh.ToggleMod(19, True)
+        veh.ToggleMod(21, CBool(rdMod.Next(0, 2) > 0))
+        veh.ToggleMod(17, CBool(rdMod.Next(0, 2) > 0))
+        veh.ToggleMod(19, CBool(rdMod.Next(0, 2) > 0))
         veh.SetNeonLightsOn(3, enableNeon)
         veh.SetNeonLightsOn(2, enableNeon)
         veh.SetNeonLightsOn(0, enableNeon)
@@ -667,6 +673,7 @@ Module Helper
         veh.NeonLightsColor = Color.FromArgb(rdColor.Next(0, 255), rdColor.Next(0, 255), rdColor.Next(0, 255))
         veh.WindowTint = VehicleWindowTint.None
         veh.XenonLightsColor(rdColor.Next(0, 11))
+        If IsNitroModInstalled() Then veh.SetBool(nitroModDecor, CBool(rdMod.Next(0, 2) > 0))
     End Sub
 
     <Extension>
@@ -1036,5 +1043,13 @@ Module Helper
             End If
         Next p
     End Sub
+
+    Public Function HowManyVehicleSpawnedByModOnWorldRightNow() As Integer
+        Return World.GetAllVehicles.Where(Function(v) v.IsVehicleSpawnByMod = True).Count
+    End Function
+
+    Public Function IsNitroModInstalled() As Boolean
+        Return Decor.Registered(nitroModDecor, Decor.eDecorType.Bool)
+    End Function
 
 End Module

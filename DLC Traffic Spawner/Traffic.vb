@@ -18,7 +18,7 @@ Public Class Traffic
         End If
 
         If Not GetPlayerZoneVehicleList.Count = 0 Then
-            If (Now - Sekarang).TotalSeconds > GetCurrentWaitTime() AndAlso Not Game.IsLoading AndAlso Not Game.IsPaused Then
+            If (Now - Sekarang).TotalSeconds > GetCurrentWaitTime() AndAlso Not Game.IsLoading AndAlso Not Game.IsPaused AndAlso HowManyVehicleSpawnedByModOnWorldRightNow() <= maxVehicles Then
                 If Not GetPlayerZone() = "OCEANA" Then SpawnVehicle()
                 If Not GetPlayerZone() = "HORS" Or GetPlayerZone() = "LDAM" Or GetPlayerZone() = "LACT" Or GetPlayerZone() = "MTJOSE" Or GetPlayerZone() = "CALAFB" Or
                     GetPlayerZone() = "BRADP" Or GetPlayerZone() = "ELGORL" Or GetPlayerZone() = "BRADT" Or GetPlayerZone() = "OCEANA" Then
@@ -31,7 +31,7 @@ Public Class Traffic
             World.GetAllPeds.ClearPeds
         End If
 
-        If notify AndAlso showBlip Then
+        If debugText Then
             If Game.Player.Character.IsInVehicle Then
                 Dim sz = GetSafeZoneSize()
                 Dim v = Game.Player.Character.LastVehicle
@@ -39,14 +39,15 @@ Public Class Traffic
                 Dim r = IsOnRoad(v)
                 Dim p = v.Position
                 Dim z = GetPlayerZone()
-                Dim str = $"Street: {World.GetStreetName(v.Position)} ({z})   Density: {t.Item1}   Flag: {t.Item2}   On Road: {r}   Position: x {p.X}, y {p.Y}, z {p.Z}"
+                Dim c = HowManyVehicleSpawnedByModOnWorldRightNow()
+                Dim str = $"Street: {World.GetStreetName(v.Position)} ({z})   Density: {t.Item1}   Flag: {t.Item2}   On Road: {r}   Position: x {p.X}, y {p.Y}, z {p.Z}   Count: {c}"
                 Dim uit = New UIText(str, sz, 0.4F, Drawing.Color.White, Font.ChaletLondon, False, True, True)
                 uit.Draw()
             End If
         End If
 
         If Not vehicleSwaps.Count = 0 Then
-            If (Now - XianZai).TotalSeconds > GetCurrentWaitTime() AndAlso Not Game.IsLoading AndAlso Not Game.IsPaused Then
+            If (Now - XianZai).TotalSeconds > GetCurrentWaitTime() AndAlso Not Game.IsLoading AndAlso Not Game.IsPaused AndAlso HowManyVehicleSpawnedByModOnWorldRightNow() <= maxVehicles Then
                 If Not GetPlayerZone() = "OCEANA" Then
                     SwapVehicleHaveDriver()
                     SwapParkedVehicle()
